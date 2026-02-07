@@ -1,41 +1,197 @@
+/* ========================================
+   TESELANDO - Modern Premium Stylesheet
+   ======================================== */
+
+/* Root Variables */
+:root {
+  --primary-color: #1a1a2e;
+  --secondary-color: #4a90e2;
+  --accent-color: #f5a623;
+  --light-bg: #fafbfc;
+  --white: #ffffff;
+  --text-primary: #2c3e50;
+  --text-secondary: #8492a6;
+  --border-color: #e8ecf1;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.15);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========================================
+   Global Styles
+   ======================================== */
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #0f0f0f;
-  color: #f2f2f2;
+html {
+  scroll-behavior: smooth;
 }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--white);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 16px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================
+   Hero Section
+   ======================================== */
 
 .hero {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(135deg, var(--white) 0%, var(--light-bg) 100%);
   padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative gradient backgrounds */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(74, 144, 226, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 20s ease-in-out infinite;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  left: -5%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(245, 166, 35, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 25s ease-in-out infinite reverse;
 }
 
 .hero-content {
-  max-width: 700px;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 800px;
+  animation: fadeInUp 0.9s ease-out;
 }
 
 .hero h1 {
-  font-size: clamp(3rem, 8vw, 5rem);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  margin-bottom: 1rem;
+  font-size: clamp(2.5rem, 8vw, 5.5rem);
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
 }
 
 .hero-main {
-  font-size: 1.5rem;
-  line-height: 1.4;
-  margin-bottom: 0.5rem;
+  font-size: clamp(1.125rem, 3vw, 1.75rem);
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  line-height: 1.7;
+  font-weight: 300;
+  letter-spacing: 0.01em;
 }
 
 .hero-sub {
-  font-size: 1rem;
-  opacity: 0.6;
+  font-size: clamp(0.95rem, 2vw, 1.125rem);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+/* ========================================
+   Animations
+   ======================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+}
+
+/* ========================================
+   Typography
+   ======================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+p {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--accent-color);
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem 1.5rem;
+  }
+
+  .hero::before {
+    width: 400px;
+    height: 400px;
+    top: -30%;
+  }
+
+  .hero::after {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    min-height: auto;
+    padding: 3rem 1rem;
+  }
+
+  .hero-content {
+    animation: fadeInUp 0.8s ease-out;
+  }
 }
