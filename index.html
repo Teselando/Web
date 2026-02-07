@@ -8,17 +8,54 @@
 </head>
 <body>
 
+  <!-- Preloader Splash Screen -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-content">
+      <img src="Graphics/logo.png" alt="Teselando" class="preloader-logo">
+      <p class="preloader-glitch" id="glitchText">Teselando</p>
+    </div>
+  </div>
+
   <section class="hero">
     <div class="hero-content">
-      <h1>Teselando</h1>
-      <p class="hero-main">
-        Diseño y tecnología para proyectos con intención.
+      <h1 class="reveal-text">
+        <span class="reveal-line">Teselando</span>
+      </h1>
+      <p class="hero-main reveal-text">
+        <span class="reveal-line">Diseño y tecnología para proyectos con intención.</span>
       </p>
-      <p class="hero-sub">
-        Ideas bien pensadas, bien ejecutadas.
+      <p class="hero-sub reveal-text">
+        <span class="reveal-line">Ideas bien pensadas, bien ejecutadas.</span>
       </p>
     </div>
   </section>
+
+  <script>
+    // Wrap each letter in a span for individual animation
+    const glitchText = document.getElementById('glitchText');
+    const text = glitchText.textContent;
+    glitchText.innerHTML = '';
+    
+    text.split('').forEach((letter) => {
+      const span = document.createElement('span');
+      span.textContent = letter;
+      span.className = 'glitch-letter';
+      // Random delay between 0.8s and 2.3s for random disappearance
+      const randomDelay = 0.8 + Math.random() * 1.5;
+      span.style.animationDelay = `${randomDelay}s`;
+      glitchText.appendChild(span);
+    });
+
+    window.addEventListener('load', () => {
+      const preloader = document.getElementById('preloader');
+      setTimeout(() => {
+        preloader.classList.add('fade-out');
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 600);
+      }, 3000);
+    });
+  </script>
 
 </body>
 </html>

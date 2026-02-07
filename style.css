@@ -1,0 +1,223 @@
+/* Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Amble:wght@700&display=swap');
+
+/* Root Variables */
+:root {
+  --white: #FFFFFF;
+  --light-blue: #B6EEFF;
+  --sky-blue: #2BCAFF;
+  --ocean-blue: #008DE9;
+  --navy: #256B86;
+  --black: #000000;
+  
+  --primary-color: #008DE9;
+  --secondary-color: #256B86;
+  --accent-color: #2BCAFF;
+  --text-primary: #256B86;
+  --text-secondary: #008DE9;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Preloader Splash Screen */
+.preloader {
+  position: fixed;
+  inset: 0;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease-out;
+}
+
+.preloader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preloader-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.preloader-logo {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 2rem;
+  animation: logoFade 0.6s ease-out;
+}
+
+@keyframes logoFade {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.preloader-glitch {
+  font-size: 3.5rem;
+  color: #000000;
+  font-family: 'Amble', sans-serif;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-letter {
+  display: inline-block;
+  animation: letterVanish 0.05s ease-out forwards;
+}
+
+@keyframes letterVanish {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Entrance Animation */
+@keyframes revealLine {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-text {
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+.reveal-line {
+  display: block;
+  animation: revealLine 0.8s ease-out forwards;
+}
+
+.hero h1 .reveal-line {
+  animation-delay: 0.2s;
+}
+
+.hero-main .reveal-line {
+  animation-delay: 0.5s;
+}
+
+.hero-sub .reveal-line {
+  animation-delay: 0.8s;
+} 
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--white);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(-45deg, #B6EEFF, #2BCAFF, #008DE9, #256B86, #B6EEFF);
+  background-size: 300% 300%;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  animation: lavaGradient 15s ease infinite;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 800px;
+  animation: fadeInUp 0.9s ease-out;
+}
+
+.hero h1 {
+  font-family: 'Amble', sans-serif;
+  font-size: clamp(2.5rem, 8vw, 5.5rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+.hero-main {
+  font-size: clamp(1.125rem, 3vw, 1.75rem);
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  line-height: 1.7;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+}
+
+.hero-sub {
+  font-size: clamp(0.95rem, 2vw, 1.125rem);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes lavaGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    min-height: auto;
+    padding: 3rem 1rem;
+  }
+}
