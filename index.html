@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Teselando</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="Graphics/Logo.ico" type="image/x-icon">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -57,7 +58,7 @@
       span.textContent = letter;
       span.className = 'glitch-letter';
       // Random delay between 0.8s and 2.3s for random disappearance
-      const randomDelay = 0.8 + Math.random() * 1.5;
+      const randomDelay = 0.6 + Math.random() * 0.75;
       span.style.animationDelay = `${randomDelay}s`;
       glitchText.appendChild(span);
     });
@@ -69,7 +70,7 @@
         setTimeout(() => {
           preloader.style.display = 'none';
         }, 600);
-      }, 3000);
+      }, 1500);
     });
 
     // Phone Form Handler

@@ -278,7 +278,7 @@ body {
   padding: 0.875rem 2rem;
   border: 2px solid var(--white);
   border-radius: 8px;
-  background: var(--accent-color);
+  background: var(--white);
   color: var(--navy);
   font-size: 1rem;
   font-weight: 600;
@@ -287,8 +287,9 @@ body {
 }
 
 .form-submit:hover {
-  background: var(--white);
-  transform: translateY(-2px);
+  background: var(--text-secondary);
+  color: var(--white);
+  transform: scale(1.05);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
@@ -304,7 +305,7 @@ body {
 }
 
 .form-message.success {
-  color: #90EE90;
+  color: var(--white);
 }
 
 .form-message.error {
