@@ -237,3 +237,93 @@ body {
     padding: 3rem 1rem;
   }
 }
+
+/* Phone Form Styling */
+.phone-form {
+  margin-top: 2rem;
+  display: block;
+}
+
+.form-group {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#phoneInput {
+  padding: 0.875rem 1.25rem;
+  border: 2px solid var(--white);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+  font-size: 1rem;
+  backdrop-filter: blur(10px);
+  min-width: 220px;
+  transition: var(--transition);
+}
+
+#phoneInput::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+#phoneInput:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 15px rgba(43, 202, 255, 0.3);
+}
+
+.form-submit {
+  padding: 0.875rem 2rem;
+  border: 2px solid var(--white);
+  border-radius: 8px;
+  background: var(--accent-color);
+  color: var(--navy);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.form-submit:hover {
+  background: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.form-submit:active {
+  transform: translateY(0);
+}
+
+.form-message {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: var(--white);
+  min-height: 1.5rem;
+}
+
+.form-message.success {
+  color: #90EE90;
+}
+
+.form-message.error {
+  color: #FF6B6B;
+}
+
+@media (max-width: 768px) {
+  .form-group {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #phoneInput {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .form-submit {
+    width: 100%;
+    max-width: 300px;
+  }
+}
