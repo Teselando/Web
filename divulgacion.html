@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Divulgación · Teselando</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="Graphics/Logo.ico" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="logo">
+      <img class="logo-mark" src="Graphics/Logo.png" alt="Teselando">
+      Teselando
+    </div>
+    <nav class="nav-links">
+      <a href="index.html#tracks">Áreas</a>
+      <a href="index.html#how">Metodología</a>
+      <a href="index.html#pricing">Precios</a>
+      <a href="index.html#philosophy">Filosofía</a>
+      <a class="active" href="divulgacion.html">Divulgación</a>
+      <a href="index.html#contact">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="divulgacion" id="divulgacion">
+      <div class="section-head">
+        <h2>Divulgación</h2>
+        <p>Serie dual en YouTube: una parte en @Teselando y la continuación en @Teselan2.</p>
+      </div>
+      <div class="video-duo">
+        <article class="video-card" data-channel-id="UCyuicpzNy0UlqhdotHl90AA">
+          <div class="video-frame">
+            <iframe
+              src="https://www.youtube.com/embed?listType=playlist&list=UUyuicpzNy0UlqhdotHl90AA"
+              title="Último video en @Teselando"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="video-meta">
+            <span class="video-label">Parte 1 · @Teselando</span>
+            <h3>Cargando título...</h3>
+            <a class="video-link" href="https://www.youtube.com/@Teselando" target="_blank" rel="noopener">
+              Ver últimos videos
+            </a>
+          </div>
+        </article>
+
+        <div class="video-connector">
+          <span>Serie dual</span>
+          <div class="connector-line"></div>
+          <span>Parte 1 / Parte 2</span>
+        </div>
+
+        <article class="video-card" data-channel-id="UCeFIJNhaZFVwHD8ZnCV__TQ">
+          <div class="video-frame">
+            <iframe
+              src="https://www.youtube.com/embed?listType=playlist&list=UUeFIJNhaZFVwHD8ZnCV__TQ"
+              title="Último video en @Teselan2"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="video-meta">
+            <span class="video-label">Parte 2 · @Teselan2</span>
+            <h3>Cargando título...</h3>
+            <a class="video-link" href="https://www.youtube.com/@Teselan2" target="_blank" rel="noopener">
+              Ver últimos videos
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="events-block">
+        <div class="section-head compact">
+          <h3>Últimos eventos</h3>
+          <p>Encuentros presenciales y actividades de divulgación para la comunidad.</p>
+        </div>
+        <div class="event-grid">
+          <article class="event-card">
+            <div class="event-date">Próximamente</div>
+            <h4>Encuentro Teselando</h4>
+            <p>Sesión abierta para resolver dudas y aprender en comunidad.</p>
+            <span class="event-tag">Presencial</span>
+          </article>
+          <article class="event-card">
+            <div class="event-date">Próximamente</div>
+            <h4>Laboratorio de problemas</h4>
+            <p>Resolución guiada de ejercicios con enfoque en razonamiento.</p>
+            <span class="event-tag">Online</span>
+          </article>
+          <article class="event-card">
+            <div class="event-date">Próximamente</div>
+            <h4>Charla de divulgación</h4>
+            <p>Conversaciones sobre matemáticas, ciencia y aprendizaje real.</p>
+            <span class="event-tag">Divulgación</span>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const videoCards = document.querySelectorAll('.video-card[data-channel-id]');
+
+    async function loadLatestVideo(card) {
+      const channelId = card.dataset.channelId;
+      const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+      const proxyUrls = [
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(feedUrl)}`,
+        `https://r.jina.ai/http://${feedUrl}`
+      ];
+      const titleEl = card.querySelector('h3');
+      const linkEl = card.querySelector('.video-link');
+      const iframeEl = card.querySelector('iframe');
+
+      let xmlText = null;
+
+      for (const url of proxyUrls) {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) {
+            continue;
+          }
+          xmlText = await response.text();
+          if (xmlText && xmlText.includes('<feed')) {
+            break;
+          }
+        } catch (error) {
+          // Try next proxy
+        }
+      }
+
+      if (!xmlText) {
+        titleEl.textContent = 'Último video';
+        return;
+      }
+
+      try {
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(xmlText, 'text/xml');
+        const entry = xml.querySelector('entry');
+        if (!entry) {
+          throw new Error('No entries found');
+        }
+
+        const title = entry.querySelector('title')?.textContent?.trim();
+        const link = entry.querySelector('link')?.getAttribute('href');
+        const videoId = entry.querySelector('yt\\:videoId, videoId')?.textContent?.trim();
+
+        if (title) {
+          titleEl.textContent = title;
+        }
+
+        if (link) {
+          linkEl.href = link;
+          linkEl.textContent = 'Ver en YouTube';
+        }
+
+        if (videoId) {
+          iframeEl.src = `https://www.youtube.com/embed/${videoId}`;
+        }
+      } catch (error) {
+        titleEl.textContent = 'Último video';
+      }
+    }
+
+    videoCards.forEach((card) => {
+      loadLatestVideo(card);
+    });
+  </script>
+
+</body>
+</html>

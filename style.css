@@ -124,9 +124,8 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.85);
-  border-bottom: 1px solid rgba(37, 107, 134, 0.08);
+  background: transparent;
+  border-bottom: 1px solid transparent;
 }
 
 .logo {
@@ -135,6 +134,15 @@ img {
   letter-spacing: -0.02em;
   font-size: 1.25rem;
   color: var(--text-strong);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.logo-mark {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
 }
 
 .nav-links {
@@ -142,6 +150,7 @@ img {
   gap: 1.5rem;
   color: var(--text);
   font-size: 0.95rem;
+  font-weight: 700;
 }
 
 .nav-links a {
@@ -152,10 +161,11 @@ img {
   color: var(--ocean-blue);
 }
 
-.nav-cta {
-  display: flex;
-  gap: 0.75rem;
+.nav-links a.active {
+  color: var(--ocean-blue);
 }
+
+/* nav-cta removed */
 
 /* Buttons */
 .btn {
@@ -500,6 +510,65 @@ section {
   font-size: 0.8rem;
 }
 
+/* Trustpilot */
+.trustpilot {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.trustpilot-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  border-radius: 24px;
+  padding: 2.2rem;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.trustpilot-score {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 140px;
+}
+
+.score-value {
+  font-family: 'Sora', sans-serif;
+  font-size: 2.6rem;
+  color: var(--text-strong);
+}
+
+.score-label {
+  font-weight: 700;
+  color: var(--ocean-blue);
+}
+
+.trustpilot-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  color: var(--text-muted);
+}
+
+.trustpilot-stars {
+  font-size: 1.1rem;
+  letter-spacing: 0.15rem;
+  color: var(--ocean-blue);
+}
+
+.trustpilot-link {
+  color: var(--ocean-blue);
+  font-weight: 600;
+}
+
+.trustpilot-link:hover {
+  color: var(--navy);
+}
+
 /* Philosophy */
 .philosophy-grid {
   display: grid;
@@ -521,6 +590,134 @@ section {
 
 .philosophy-card p {
   color: var(--text-muted);
+}
+
+/* Divulgacion */
+.divulgacion {
+  background: linear-gradient(180deg, rgba(182, 238, 255, 0.15) 0%, rgba(255, 255, 255, 0.9) 55%, var(--white) 100%);
+}
+
+.video-duo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.video-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.video-frame {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  background: var(--light-blue);
+}
+
+.video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video-meta {
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.video-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ocean-blue);
+}
+
+.video-meta h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.1rem;
+  color: var(--text-strong);
+}
+
+.video-link {
+  color: var(--ocean-blue);
+  font-weight: 600;
+}
+
+.video-link:hover {
+  color: var(--navy);
+}
+
+.video-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--navy);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.connector-line {
+  width: 2px;
+  height: 80px;
+  background: rgba(37, 107, 134, 0.3);
+}
+
+.events-block .section-head.compact {
+  margin-bottom: 1.5rem;
+}
+
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.event-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.event-date {
+  font-weight: 700;
+  color: var(--ocean-blue);
+}
+
+.event-card h4 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.05rem;
+  color: var(--text-strong);
+}
+
+.event-card p {
+  color: var(--text-muted);
+}
+
+.event-tag {
+  align-self: flex-start;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(43, 202, 255, 0.18);
+  color: var(--navy);
+  font-weight: 600;
+  font-size: 0.8rem;
 }
 
 /* Ecosystem */
@@ -721,6 +918,19 @@ section {
 
   .hero-actions {
     justify-content: flex-start;
+  }
+
+  .video-duo {
+    grid-template-columns: 1fr;
+  }
+
+  .video-connector {
+    flex-direction: row;
+  }
+
+  .connector-line {
+    width: 80px;
+    height: 2px;
   }
 }
 

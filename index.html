@@ -18,17 +18,18 @@
   </div>
 
   <header class="topbar">
-    <div class="logo">Teselando</div>
+    <div class="logo">
+      <img class="logo-mark" src="Graphics/Logo.png" alt="Teselando">
+      Teselando
+    </div>
     <nav class="nav-links">
       <a href="#tracks">Áreas</a>
       <a href="#how">Metodología</a>
       <a href="#pricing">Precios</a>
       <a href="#philosophy">Filosofía</a>
+      <a href="divulgacion.html">Divulgación</a>
       <a href="#contact">Contacto</a>
     </nav>
-    <div class="nav-cta">
-      <a class="btn ghost" href="#contact">Agendar sesión</a>
-    </div>
   </header>
 
   <main>
@@ -59,11 +60,11 @@
           <!-- Phone Number Form -->
           <form id="phoneForm" class="phone-form reveal-text" style="animation-delay: 0.9s;">
             <div class="form-group">
-              <input 
-                type="tel" 
-                id="phoneInput" 
-                name="phone" 
-                placeholder="Tu número de teléfono" 
+              <input
+                type="tel"
+                id="phoneInput"
+                name="phone"
+                placeholder="Tu número de teléfono"
                 required
                 pattern="[0-9\-\+\(\)\s]+"
               >
@@ -178,6 +179,23 @@
       </div>
     </section>
 
+    <section class="trustpilot" id="trustpilot">
+      <div class="trustpilot-card">
+        <div class="trustpilot-score">
+          <div class="score-value" id="tp-score">—</div>
+          <div class="score-label">TrustScore</div>
+        </div>
+        <div class="trustpilot-meta">
+          <div class="trustpilot-stars" id="tp-stars">★★★★★</div>
+          <div class="score-text" id="tp-text">Cargando puntuación en Trustpilot...</div>
+          <div class="score-reviews">Basado en <span id="tp-count">—</span> opiniones</div>
+          <a class="trustpilot-link" href="https://www.trustpilot.com/review/teselando.es" target="_blank" rel="noopener">
+            Ver en Trustpilot
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section class="philosophy" id="philosophy">
       <div class="section-head">
         <h2>Nuestra filosofía</h2>
@@ -230,7 +248,7 @@
     const glitchText = document.getElementById('glitchText');
     const text = glitchText.textContent;
     glitchText.innerHTML = '';
-    
+
     text.split('').forEach((letter) => {
       const span = document.createElement('span');
       span.textContent = letter;
@@ -258,9 +276,9 @@
 
     phoneForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
+
       const phone = phoneInput.value.trim();
-      
+
       if (!phone) {
         showMessage('Por favor ingresa tu número de teléfono', 'error');
         return;
@@ -275,8 +293,8 @@
       try {
         // Replace with your Google Apps Script URL
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzohkHxYC_3aBW2E8QC71xFyoW-kpBwZPXRVuXjwUTmZgKtwiPHUq4adRuLs-pV0r1XHA/exec';
-        
-        const response = await fetch(scriptURL, {
+
+        await fetch(scriptURL, {
           method: 'POST',
           body: new FormData(phoneForm),
           mode: 'no-cors'
@@ -284,7 +302,7 @@
 
         showMessage('¡Teléfono enviado exitosamente! Nos pondremos en contacto pronto.', 'success');
         phoneInput.value = '';
-        
+
       } catch (error) {
         console.error('Error:', error);
         showMessage('Hubo un error al enviar tu teléfono. Intenta nuevamente.', 'error');
@@ -297,7 +315,7 @@
     function showMessage(message, type) {
       formMessage.textContent = message;
       formMessage.className = 'form-message ' + type;
-      
+
       if (type === 'success') {
         setTimeout(() => {
           formMessage.textContent = '';
@@ -305,7 +323,85 @@
         }, 5000);
       }
     }
+
+    async function loadTrustpilotScore() {
+      const trustpilotUrl = 'https://www.trustpilot.com/review/teselando.es';
+      const cacheBust = Date.now();
+      const proxyUrls = [
+        `https://r.jina.ai/http://https://www.trustpilot.com/review/teselando.es?cache=${cacheBust}`,
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(trustpilotUrl + '?cache=' + cacheBust)}`
+      ];
+
+      const scoreEl = document.getElementById('tp-score');
+      const countEl = document.getElementById('tp-count');
+      const textEl = document.getElementById('tp-text');
+      const starsEl = document.getElementById('tp-stars');
+
+      try {
+        let pageText = null;
+        for (const url of proxyUrls) {
+          try {
+            const response = await fetch(url);
+            if (!response.ok) {
+              continue;
+            }
+            pageText = await response.text();
+            if (pageText) {
+              break;
+            }
+          } catch (error) {
+            // Try next proxy
+          }
+        }
+
+        if (!pageText) {
+          throw new Error('Trustpilot fetch failed');
+        }
+
+        const normalized = pageText.replace(/\u00a0/g, ' ').replace(/\s+/g, ' ');
+        const scoreMatch = normalized.match(/trustscore[^0-9]*([0-9](?:[.,][0-9])?)/i) ||
+          normalized.match(/ratingvalue[^0-9]*([0-9](?:[.,][0-9])?)/i);
+        const countMatch = normalized.match(/([0-9][0-9.,]*)\s+(opiniones|reviews)/i) ||
+          normalized.match(/reviewcount[^0-9]*([0-9]+)/i) ||
+          normalized.match(/numberofreviews[^0-9]*([0-9]+)/i);
+
+        const scoreValue = scoreMatch ? parseFloat(scoreMatch[1].replace(',', '.')) : null;
+        const countValue = countMatch ? countMatch[1].replace(/[^\d]/g, '') : null;
+
+        if (scoreValue) {
+          scoreEl.textContent = scoreValue.toFixed(1);
+          textEl.textContent = 'Puntuación promedio en Trustpilot';
+          const rounded = Math.max(1, Math.min(5, Math.round(scoreValue)));
+          starsEl.textContent = '★★★★★'.slice(0, rounded) + '☆☆☆☆☆'.slice(0, 5 - rounded);
+        } else {
+          textEl.textContent = 'Visita nuestra página en Trustpilot';
+        }
+
+        if (countValue) {
+          countEl.textContent = countValue;
+        } else {
+          countEl.textContent = '—';
+        }
+      } catch (error) {
+        textEl.textContent = 'Visita nuestra página en Trustpilot';
+      }
+    }
+
+    loadTrustpilotScore();
   </script>
+
+  <script>
+    (function(w,d,s,r,n){
+      w.TrustpilotObject=n;
+      w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments)};
+      const a=d.createElement(s);a.async=1;a.src=r;a.type='text/java'+s;
+      const f=d.getElementsByTagName(s)[0];
+      f.parentNode.insertBefore(a,f);
+    })(window,document,'script','https://invitejs.trustpilot.com/tp.min.js','tp');
+    tp('register', 'RTYVS1sdxWNxDoO9');
+  </script>
+
+  <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
 
 </body>
 </html>
