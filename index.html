@@ -17,35 +17,144 @@
     </div>
   </div>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1 class="reveal-text">
-        <span class="reveal-line">Teselando</span>
-      </h1>
-      <p class="hero-main reveal-text">
-        <span class="reveal-line">Diseño y tecnología para proyectos con intención.</span>
-      </p>
-      <p class="hero-sub reveal-text">
-        <span class="reveal-line">Ideas bien pensadas, bien ejecutadas.</span>
-      </p>
-      
-      <!-- Phone Number Form -->
-      <form id="phoneForm" class="phone-form reveal-text" style="animation-delay: 1.1s;">
-        <div class="form-group">
-          <input 
-            type="tel" 
-            id="phoneInput" 
-            name="phone" 
-            placeholder="Tu número de teléfono" 
-            required
-            pattern="[0-9\-\+\(\)\s]+"
-          >
-          <button type="submit" class="form-submit">Enviar</button>
-        </div>
-        <p id="formMessage" class="form-message"></p>
-      </form>
+  <header class="topbar">
+    <div class="logo">Teselando</div>
+    <nav class="nav-links">
+      <a href="#tracks">Servicios</a>
+      <a href="#how">Cómo trabajamos</a>
+      <a href="#projects">Proyectos</a>
+      <a href="#contact">Contacto</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn ghost" href="#contact">Agenda una llamada</a>
     </div>
-  </section>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="badge">Estudio de producto · Diseño + Tecnología</div>
+          <h1 class="reveal-text">
+            <span class="reveal-line">Ideas que se entienden</span>
+            <span class="reveal-line">y se usan desde el día uno.</span>
+          </h1>
+          <p class="hero-main reveal-text">
+            <span class="reveal-line">Convertimos conceptos complejos en experiencias claras,</span>
+            <span class="reveal-line">construidas para crecer.</span>
+          </p>
+          <div class="hero-actions reveal-text">
+            <a class="btn primary" href="#contact">Empezar proyecto</a>
+            <a class="btn ghost" href="#tracks">Ver servicios</a>
+          </div>
+
+          <!-- Phone Number Form -->
+          <form id="phoneForm" class="phone-form reveal-text" style="animation-delay: 0.9s;">
+            <div class="form-group">
+              <input 
+                type="tel" 
+                id="phoneInput" 
+                name="phone" 
+                placeholder="Tu número de teléfono" 
+                required
+                pattern="[0-9\-\+\(\)\s]+"
+              >
+              <button type="submit" class="form-submit">Enviar</button>
+            </div>
+            <p id="formMessage" class="form-message"></p>
+          </form>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="visual-card large">
+            <div class="visual-title">Sistema de producto</div>
+            <div class="visual-body">Mapas de navegación, prototipos, UI y handoff claro.</div>
+            <div class="visual-metric">+38% activación</div>
+          </div>
+          <div class="visual-card small">
+            <div class="visual-title">Sprint 01</div>
+            <div class="visual-body">Diagnóstico, hipótesis y plan.</div>
+          </div>
+          <div class="visual-card small accent">
+            <div class="visual-title">Sprint 02</div>
+            <div class="visual-body">Construcción y pruebas.</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-glow"></div>
+    </section>
+
+    <section class="tracks" id="tracks">
+      <div class="section-head">
+        <h2>Servicios enfocados</h2>
+        <p>Paquetes claros y escalables, pensados para equipos que necesitan velocidad sin perder calidad.</p>
+      </div>
+      <div class="track-grid">
+        <article class="track-card">
+          <h3>Estrategia de producto</h3>
+          <p>Investigación ligera, definición de objetivos y roadmap de impacto.</p>
+          <span class="pill">2-3 semanas</span>
+        </article>
+        <article class="track-card">
+          <h3>Diseño UX/UI</h3>
+          <p>Flujos, prototipos y UI listos para producción.</p>
+          <span class="pill">3-6 semanas</span>
+        </article>
+        <article class="track-card">
+          <h3>Build & Launch</h3>
+          <p>Implementación web, analítica y optimización de conversiones.</p>
+          <span class="pill">4-8 semanas</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="how" id="how">
+      <div class="section-head">
+        <h2>Un proceso directo</h2>
+        <p>Iteramos en ciclos cortos con entregables visibles desde la primera semana.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">01</div>
+          <h3>Descubrir</h3>
+          <p>Contexto, usuarios y problemas reales. Alineamos objetivos y métricas.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">02</div>
+          <h3>Diseñar</h3>
+          <p>Prototipos interactivos con feedback rápido.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">03</div>
+          <h3>Construir</h3>
+          <p>Implementación con foco en rendimiento y claridad.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats" id="projects">
+      <div class="stat">
+        <div class="stat-number">+22</div>
+        <div class="stat-label">productos lanzados</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">4.9/5</div>
+        <div class="stat-label">satisfacción promedio</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">18 días</div>
+        <div class="stat-label">tiempo medio al MVP</div>
+      </div>
+    </section>
+
+    <section class="cta" id="contact">
+      <div class="cta-card">
+        <h2>Hablemos del siguiente paso</h2>
+        <p>Cuéntanos tu idea y diseñamos un plan realista para lanzarla.</p>
+        <a class="btn primary" href="#contact">Agendar una llamada</a>
+      </div>
+    </section>
+  </main>
 
   <script>
     // Wrap each letter in a span for individual animation
@@ -57,7 +166,7 @@
       const span = document.createElement('span');
       span.textContent = letter;
       span.className = 'glitch-letter';
-      // Random delay between 0.8s and 2.3s for random disappearance
+      // Random delay between 0.6s and 1.35s for random disappearance
       const randomDelay = 0.6 + Math.random() * 0.75;
       span.style.animationDelay = `${randomDelay}s`;
       glitchText.appendChild(span);
@@ -70,7 +179,7 @@
         setTimeout(() => {
           preloader.style.display = 'none';
         }, 600);
-      }, 1500);
+      }, 1200);
     });
 
     // Phone Form Handler
