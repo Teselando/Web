@@ -560,6 +560,12 @@ section {
   color: var(--ocean-blue);
 }
 
+.tp-note-star {
+  color: #000;
+  margin-left: 0.35rem;
+  font-size: 0.95em;
+}
+
 .trustpilot-link {
   color: var(--ocean-blue);
   font-weight: 600;
