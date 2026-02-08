@@ -109,7 +109,10 @@
       </div>
       <div class="mascot-shell">
         <div class="mascot-stage" aria-hidden="true"></div>
-        <div class="mascot-note">Pasa el mouse para ver a Teselo seguirte.</div>
+        <div class="mascot-copy">
+          <div class="mascot-note">Pasa el mouse para ver a Teselo seguirte.</div>
+          <p>Movimientos suaves, luz reforzada y fondo con el banner de la marca.</p>
+        </div>
       </div>
     </section>
   </main>
@@ -212,12 +215,16 @@
       renderer.setSize(stage.clientWidth, stage.clientHeight, false);
       stage.appendChild(renderer.domElement);
 
-      const ambient = new THREE.AmbientLight(0xffffff, 0.85);
-      const key = new THREE.DirectionalLight(0xffffff, 0.9);
+      const ambient = new THREE.AmbientLight(0xffffff, 1.6);
+      const hemi = new THREE.HemisphereLight(0xffffff, 0x9fd3ff, 1.1);
+      const key = new THREE.DirectionalLight(0xffffff, 1.8);
       key.position.set(3, 5, 4);
-      const fill = new THREE.DirectionalLight(0x9fd3ff, 0.45);
+      const fill = new THREE.DirectionalLight(0x9fd3ff, 1.0);
       fill.position.set(-3, 2, 3);
-      scene.add(ambient, key, fill);
+      const rim = new THREE.DirectionalLight(0xffffff, 0.8);
+      rim.position.set(-4, 3, -3);
+      scene.add(ambient, hemi, key, fill);
+      scene.add(rim);
 
       const loader = new FBXLoader();
       let mascot = null;
@@ -243,9 +250,23 @@
         'Graphics/Teselo/tripo_convert_bd68822d-4b5d-4000-a643-86a87102ac96.fbx',
         (object) => {
           mascot = object;
-          mascot.scale.setScalar(0.009);
-          mascot.position.set(0, -1.2, 0);
           scene.add(mascot);
+
+          const box = new THREE.Box3().setFromObject(mascot);
+          const size = box.getSize(new THREE.Vector3());
+          const center = box.getCenter(new THREE.Vector3());
+          mascot.position.sub(center);
+
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const scale = 2.2 / maxDim;
+          mascot.scale.setScalar(scale);
+
+          const scaledBox = new THREE.Box3().setFromObject(mascot);
+          const scaledSize = scaledBox.getSize(new THREE.Vector3());
+          camera.position.set(0, scaledSize.y * 0.7, scaledSize.z * 2.2);
+          camera.lookAt(0, scaledSize.y * 0.2, 0);
+
+          mascot.rotation.y = -Math.PI * 0.5;
         },
         undefined,
         () => addFallback()
@@ -256,16 +277,16 @@
 
       function handleMove(event) {
         const rect = stage.getBoundingClientRect();
-        target.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-        target.y = -(((event.clientY - rect.top) / rect.height) * 2 - 1);
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const dx = (event.clientX - centerX) / (rect.width / 2);
+        const dy = (event.clientY - centerY) / (rect.height / 2);
+        target.x = Math.max(-1, Math.min(1, dx));
+        target.y = Math.max(-1, Math.min(1, dy));
       }
 
-      stage.addEventListener('pointermove', handleMove);
-      stage.addEventListener('pointerleave', () => {
-        target.x = 0;
-        target.y = 0;
-      });
-      stage.addEventListener('pointercancel', () => {
+      window.addEventListener('pointermove', handleMove);
+      window.addEventListener('pointerleave', () => {
         target.x = 0;
         target.y = 0;
       });
@@ -273,13 +294,18 @@
       function resize() {
         const width = stage.clientWidth;
         const height = stage.clientHeight;
-        camera.aspect = width / height;
+        const size = Math.min(width, height);
+        camera.aspect = 1;
         camera.updateProjectionMatrix();
-        renderer.setSize(width, height, false);
+        renderer.setSize(size, size, false);
+        renderer.domElement.style.width = '100%';
+        renderer.domElement.style.height = '100%';
       }
 
       window.addEventListener('resize', resize);
       resize();
+
+      const baseRotation = { y: -Math.PI * 0.5 };
 
       function animate() {
         requestAnimationFrame(animate);
@@ -287,7 +313,7 @@
         current.y += (target.y - current.y) * 0.06;
 
         if (mascot) {
-          mascot.rotation.y = current.x * 0.6;
+          mascot.rotation.y = baseRotation.y + current.x * 0.6;
           mascot.rotation.x = current.y * 0.35;
         }
 
