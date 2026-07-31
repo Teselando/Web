@@ -1,306 +1,357 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Teselando</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="Graphics/Logo.ico" type="image/x-icon">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-  <!-- Preloader Splash Screen -->
-  <div class="preloader" id="preloader">
-    <div class="preloader-content">
-      <img src="Graphics/Logo.png" alt="Teselando" class="preloader-logo">
-      <p class="preloader-glitch" id="glitchText">Teselando</p>
-    </div>
-  </div>
-
-  <header class="topbar">
-    <div class="logo">
-      <img class="logo-mark" src="Graphics/Logo.png" alt="Teselando">
-      Teselando
-    </div>
-    <nav class="nav-links">
-      <a href="#tracks">Áreas</a>
-      <a href="#how">Metodología</a>
-      <a href="#pricing">Precios</a>
-      <a href="#philosophy">Filosofía</a>
-      <a href="divulgacion.html">Divulgación</a>
-      <a href="#contact">Contacto</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero" id="top">
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <div class="badge">Academia online premium · 1 a 1</div>
-          <h1 class="reveal-text">
-            <span class="reveal-line">Comprende de verdad</span>
-            <span class="reveal-line">lo que estudias.</span>
-          </h1>
-          <p class="hero-main reveal-text">
-            <span class="reveal-line">Clases 1 a 1 en Matemáticas, Estadística, Programación</span>
-            <span class="reveal-line">y Contabilidad. Sesiones por Discord adaptadas a tu nivel.</span>
-          </p>
-          <div class="hero-actions reveal-text">
-            <a class="btn primary" href="#contact">Reservar una sesión</a>
-            <a class="btn ghost" href="#how">Ver cómo funciona</a>
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Clases online 1 a 1 de matemáticas, estadística, programación y contabilidad. En Teselando aprendes con claridad, a tu ritmo." />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#F6F7F3" />
+    <link rel="canonical" href="https://teselando.es/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:url" content="https://teselando.es/" />
+    <meta property="og:title" content="Teselando | Clases online 1 a 1" />
+    <meta property="og:description" content="Aprende con claridad. Clases online personales de matemáticas, estadística, programación y contabilidad." />
+    <title>Teselando | Clases online 1 a 1</title>
+        <script>document.documentElement.classList.replace('no-js', 'js');</script>
+    <link rel="stylesheet" href="style.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "Teselando",
+        "url": "https://teselando.es/",
+        "email": "hola@teselando.es",
+        "description": "Academia online de clases particulares 1 a 1 de matemáticas, estadística, programación y contabilidad.",
+        "areaServed": "ES"
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#inicio">Saltar al contenido</a>
+    <!-- Navbar only. Update anchors when the rest of the landing is implemented. -->
+    <header class="navbar" data-navbar>
+      <div class="navbar__inner">
+        <a class="brand" href="#inicio" aria-label="Teselando, ir al inicio">
+          <span class="brand__mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>Teselando</span>
+        </a>
+        <nav class="navbar__links" aria-label="Navegación principal">
+          <a href="#metodo">Método</a>
+          <a href="#materias">Materias</a>
+          <a href="#profesores">Profesores</a>
+        </nav>
+        <a class="navbar__cta" href="#contacto">Hablemos <span aria-hidden="true">↗</span></a>
+        <button class="menu-button" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu" data-menu-button>
+          <span></span><span></span>
+        </button>
+      </div>
+      <!-- A separate panel preserves the centred desktop navigation. -->
+      <nav class="mobile-menu" id="mobile-menu" aria-label="Navegación móvil" data-mobile-menu>
+        <a href="#metodo">Método</a>
+        <a href="#materias">Materias</a>
+        <a href="#profesores">Profesores</a>
+        <a class="mobile-menu__cta" href="#contacto">Hablemos <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+    <!-- Hero only: the abstract panel is a temporary placeholder for the future image asset. -->
+    <main class="hero" id="inicio">
+      <div class="hero__inner">
+        <div class="hero__copy">
+          <p class="hero__eyebrow"><span></span> Academia online · 1 a 1</p>
+          <h1>Aprender<br /><em>encaja.</em></h1>
+          <p class="hero__description">Clases personales para entender lo difícil con calma, claridad y método.</p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="#contacto" data-focus-phone>Quiero empezar <span aria-hidden="true">↗</span></a>
+            <a class="button button--secondary" href="#metodo">Cómo funciona <span aria-hidden="true">↓</span></a>
           </div>
-
-          <div class="subject-strip">
-            <span>Matemáticas</span>
-            <span>Estadística</span>
-            <span>Programación</span>
-            <span>Contabilidad</span>
-          </div>
-
-          <!-- Phone Number Form -->
-          <form id="phoneForm" class="phone-form reveal-text" style="animation-delay: 0.9s;">
-            <div class="form-group">
-              <input
-                type="tel"
-                id="phoneInput"
-                name="phone"
-                placeholder="Tu número de teléfono"
-                required
-                pattern="[0-9\-\+\(\)\s]+"
-              >
-              <button type="submit" class="form-submit">Enviar</button>
+          <form class="lead-form" id="contacto" action="mailto:hola@teselando.es" method="post" enctype="text/plain">
+            <label class="visually-hidden" for="phone">Tu número de teléfono</label>
+            <div class="lead-form__field">
+              <input id="phone" name="telefono" type="tel" inputmode="tel" autocomplete="tel" placeholder="Tu número de teléfono" aria-describedby="phone-note" required />
+              <button type="submit">Quiero que me llaméis <span aria-hidden="true">↗</span></button>
             </div>
-            <p id="formMessage" class="form-message"></p>
+            <p id="phone-note">Sin compromiso. Abriremos tu correo para enviarnos el número.</p>
           </form>
         </div>
+        <div class="hero__visual" role="img" aria-label="Placeholder para una futura imagen de Teselando">
+          <p>[ Imagen Teselando ]</p>
+          <span class="hero__orb hero__orb--large"></span>
+          <span class="hero__orb hero__orb--small"></span>
+          <div class="hero__visual-note"><i></i><span>Tu ritmo.<br />Tu espacio.</span></div>
+          <span class="hero__visual-index">01 — 04</span>
+        </div>
+      </div>
+      <p class="hero__subjects">Matemáticas · Estadística · Programación · Contabilidad</p>
+    <section class="about" aria-labelledby="about-title">
+      <h2 class="visually-hidden" id="about-title">Qué es Teselando</h2>
+      <div class="about__inner">
+        <article class="about-card reveal">
+          <span class="about-card__icon" aria-hidden="true">[ 01 ]</span>
+          <h3>Personal</h3>
+          <p>Una clase, un alumno.<br />Toda la atención.</p>
+        </article>
+        <article class="about-card reveal">
+          <span class="about-card__icon" aria-hidden="true">[ 02 ]</span>
+          <h3>Claro</h3>
+          <p>Explicamos desde la base.<br />Sin atajos ni ruido.</p>
+        </article>
+        <article class="about-card reveal">
+          <span class="about-card__icon" aria-hidden="true">[ 03 ]</span>
+          <h3>Flexible</h3>
+          <p>Tu horario, tu ritmo.<br />Online y cerca.</p>
+        </article>
+      </div>
+    </section>
 
-        <div class="hero-visual" aria-hidden="true">
-          <div class="visual-card large">
-            <img class="visual-icon" src="Graphics/Birrete.png" alt="">
-            <div class="visual-title">Clases 1 a 1</div>
-            <div class="visual-body">Un estudiante, un experto. Atención completa en cada sesión.</div>
-            <div class="visual-metric">100% foco</div>
+    <section class="benefits" aria-labelledby="benefits-title">
+      <div class="benefits__inner">
+        <div class="benefits__heading reveal">
+          <p>La diferencia</p>
+          <h2 id="benefits-title">Hecho para<br />avanzar de verdad.</h2>
+        </div>
+        <ol class="benefits__list">
+          <li class="benefit reveal">
+            <span class="benefit__index">01</span>
+            <div>
+              <h3>Entender de verdad</h3>
+              <p>Construyes una base que permanece cuando cambian los ejercicios.</p>
+            </div>
+            <span class="benefit__arrow" aria-hidden="true">↘</span>
+          </li>
+          <li class="benefit reveal">
+            <span class="benefit__index">02</span>
+            <div>
+              <h3>Atención completa</h3>
+              <p>Cada sesión se mueve a la velocidad que necesitas.</p>
+            </div>
+            <span class="benefit__arrow" aria-hidden="true">↘</span>
+          </li>
+          <li class="benefit reveal">
+            <span class="benefit__index">03</span>
+            <div>
+              <h3>Un plan que encaja</h3>
+              <p>Tu temario, tu horario y tus objetivos marcan el camino.</p>
+            </div>
+            <span class="benefit__arrow" aria-hidden="true">↘</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="courses" id="materias" aria-labelledby="courses-title">
+      <div class="courses__heading reveal">
+        <p>Cursos</p>
+        <h2>Encuentra<br />tu punto de partida.</h2>
+      </div>
+      <div class="courses__grid">
+        <article class="course-card reveal">
+          <div class="course-card__image course-card__image--math" role="img" aria-label="Placeholder para imagen de Matemáticas"><span>[ Imagen ]</span></div>
+          <div class="course-card__content">
+            <h3>Matemáticas</h3>
+            <p>Una base sólida para resolver con seguridad.</p>
+            <a href="#contacto">Ver curso <span aria-hidden="true">↗</span></a>
           </div>
-          <div class="visual-card small">
-            <img class="visual-icon" src="Graphics/Pregunta.png" alt="">
-            <div class="visual-title">Seguimiento real</div>
-            <div class="visual-body">Detectamos puntos débiles y ajustamos tu ruta.</div>
+        </article>
+        <article class="course-card reveal">
+          <div class="course-card__image course-card__image--stats" role="img" aria-label="Placeholder para imagen de Estadística"><span>[ Imagen ]</span></div>
+          <div class="course-card__content">
+            <h3>Estadística</h3>
+            <p>Datos, probabilidad y criterio para interpretarlos.</p>
+            <a href="#contacto">Ver curso <span aria-hidden="true">↗</span></a>
           </div>
-          <div class="visual-card small accent">
-            <img class="visual-icon" src="Graphics/Columna.png" alt="">
-            <div class="visual-title">Flexibilidad total</div>
-            <div class="visual-body">Tú eliges horario y frecuencia.</div>
+        </article>
+        <article class="course-card reveal">
+          <div class="course-card__image course-card__image--code" role="img" aria-label="Placeholder para imagen de Programación"><span>[ Imagen ]</span></div>
+          <div class="course-card__content">
+            <h3>Programación</h3>
+            <p>Lógica y código que puedes explicar y construir.</p>
+            <a href="#contacto">Ver curso <span aria-hidden="true">↗</span></a>
           </div>
+        </article>
+        <article class="course-card reveal">
+          <div class="course-card__image course-card__image--accounting" role="img" aria-label="Placeholder para imagen de Contabilidad"><span>[ Imagen ]</span></div>
+          <div class="course-card__content">
+            <h3>Contabilidad</h3>
+            <p>Conceptos claros para tomar mejores decisiones.</p>
+            <a href="#contacto">Ver curso <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="learning" id="metodo" aria-labelledby="learning-title">
+      <div class="learning__intro reveal">
+        <p>Cómo aprendemos</p>
+        <h2>Menos ruido.<br />Más avance.</h2>
+      </div>
+      <ol class="learning__steps">
+        <li class="learning-step learning-step--one reveal">
+          <span class="learning-step__number">01</span>
+          <div class="learning-step__copy">
+            <p class="learning-step__label">El inicio</p>
+            <h3>Escuchamos</h3>
+            <p>Nos cuentas qué necesitas. Empezamos desde donde estás.</p>
+          </div>
+          <span class="learning-step__shape" aria-hidden="true"></span>
+        </li>
+        <li class="learning-step learning-step--two reveal">
+          <span class="learning-step__number">02</span>
+          <div class="learning-step__copy">
+            <p class="learning-step__label">El mapa</p>
+            <h3>Ordenamos</h3>
+            <p>Convertimos lo complejo en un camino claro y posible.</p>
+          </div>
+          <span class="learning-step__shape" aria-hidden="true"></span>
+        </li>
+        <li class="learning-step learning-step--three reveal">
+          <span class="learning-step__number">03</span>
+          <div class="learning-step__copy">
+            <p class="learning-step__label">La clase</p>
+            <h3>Practicamos</h3>
+            <p>Trabajamos contigo, una idea cada vez, hasta que encaja.</p>
+          </div>
+          <span class="learning-step__shape" aria-hidden="true"></span>
+        </li>
+        <li class="learning-step learning-step--four reveal">
+          <span class="learning-step__number">04</span>
+          <div class="learning-step__copy">
+            <p class="learning-step__label">El progreso</p>
+            <h3>Ajustamos</h3>
+            <p>El plan cambia contigo para que no dejes de avanzar.</p>
+          </div>
+          <span class="learning-step__shape" aria-hidden="true"></span>
+        </li>
+      </ol>
+    </section>
+
+    <section class="teachers" id="profesores" aria-labelledby="teachers-title">
+      <div class="teachers__heading reveal">
+        <p>Profesores</p>
+        <h2>Personas que<br />saben escuchar.</h2>
+      </div>
+      <div class="teachers__grid">
+        <article class="teacher reveal">
+          <div class="teacher__image teacher__image--one" role="img" aria-label="Placeholder para foto de Lucía Martín"><span>[ Foto ]</span></div>
+          <div class="teacher__meta"><h3>Lucía Martín</h3><p>Matemáticas</p></div>
+          <p class="teacher__quote">“Entender abre el camino.”</p>
+        </article>
+        <article class="teacher reveal">
+          <div class="teacher__image teacher__image--two" role="img" aria-label="Placeholder para foto de Daniel Ruiz"><span>[ Foto ]</span></div>
+          <div class="teacher__meta"><h3>Daniel Ruiz</h3><p>Programación</p></div>
+          <p class="teacher__quote">“El código se aprende haciendo.”</p>
+        </article>
+        <article class="teacher reveal">
+          <div class="teacher__image teacher__image--three" role="img" aria-label="Placeholder para foto de Elena Vidal"><span>[ Foto ]</span></div>
+          <div class="teacher__meta"><h3>Elena Vidal</h3><p>Estadística</p></div>
+          <p class="teacher__quote">“Los datos también cuentan historias.”</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="testimonials" aria-labelledby="testimonials-title">
+      <div class="testimonials__heading reveal">
+        <p>Experiencias</p>
+        <h2 id="testimonials-title">Cuando todo<br />empieza a encajar.</h2>
+      </div>
+      <div class="testimonials__grid">
+        <blockquote class="testimonial reveal">
+          <p>“Por fin entendí el porqué de cada paso. Dejé de estudiar con miedo.”</p>
+          <footer>María · Matemáticas</footer>
+        </blockquote>
+        <blockquote class="testimonial reveal">
+          <p>“Las clases van a mi ritmo y ahora sé cómo enfrentarme a los problemas.”</p>
+          <footer>Álvaro · Estadística</footer>
+        </blockquote>
+        <blockquote class="testimonial reveal">
+          <p>“No solo resolvemos ejercicios: aprendo a pensar como programador.”</p>
+          <footer>Clara · Programación</footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <section class="cta" aria-labelledby="cta-title">
+      <div class="cta__inner reveal">
+        <h2 id="cta-title">Empieza por<br /><em>entender.</em></h2>
+        <a class="cta__button" href="#contacto" data-focus-phone>Quiero empezar <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__inner reveal">
+        <a class="brand footer__brand" href="#inicio" aria-label="Teselando, ir al inicio">
+          <span class="brand__mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>Teselando</span>
+        </a>
+        <nav class="footer__links" aria-label="Navegación del pie">
+          <a href="#metodo">Método</a>
+          <a href="#materias">Cursos</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+        <div class="footer__contact">
+          <p>Contacto</p>
+          <a href="mailto:hola@teselando.es">hola@teselando.es</a>
         </div>
-      </div>
-      <div class="hero-glow"></div>
-    </section>
-
-    <section class="tracks" id="tracks">
-      <div class="section-head">
-        <h2>Áreas de aprendizaje</h2>
-        <p>Clases personalizadas según tu plan de estudios, tu nivel y tu ritmo.</p>
-      </div>
-      <div class="track-grid">
-        <article class="track-card">
-          <h3>Matemáticas</h3>
-          <p>Álgebra, cálculo, análisis y fundamentos sólidos.</p>
-          <span class="pill">Comprender primero</span>
-        </article>
-        <article class="track-card">
-          <h3>Estadística</h3>
-          <p>Probabilidad, inferencia y modelos explicados con claridad.</p>
-          <span class="pill">Aplicable y práctico</span>
-        </article>
-        <article class="track-card">
-          <h3>Programación</h3>
-          <p>De lógica básica a proyectos reales, con guía paso a paso.</p>
-          <span class="pill">Código con sentido</span>
-        </article>
-        <article class="track-card">
-          <h3>Contabilidad</h3>
-          <p>Principios, registros y análisis financiero sin memorizar.</p>
-          <span class="pill">Conceptos claros</span>
-        </article>
-      </div>
-    </section>
-
-    <section class="how" id="how">
-      <div class="section-head">
-        <h2>Metodología Teselando</h2>
-        <p>Aprendizaje profundo, con seguimiento real y sesiones 1 a 1 por Discord.</p>
-      </div>
-      <div class="steps">
-        <div class="step">
-          <div class="step-number">01</div>
-          <h3>Diagnóstico</h3>
-          <p>Revisamos tu contexto, objetivos y puntos débiles.</p>
+        <div class="footer__social">
+          <p>Redes</p>
+          <!-- Replace these placeholder URLs with Teselando's final social profiles. -->
+          <a href="#">Instagram <span aria-hidden="true">↗</span></a>
+          <a href="#">LinkedIn <span aria-hidden="true">↗</span></a>
         </div>
-        <div class="step">
-          <div class="step-number">02</div>
-          <h3>Clases personalizadas</h3>
-          <p>Sesiones adaptadas a tu nivel y a tu plan de estudios.</p>
-        </div>
-        <div class="step">
-          <div class="step-number">03</div>
-          <h3>Seguimiento continuo</h3>
-          <p>Ajustamos el plan según tu progreso y necesidades reales.</p>
-        </div>
+        <p class="footer__copyright">© 2026 Teselando</p>
       </div>
-    </section>
+    </footer>
+    <script>
+      const navbar = document.querySelector('[data-navbar]');
+      const menuButton = document.querySelector('[data-menu-button]');
+      const mobileMenu = document.querySelector('[data-mobile-menu]');
+      const phoneInput = document.querySelector('#phone');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    <section class="pricing" id="pricing">
-      <div class="section-head">
-        <h2>Precios claros</h2>
-        <p>Pagas por lo que necesitas, con transparencia y sin compromisos innecesarios.</p>
-      </div>
-      <div class="pricing-grid">
-        <article class="pricing-card">
-          <h3>Primer mes</h3>
-          <div class="price">€15<span>/hora</span></div>
-          <ul class="pricing-list">
-            <li>Sesiones 1 a 1 por Discord</li>
-            <li>Diagnóstico inicial y plan base</li>
-            <li>Flexibilidad total de horarios</li>
-          </ul>
-          <a class="btn primary" href="#contact">Quiero empezar</a>
-        </article>
-        <article class="pricing-card highlight">
-          <div class="tag">Continuidad</div>
-          <h3>Desde el segundo mes</h3>
-          <div class="price">€20<span>/hora</span></div>
-          <ul class="pricing-list">
-            <li>Seguimiento continuo y ajustes</li>
-            <li>Profundización en tus temas</li>
-            <li>Cupos limitados para máxima calidad</li>
-          </ul>
-          <a class="btn ghost" href="#contact">Reservar cupo</a>
-        </article>
-      </div>
-    </section>
+      const setScrolledState = () => navbar.classList.toggle('navbar--scrolled', window.scrollY > 12);
+      const closeMenu = () => {
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Abrir menú');
+        mobileMenu.classList.remove('mobile-menu--open');
+        document.body.classList.remove('menu-is-open');
+      };
 
-    <section class="philosophy" id="philosophy">
-      <div class="section-head">
-        <h2>Nuestra filosofía</h2>
-        <p>Entender primero. Aprobar es la consecuencia.</p>
-      </div>
-      <div class="philosophy-grid">
-        <article class="philosophy-card">
-          <h3>Aprendizaje profundo</h3>
-          <p>No memorizar, sino comprender. Explicaciones claras y precisas.</p>
-        </article>
-        <article class="philosophy-card">
-          <h3>Humano y cercano</h3>
-          <p>Profesores reales, acompañamiento real y clases individuales.</p>
-        </article>
-        <article class="philosophy-card">
-          <h3>Flexible y sostenible</h3>
-          <p>Tu vida primero. Tú decides horarios y ritmo.</p>
-        </article>
-      </div>
-    </section>
+      menuButton.addEventListener('click', () => {
+        const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+        if (isOpen) return closeMenu();
+        menuButton.setAttribute('aria-expanded', 'true');
+        menuButton.setAttribute('aria-label', 'Cerrar menú');
+        mobileMenu.classList.add('mobile-menu--open');
+        document.body.classList.add('menu-is-open');
+      });
 
-    <section class="ecosystem" id="ecosystem">
-  <a class="ecosystem-bar" href="divulgacion.html" aria-label="Más que una academia - Ir a divulgaci�n">
-    <span class="ecosystem-title">Más que una academia</span>
-    <span class="ecosystem-cta">Ver divulgación</span>
-  </a>
-</section>
+      mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+      document.querySelectorAll('[data-focus-phone]').forEach((link) => link.addEventListener('click', () => {
+        window.setTimeout(() => phoneInput.focus({ preventScroll: true }), 350);
+      }));
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') closeMenu();
+      });
+      window.addEventListener('scroll', setScrolledState, { passive: true });
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 760) closeMenu();
+      }, { passive: true });
+      setScrolledState();
 
-    <section class="cta" id="contact">
-      <div class="cta-card">
-        <h2>¿Listo para entender de verdad?</h2>
-        <p>Escríbenos y coordinamos tu primera sesión. Cupos limitados para garantizar calidad.</p>
-        <a class="btn primary" href="#contact">Agendar una llamada</a>
-      </div>
-    </section>
-  </main>
-
-  <script>
-    // Wrap each letter in a span for individual animation
-    const glitchText = document.getElementById('glitchText');
-    const text = glitchText.textContent;
-    glitchText.innerHTML = '';
-
-    text.split('').forEach((letter) => {
-      const span = document.createElement('span');
-      span.textContent = letter;
-      span.className = 'glitch-letter';
-      // Random delay between 0.6s and 1.35s for random disappearance
-      const randomDelay = 0.6 + Math.random() * 0.75;
-      span.style.animationDelay = `${randomDelay}s`;
-      glitchText.appendChild(span);
-    });
-
-    window.addEventListener('load', () => {
-      const preloader = document.getElementById('preloader');
-      setTimeout(() => {
-        preloader.classList.add('fade-out');
-        setTimeout(() => {
-          preloader.style.display = 'none';
-        }, 600);
-      }, 1200);
-    });
-
-    // Phone Form Handler
-    const phoneForm = document.getElementById('phoneForm');
-    const phoneInput = document.getElementById('phoneInput');
-    const formMessage = document.getElementById('formMessage');
-
-    phoneForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const phone = phoneInput.value.trim();
-
-      if (!phone) {
-        showMessage('Por favor ingresa tu número de teléfono', 'error');
-        return;
+      const revealItems = document.querySelectorAll('.reveal');
+      if (reducedMotion || !('IntersectionObserver' in window)) {
+        revealItems.forEach((item) => item.classList.add('is-visible'));
+      } else {
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          });
+        }, { threshold: 0.12 });
+        revealItems.forEach((item) => revealObserver.observe(item));
       }
-
-      // Show loading state
-      const submitBtn = phoneForm.querySelector('.form-submit');
-      const originalText = submitBtn.textContent;
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Enviando...';
-
-      try {
-        // Replace with your Google Apps Script URL
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzohkHxYC_3aBW2E8QC71xFyoW-kpBwZPXRVuXjwUTmZgKtwiPHUq4adRuLs-pV0r1XHA/exec';
-
-        await fetch(scriptURL, {
-          method: 'POST',
-          body: new FormData(phoneForm),
-          mode: 'no-cors'
-        });
-
-        showMessage('¡Teléfono enviado exitosamente! Nos pondremos en contacto pronto.', 'success');
-        phoneInput.value = '';
-
-      } catch (error) {
-        console.error('Error:', error);
-        showMessage('Hubo un error al enviar tu teléfono. Intenta nuevamente.', 'error');
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
-      }
-    });
-
-    function showMessage(message, type) {
-      formMessage.textContent = message;
-      formMessage.className = 'form-message ' + type;
-
-      if (type === 'success') {
-        setTimeout(() => {
-          formMessage.textContent = '';
-          formMessage.className = 'form-message';
-        }, 5000);
-      }
-    }
-  
-  </script>
-
-
-
-</body>
+    </script>
+  </body>
 </html>
-
