@@ -312,8 +312,22 @@
       const phoneInput = document.querySelector('#phone');
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      const setScrolledState = () => navbar.classList.toggle('navbar--scrolled', window.scrollY > 8);
-      const closeMenu = () => {
+      let isNavbarScrolled = false;
+      let scrollTicking = false;
+      const setScrolledState = () => {
+        const shouldBeScrolled = window.scrollY > 8;
+        if (shouldBeScrolled === isNavbarScrolled) return;
+        isNavbarScrolled = shouldBeScrolled;
+        navbar.classList.toggle('navbar--scrolled', shouldBeScrolled);
+      };
+      const requestScrolledState = () => {
+        if (scrollTicking) return;
+        scrollTicking = true;
+        window.requestAnimationFrame(() => {
+          setScrolledState();
+          scrollTicking = false;
+        });
+      };      const closeMenu = () => {
         menuButton.setAttribute('aria-expanded', 'false');
         menuButton.setAttribute('aria-label', 'Abrir menú');
         mobileMenu.classList.remove('mobile-menu--open');
@@ -336,7 +350,7 @@
       document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') closeMenu();
       });
-      window.addEventListener('scroll', setScrolledState, { passive: true });
+      window.addEventListener('scroll', requestScrolledState, { passive: true });
       window.addEventListener('resize', () => {
         if (window.innerWidth > 760) closeMenu();
       }, { passive: true });

@@ -887,3 +887,75 @@ main > section, footer { scroll-margin-top: 6.5rem; }
     transition-duration: .01ms !important;
   }
 }
+/* Runtime performance pass: keep scrolling smooth without changing the design. */
+.navbar,
+.navbar--scrolled {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.navbar {
+  transition: height .32s var(--ease), background-color .32s var(--ease), border-color .32s var(--ease), color .32s var(--ease);
+}
+
+.navbar__links,
+.navbar__cta,
+.button,
+.lead-form button,
+.cta__button {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.navbar--scrolled {
+  box-shadow: 0 .45rem 1.2rem rgba(23,33,39,.055);
+}
+
+.navbar__cta,
+.lead-form__field {
+  box-shadow: 0 .65rem 1.5rem rgba(0,0,0,.12);
+}
+
+.hero__visual,
+.course-card__image,
+.teacher__image,
+.learning-step__shape {
+  contain: paint;
+}
+
+.course-card__image::before,
+.teacher__image::before {
+  will-change: auto;
+}
+
+@supports (content-visibility: auto) {
+  .about,
+  .benefits,
+  .courses,
+  .learning,
+  .teachers,
+  .testimonials,
+  .cta,
+  .footer {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 760px;
+  }
+}
+
+@media (hover: none) {
+  .course-card__image::before,
+  .teacher__image::before,
+  .benefit__arrow,
+  .button,
+  .navbar__cta,
+  .lead-form button,
+  .cta__button {
+    transition-duration: .18s;
+  }
+
+  .course-card:hover .course-card__image::before,
+  .teacher:hover .teacher__image::before,
+  .benefit:hover .benefit__arrow {
+    transform: none;
+  }
+}
