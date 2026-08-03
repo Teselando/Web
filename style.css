@@ -392,3 +392,15 @@ main > section, footer { scroll-margin-top: 6.5rem; }
   .hero__actions { width: 100%; justify-content: center; }
   .lead-form { width: 100%; }
 }
+/* Final hero alignment and single-color type treatment. */
+.hero__inner { width: min(100% - 2rem, var(--shell)); margin-inline: auto; text-align: center; }
+.hero__copy { width: 100%; max-width: 42rem; margin-inline: auto; align-items: center; text-align: center; }
+.hero h1 em { color: inherit; }
+.hero__description { margin-inline: auto; }
+.hero__actions { margin-inline: auto; }
+.lead-form { margin-inline: auto; text-align: left; }
+.hero__subjects { margin-inline: auto; text-align: center; }
+@media (max-width: 760px) {
+  .hero__inner { width: min(100% - 2rem, var(--shell)); }
+  .hero__copy { width: 100%; }
+}
