@@ -376,3 +376,19 @@ main > section, footer { scroll-margin-top: 6.5rem; }
   .hero__visual-note { bottom: 1rem; left: 1rem; }.hero__visual-index { right: 1rem; bottom: 1rem; }
   .hero__subjects { width: var(--shell); margin-top: .5rem; line-height: 1.7; }
 }
+/* Centered conversion layer over the full-bleed hero background. */
+.hero__inner { display: flex; justify-content: center; align-items: center; }
+.hero__copy { width: min(100%, 42rem); display: flex; flex-direction: column; align-items: center; text-align: center; }
+.hero__eyebrow { justify-content: center; }
+.hero__description { max-width: 31rem; }
+.hero__actions { justify-content: center; }
+.lead-form { width: min(100%, 33rem); text-align: left; }
+.hero__subjects { text-align: center; }
+
+@media (max-width: 760px) {
+  .hero__inner { display: flex; align-items: center; justify-content: flex-start; }
+  .hero__copy { width: 100%; }
+  .hero__description { max-width: 21rem; }
+  .hero__actions { width: 100%; justify-content: center; }
+  .lead-form { width: 100%; }
+}
