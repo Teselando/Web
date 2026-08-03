@@ -1,4 +1,4 @@
-?<!doctype html>
+<!doctype html>
 <html lang="es" class="no-js">
   <head>
     <meta charset="UTF-8" />
@@ -41,7 +41,7 @@
           <a href="#materias">Materias</a>
           <a href="#profesores">Profesores</a>
         </nav>
-        <a class="navbar__cta" href="#contacto">Hablemos <span aria-hidden="true">↗</span></a>
+        <a class="navbar__cta" href="#contacto">Contactar <span aria-hidden="true">↗</span></a>
         <button class="menu-button" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu" data-menu-button>
           <span></span><span></span>
         </button>
@@ -51,7 +51,7 @@
         <a href="#metodo">Método</a>
         <a href="#materias">Materias</a>
         <a href="#profesores">Profesores</a>
-        <a class="mobile-menu__cta" href="#contacto">Hablemos <span aria-hidden="true">↗</span></a>
+        <a class="mobile-menu__cta" href="#contacto">Contactar <span aria-hidden="true">↗</span></a>
       </nav>
     </header>
     <!-- Hero only: the abstract panel is a temporary placeholder for the future image asset. -->
@@ -312,7 +312,7 @@
       const phoneInput = document.querySelector('#phone');
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      const setScrolledState = () => navbar.classList.toggle('navbar--scrolled', window.scrollY > 72);
+      const setScrolledState = () => navbar.classList.toggle('navbar--scrolled', window.scrollY > 8);
       const closeMenu = () => {
         menuButton.setAttribute('aria-expanded', 'false');
         menuButton.setAttribute('aria-label', 'Abrir menú');
