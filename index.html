@@ -13,7 +13,11 @@
     <meta property="og:title" content="Teselando | Clases online 1 a 1" />
     <meta property="og:description" content="Aprende con claridad. Clases online personales de matemáticas, estadística, programación y contabilidad." />
     <title>Teselando | Clases online 1 a 1</title>
-        <script>document.documentElement.classList.replace('no-js', 'js');</script>
+        <script>
+          document.documentElement.classList.replace('no-js', 'js');
+          if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        </script>
     <link rel="stylesheet" href="style.css" />
     <script type="application/ld+json">
       {
@@ -163,7 +167,7 @@
           <div class="course-card__content">
             <h3>Matemáticas</h3>
             <p>Una base sólida para resolver con seguridad.</p>
-            <a href="#contacto">Ver curso <span aria-hidden="true">↗</span></a>
+            <a href="#inicio" data-scroll-top>Ver curso <span aria-hidden="true">↗</span></a>
           </div>
         </article>
         <article class="course-card reveal">
@@ -171,7 +175,7 @@
           <div class="course-card__content">
             <h3>Estadística</h3>
             <p>Datos, probabilidad y criterio para interpretarlos.</p>
-            <a href="#contacto">Ver curso <span aria-hidden="true">↗</span></a>
+            <a href="#inicio" data-scroll-top>Ver curso <span aria-hidden="true">↗</span></a>
           </div>
         </article>
         <article class="course-card reveal">
@@ -179,7 +183,7 @@
           <div class="course-card__content">
             <h3>Programación</h3>
             <p>Lógica y código que puedes explicar y construir.</p>
-            <a href="#contacto">Ver curso <span aria-hidden="true">↗</span></a>
+            <a href="#inicio" data-scroll-top>Ver curso <span aria-hidden="true">↗</span></a>
           </div>
         </article>
         <article class="course-card reveal">
@@ -187,7 +191,7 @@
           <div class="course-card__content">
             <h3>Contabilidad</h3>
             <p>Conceptos claros para tomar mejores decisiones.</p>
-            <a href="#contacto">Ver curso <span aria-hidden="true">↗</span></a>
+            <a href="#inicio" data-scroll-top>Ver curso <span aria-hidden="true">↗</span></a>
           </div>
         </article>
       </div>
@@ -328,6 +332,15 @@
       </div>
     </footer>
     <script>
+      const scrollToAbsoluteTop = (behavior) => {
+        window.scrollTo({ top: 0, left: 0, behavior });
+      };
+
+      // A browser may restore a previous position after parsing the document.
+      // pageshow runs after that restoration point, so the landing always starts at 0.
+      scrollToAbsoluteTop('instant');
+      window.addEventListener('pageshow', () => scrollToAbsoluteTop('instant'));
+
       const navbar = document.querySelector('[data-navbar]');
       const menuButton = document.querySelector('[data-menu-button]');
       const mobileMenu = document.querySelector('[data-mobile-menu]');
@@ -377,7 +390,7 @@
       document.querySelectorAll('[data-scroll-top]').forEach((link) => link.addEventListener('click', (event) => {
         event.preventDefault();
         history.replaceState(null, '', window.location.pathname + window.location.search);
-        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        scrollToAbsoluteTop(reducedMotion ? 'instant' : 'smooth');
       }));
       document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') closeMenu();
