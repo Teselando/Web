@@ -904,7 +904,6 @@ main > section, footer { scroll-margin-top: 6.5rem; }
 .lead-form button,
 .cta__button {
   backface-visibility: hidden;
-  transform: translateZ(0);
 }
 
 .navbar--scrolled {
@@ -1292,4 +1291,24 @@ main {
   .hero__image {
     object-position: 50% 50%;
   }
+}
+/* The media layer belongs to the viewport-sized hero, not the text shell. */
+.navbar {
+  position: fixed;
+  inset: 0 0 auto;
+}
+
+.hero__inner {
+  position: static;
+  z-index: auto;
+}
+
+.hero__subjects {
+  position: relative;
+  z-index: 2;
+}
+
+/* Release the full-screen image layer once its entrance transition has completed. */
+.hero__image.is-loaded {
+  will-change: auto;
 }
