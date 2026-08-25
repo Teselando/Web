@@ -70,14 +70,15 @@
             <a class="button button--primary" href="#inicio" data-scroll-top>Quiero empezar <span aria-hidden="true">↗</span></a>
             <a class="button button--secondary" href="#metodo">Cómo funciona <span aria-hidden="true">↓</span></a>
           </div>
-          <form class="lead-form" id="contacto" action="mailto:hola@teselando.es" method="post" enctype="text/plain">
+          <form class="lead-form" id="contacto" action="https://script.google.com/macros/s/AKfycbyHOdW484FKE-J81n_aFTeCDLC8Xz0htOkH1RTW2eO1kgvXyqRyxYe4zJp2nhRZGGa7jQ/exec" method="post" target="phone-submission-frame">
             <label class="visually-hidden" for="phone">Tu número de teléfono</label>
             <div class="lead-form__field">
-              <input id="phone" name="telefono" type="tel" inputmode="tel" autocomplete="tel" placeholder="Tu número de teléfono" aria-describedby="phone-note" required />
+              <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Tu número de teléfono" aria-describedby="phone-note" required />
               <button type="submit">Quiero que me llaméis <span aria-hidden="true">↗</span></button>
             </div>
             <p id="phone-note">Sin compromiso. Abriremos tu correo para enviarnos el número.</p>
           </form>
+          <iframe class="visually-hidden" name="phone-submission-frame" title="Envío de teléfono"></iframe>
         </div>
         <div class="hero__visual" role="img" aria-label="Placeholder para una futura imagen de Teselando">
           <img class="hero__image cinematic-media" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=74" srcset="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=74 900w, https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=74 1400w, https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2000&q=74 2000w" sizes="100vw" alt="" loading="eager" fetchpriority="high" decoding="async" />
