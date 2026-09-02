@@ -7,6 +7,7 @@
   --radius-sm: .75rem; --radius-md: 1rem; --radius-lg: 1.5rem;
   --shadow-contact: 0 1px 2px rgb(24 33 38 / 12%); --shadow-elevation: 0 12px 28px rgb(24 33 38 / 12%); --shadow-hero: 0 28px 56px rgb(37 107 134 / 20%); --depth-flat: none; --depth-raised: var(--shadow-contact); --depth-floating: var(--shadow-elevation); --depth-hero: var(--shadow-hero);
   --layer-base: 0; --layer-decoration: 1; --layer-content: 2; --layer-sticky: 10; --layer-rail: 20; --layer-dialog: 30; --layer-cookie: 40;
+  --color-danger: #a43131; --color-success: #1f684f; --color-information: #256b86; --surface-muted: #e9e7e1;
   --container-max: 78rem; --gutter: var(--space-6); --scroll-offset: 6rem;
 }
 @media (min-width: 48rem) { :root { --gutter: var(--space-8); --section-space: clamp(5.5rem, 8vw, 9.5rem); } }
