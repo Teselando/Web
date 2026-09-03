@@ -1,7 +1,7 @@
-import { FinalCtaSection, HeroSection, HowItWorksSection, ImmediateProofSection, PriceSection, ProfessorsSection, ProtectionSection, SelectionSection, SocialProofSection } from "@/components/home/HomepageSections";
-import { HomepageRail } from "@/components/home/HomepageRail";
-import { BrandIntro } from "@/components/home/BrandIntro";
+import { Footer } from "@/components/footer";
+import { ScrollExperience } from "@/components/scroll-experience";
+import { FinalCta, Fit, Hero, HowItWorks, ImmediateProof, Pricing, Professors, Protection, SocialProof } from "@/sections/home";
 
-export default function Home() {
-  return <div className="homepage"><BrandIntro /><HomepageRail /><HeroSection /><ImmediateProofSection /><HowItWorksSection /><SelectionSection /><ProfessorsSection /><SocialProofSection /><ProtectionSection /><PriceSection /><FinalCtaSection /></div>;
+export default function HomePage() {
+  return <><main id="contenido"><Hero /><ImmediateProof /><HowItWorks /><Fit /><Professors /><SocialProof /><Protection /><Pricing /><FinalCta /></main><Footer /><ScrollExperience /></>;
 }

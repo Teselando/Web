@@ -1,26 +1,27 @@
 import type { Metadata } from "next";
 import { Figtree, Gabarito } from "next/font/google";
-import { PublicSiteShell } from "@/components/site/PublicSiteShell";
-import { ConsentProvider } from "@/components/site/ConsentProvider";
 import "./globals.css";
+import { SiteChrome } from "@/components/site-chrome";
+import { ConsentBanner } from "@/components/consent-banner";
 
-const gabarito = Gabarito({ variable: "--font-gabarito", subsets: ["latin"] });
-const figtree = Figtree({ variable: "--font-figtree", subsets: ["latin"] });
+const figtree = Figtree({ subsets: ["latin"], variable: "--font-body", display: "swap" });
+const gabarito = Gabarito({ subsets: ["latin"], variable: "--font-display", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://teselando.es"),
+  title: { default: "Teselando", template: "%s | Teselando" },
+  description: "Academia online de clases particulares con profesores previamente seleccionados.",
   alternates: { canonical: "/" },
-  openGraph: { siteName: "Teselando", type: "website" },
-  title: "Teselando",
-  description: "",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" className={`${gabarito.variable} ${figtree.variable}`}>
+    <html lang="es" className={`${figtree.variable} ${gabarito.variable}`}>
       <body>
-        <a className="skip-link" href="#contenido-principal">Saltar al contenido principal</a>
-        <ConsentProvider><PublicSiteShell>{children}</PublicSiteShell></ConsentProvider>
+        <a className="skip-link" href="#contenido">Saltar al contenido</a>
+        <SiteChrome />
+        {children}
+        <ConsentBanner />
       </body>
     </html>
   );

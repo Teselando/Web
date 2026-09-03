@@ -1,2 +1,4 @@
-import { LegalPage, LegalSection } from "@/components/site/LegalPage";
-export default function PrivacidadPage() { return <LegalPage title="Privacidad"><LegalSection title="Datos tratados"><p>La solicitud puede incluir teléfono, contexto académico, estudios, asignaturas, necesidad, texto libre cuando corresponda, preferencia de llamada y contexto de origen o UTM.</p></LegalSection><LegalSection title="Finalidad"><p>Los datos se utilizan para gestionar la solicitud de apoyo académico y continuar la comunicación sobre ella, incluido el contacto humano a través de WhatsApp.</p></LegalSection></LegalPage>; }
+import type { Metadata } from "next";
+import { LegalPage } from "@/components/legal-page";
+export const metadata: Metadata = { title: "Privacidad", robots: { index: false, follow: false } };
+export default function Page() { return <LegalPage title="Privacidad" sections={["Responsable", "Finalidades", "Conservación", "Derechos"]} />; }

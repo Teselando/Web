@@ -1,2 +1,4 @@
-import { LegalPage, LegalSection } from "@/components/site/LegalPage";
-export default function CookiesPage() { return <LegalPage title="Cookies"><LegalSection title="Necesarias"><p>Las cookies necesarias permiten el funcionamiento técnico esencial del sitio y no se pueden desactivar desde las preferencias.</p></LegalSection><LegalSection title="Analytics"><p>Las cookies de analítica solo se activan cuando la persona usuaria da su consentimiento para esta categoría y existe una configuración válida de analítica.</p></LegalSection><LegalSection title="Preferencias"><p>Las preferencias se guardan en el navegador mediante una clave de primera parte versionada. No contienen datos personales.</p></LegalSection></LegalPage>; }
+import type { Metadata } from "next";
+import { LegalPage } from "@/components/legal-page";
+export const metadata: Metadata = { title: "Cookies", robots: { index: false, follow: false } };
+export default function Page() { return <LegalPage title="Cookies" sections={["Cookies necesarias", "Cookies analíticas", "Preferencias"]} />; }

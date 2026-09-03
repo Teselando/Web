@@ -1,2 +1,0 @@
-export type LegalReviewConfig = { blockers: readonly ("legal_identity" | "minors_workflow" | "processors" | "retention" | "unresolved_legal_basis")[]; company: { address?: string; legalName?: string; nif?: string; privacyContact?: string }; retention?: string; status: "PENDING LEGAL REVIEW" };
-export const legalReview: LegalReviewConfig = { blockers: ["legal_identity", "retention", "processors", "unresolved_legal_basis", "minors_workflow"], company: {}, status: "PENDING LEGAL REVIEW" };

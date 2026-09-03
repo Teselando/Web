@@ -1,4 +1,9 @@
 import type { Metadata } from "next";
-import { SecondaryPage } from "@/components/site/SecondaryPage";
-export const metadata: Metadata = { robots: { follow: false, index: false } };
-export default function RecursosPage() { return <SecondaryPage sectionCount={1} title="Recursos" />; }
+import { DetailPage } from "@/components/page-shell";
+
+export const metadata: Metadata = { title: "Recursos", alternates: { canonical: "/recursos/" } };
+export default function Page() { return <DetailPage eyebrow="RECURSOS" title="Materiales para estudiar con más claridad" intro="Una biblioteca académica para Bachillerato, PAU y Universidad." cta={false} sections={[
+  { eyebrow: "BACHILLERATO", title: "Ciencias y matemáticas" },
+  { eyebrow: "PAU", title: "Preparación por contexto académico" },
+  { eyebrow: "UNIVERSIDAD", title: "Primeros cursos cuantitativos" },
+]} />; }
