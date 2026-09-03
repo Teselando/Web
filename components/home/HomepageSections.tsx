@@ -1,7 +1,6 @@
-import { Stack, Plane, Tessera } from "@/components/brand/Geometry";
 import { LeadCaptureTrigger } from "@/components/site/LeadCaptureTrigger";
+import { HeroWaterSurface } from "@/components/home/HeroWaterSurface";
 import { LeadRequestFlow } from "@/components/site/LeadRequestFlow";
-import { SecondaryButton } from "@/components/ui/Button";
 import { PageContainer } from "@/components/ui/PageContainer";
 import { isCapabilityAvailable } from "@/content/capabilities";
 import { legalLinks } from "@/content/legal";
@@ -12,31 +11,26 @@ function Section({ children, className, id }: { children: ReactNode; className?:
 }
 
 function PendingEvidence({ label }: { label: string }) {
-  return <div aria-label={`${label}: contenido pendiente de validación`} className="evidence-placeholder" role="note"><span aria-hidden="true" className="evidence-placeholder__mark" /> <p>Contenido pendiente de validación.</p></div>;
+  return <div aria-hidden="true" className="evidence-placeholder" data-evidence={label} />;
+}
+
+function HeroGeometry() {
+  return <div className="homepage-hero__geometry"><span className="homepage-hero__underlight" /><span className="homepage-hero__object homepage-hero__object--cube" /><span className="homepage-hero__object homepage-hero__object--l-block" /><span className="homepage-hero__object homepage-hero__object--stair" /><span className="homepage-hero__object homepage-hero__object--polycube" /></div>;
 }
 
 export function HeroSection() {
   return (
     <Section className="homepage-hero" id="hero">
+      <HeroWaterSurface />
       <PageContainer className="homepage-hero__inner">
         <div className="homepage-hero__copy">
           <p className="homepage-hero__kicker">Apoyo académico, sin buscar a ciegas</p>
           <h1>Creemos en ti</h1>
-          <p className="homepage-hero__lead">Cuando una asignatura se complica, Teselando te ayuda a encontrar un profesor adecuado para tu asignatura, nivel y situación. Entendemos el contexto y gestionamos el proceso contigo.</p>
-          <div className="homepage-hero__actions">
-            <SecondaryButton href="#como-funciona">Ver cómo funciona</SecondaryButton>
-            <SecondaryButton href="#precio">Ver precio y condiciones</SecondaryButton>
-          </div>
           <LeadRequestFlow privacyPolicyHref={legalLinks.privacyPolicyHref} />
         </div>
         <div aria-hidden="true" className="homepage-hero__art">
-          <Stack className="homepage-hero__geometry">
-            <Plane className="homepage-hero__plane homepage-hero__plane--back" />
-            <Tessera className="homepage-hero__tessera homepage-hero__tessera--one" />
-            <Plane className="homepage-hero__plane homepage-hero__plane--front" />
-            <Tessera className="homepage-hero__tessera homepage-hero__tessera--two" />
-            <span className="homepage-hero__annotation">asignatura · nivel · situación</span>
-          </Stack>
+          <HeroGeometry />
+          <span className="homepage-hero__annotation">asignatura · nivel · situación</span>
         </div>
       </PageContainer>
     </Section>
