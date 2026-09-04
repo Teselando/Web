@@ -3,6 +3,18 @@
 import { useEffect, useRef, useState } from "react";
 import { homeRail } from "@/lib/content";
 
+function RailIcon({ id }: { id: string }) {
+  const paths: Record<string, React.ReactNode> = {
+    prueba: <><path d="M5 12h14M12 5v14" /><circle cx="12" cy="12" r="3" /></>,
+    proceso: <><path d="M4 7l5 5-5 5M9 12h11" /></>,
+    encaje: <><circle cx="7" cy="12" r="2.5" /><circle cx="17" cy="12" r="2.5" /><path d="M9.5 12h5" /></>,
+    profesores: <><circle cx="12" cy="8" r="3" /><path d="M6.5 19c.8-3.3 2.6-5 5.5-5s4.7 1.7 5.5 5" /></>,
+    proteccion: <path d="M12 3l7 3v5c0 4.7-2.7 7.8-7 10-4.3-2.2-7-5.3-7-10V6l7-3z" />,
+    precio: <><circle cx="12" cy="12" r="8.5" /><path d="M15 8.5c-.7-.9-1.7-1.4-3-1.4-1.7 0-3 1-3 2.4 0 3.6 6.2 1.3 6.2 4.9 0 1.5-1.4 2.5-3.2 2.5-1.4 0-2.6-.5-3.4-1.5" /></>,
+  };
+  return <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g>{paths[id]}</g></svg>;
+}
+
 export function ScrollExperience() {
   const [active, setActive] = useState(0);
   const [direction, setDirection] = useState<"up" | "down">("down");
@@ -17,25 +29,23 @@ export function ScrollExperience() {
     const railSections = homeRail
       .map((item) => document.getElementById(item.id))
       .filter((node): node is HTMLElement => Boolean(node));
-    const heroVideo = document.querySelector<HTMLVideoElement>(".hero-water video");
+    const heroElement = document.querySelector<HTMLElement>("[data-hero]");
     let frame = 0;
     let heroVisible = true;
     if (!reduced) document.documentElement.classList.add("motion-ready");
 
-    const syncHeroVideo = () => {
-      if (!heroVideo || reduced) return;
-      if (document.hidden || !heroVisible) heroVideo.pause();
-      else void heroVideo.play().catch(() => undefined);
+    const syncHeroActivity = () => {
+      heroElement?.classList.toggle("is-active", heroVisible && !document.hidden);
     };
 
-    const heroVideoObserver = heroVideo && !reduced
+    const heroObserver = heroElement
       ? new IntersectionObserver(([entry]) => {
           heroVisible = entry.isIntersecting;
-          syncHeroVideo();
+          syncHeroActivity();
         }, { threshold: .05 })
       : null;
-    if (heroVideo && heroVideoObserver) heroVideoObserver.observe(heroVideo);
-    document.addEventListener("visibilitychange", syncHeroVideo);
+    if (heroElement && heroObserver) heroObserver.observe(heroElement);
+    document.addEventListener("visibilitychange", syncHeroActivity);
 
     const updateRail = () => {
       frame = 0;
@@ -69,9 +79,8 @@ export function ScrollExperience() {
       railRef.current?.style.setProperty("--rail-start", `${lastIndex ? (start / lastIndex) * 100 : 0}%`);
       railRef.current?.style.setProperty("--rail-length", `${lastIndex ? (Math.abs(position - activeIndex) / lastIndex) * 100 : 0}%`);
 
-      const hero = document.querySelector<HTMLElement>("[data-hero]");
       const final = document.getElementById("contacto");
-      const hasLeftHero = !hero || hero.getBoundingClientRect().bottom < innerHeight * .72;
+      const hasLeftHero = !heroElement || heroElement.getBoundingClientRect().bottom < innerHeight * .72;
       const beforeFinal = !final || final.getBoundingClientRect().top > innerHeight * .72;
       setShown(hasLeftHero && beforeFinal);
       document.documentElement.style.setProperty("--scroll-shift", `${Math.min(y * 0.025, 28)}px`);
@@ -81,16 +90,16 @@ export function ScrollExperience() {
         if (rect.bottom < -120 || rect.top > innerHeight + 120) return;
         const progress = Math.max(0, Math.min(1, (innerHeight * .9 - rect.top) / (innerHeight * .62)));
         const drift = Math.max(-1, Math.min(1, (innerHeight * .5 - (rect.top + rect.height * .5)) / (innerHeight + rect.height) * 2));
-        const motionY = (1 - progress) * 72;
+        const motionY = (1 - progress) * 26;
         node.style.setProperty("--motion-opacity", progress.toFixed(3));
         node.style.setProperty("--motion-y", `${motionY.toFixed(2)}px`);
-        node.style.setProperty("--motion-y-2", `${(motionY * 1.15).toFixed(2)}px`);
-        node.style.setProperty("--motion-y-3", `${(motionY * 1.3).toFixed(2)}px`);
-        node.style.setProperty("--motion-y-4", `${(motionY * 1.45).toFixed(2)}px`);
-        node.style.setProperty("--motion-x", `${((1 - progress) * 54).toFixed(2)}px`);
-        node.style.setProperty("--motion-x-reverse", `${((progress - 1) * 54).toFixed(2)}px`);
-        node.style.setProperty("--motion-scale", (.94 + progress * .06).toFixed(4));
-        node.style.setProperty("--motion-drift", `${(drift * 24).toFixed(2)}px`);
+        node.style.setProperty("--motion-y-2", `${(motionY + 7 * (1 - progress)).toFixed(2)}px`);
+        node.style.setProperty("--motion-y-3", `${(motionY + 14 * (1 - progress)).toFixed(2)}px`);
+        node.style.setProperty("--motion-y-4", `${(motionY + 21 * (1 - progress)).toFixed(2)}px`);
+        node.style.setProperty("--motion-x", `${((1 - progress) * 24).toFixed(2)}px`);
+        node.style.setProperty("--motion-x-reverse", `${((progress - 1) * 24).toFixed(2)}px`);
+        node.style.setProperty("--motion-scale", (.975 + progress * .025).toFixed(4));
+        node.style.setProperty("--motion-drift", `${(drift * 12).toFixed(2)}px`);
         node.style.setProperty("--motion-clip", `${((1 - progress) * 100).toFixed(2)}%`);
       });
     };
@@ -112,8 +121,9 @@ export function ScrollExperience() {
         revealObserver.disconnect();
         window.removeEventListener("scroll", onScroll);
         window.removeEventListener("resize", onScroll);
-        document.removeEventListener("visibilitychange", syncHeroVideo);
-        heroVideoObserver?.disconnect();
+        document.removeEventListener("visibilitychange", syncHeroActivity);
+        heroObserver?.disconnect();
+        heroElement?.classList.remove("is-active");
         document.documentElement.classList.remove("motion-ready");
         if (frame) cancelAnimationFrame(frame);
       };
@@ -125,8 +135,9 @@ export function ScrollExperience() {
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
-      document.removeEventListener("visibilitychange", syncHeroVideo);
-      heroVideoObserver?.disconnect();
+      document.removeEventListener("visibilitychange", syncHeroActivity);
+      heroObserver?.disconnect();
+      heroElement?.classList.remove("is-active");
       document.documentElement.classList.remove("motion-ready");
       if (frame) cancelAnimationFrame(frame);
     };
@@ -141,7 +152,7 @@ export function ScrollExperience() {
       <span className="rail-track" aria-hidden="true"><span className="rail-travel" /></span>
       {homeRail.map((item, index) => (
         <a key={item.id} href={`#${item.id}`} className={active === index ? "is-active" : ""} aria-label={item.label} aria-current={active === index ? "location" : undefined}>
-          <span className="rail-label">{item.label}</span><span className="rail-marker" />
+          <span className="rail-label">{item.label}</span><span className="rail-icon"><RailIcon id={item.id} /></span>
         </a>
       ))}
     </nav>

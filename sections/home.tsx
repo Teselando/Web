@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { LeadCapture } from "@/components/lead-capture";
+import { WaterHeroCanvas } from "@/components/water-hero-canvas";
 
 const steps = ["Nos dejas tu teléfono", "Entendemos lo que necesitas", "Seleccionamos al profesor", "Empiezan las clases"];
 
 export function Hero() {
-  return <section className="hero" data-hero id="inicio"><div className="hero-water" aria-hidden="true"><video autoPlay loop muted playsInline preload="auto" poster="/images/hero-underwater.webp"><source src="/video/water-reflection-loop.mp4" type="video/mp4" /></video></div><div className="hero-content"><p className="eyebrow">ACADEMIA ONLINE · CIENCIAS Y MATEMÁTICAS</p><h1>Creemos en ti</h1><p className="hero-lead">No necesitas cien profesores. Necesitas uno que encaje.</p><LeadCapture /></div><a href="#prueba" className="scroll-cue" aria-label="Seguir explorando"><span /></a></section>;
+  return <section className="hero" data-hero id="inicio"><div className="hero-water" aria-hidden="true"><WaterHeroCanvas /></div><div className="hero-content"><p className="eyebrow">ACADEMIA ONLINE · CIENCIAS Y MATEMÁTICAS</p><h1 className="hero-title"><span className="sr-only">Creemos en ti</span><span className="hero-title-layer hero-title-a" aria-hidden="true">Creemos en ti</span><span className="hero-title-layer hero-title-b" aria-hidden="true">Creemos en ti</span><span className="hero-title-layer hero-title-c" aria-hidden="true">Creemos en ti</span><span className="hero-title-layer hero-title-d" aria-hidden="true">Creemos en ti</span></h1><p className="hero-lead">No necesitas cien profesores. Necesitas uno que encaje.</p><LeadCapture /></div><a href="#prueba" className="scroll-cue" aria-label="Seguir explorando"><span /></a></section>;
 }
 
 export function ImmediateProof() {
@@ -20,7 +21,7 @@ export function Fit() {
 }
 
 export function Professors() {
-  return <section className="section professors-section" id="profesores" data-reveal><div className="section-heading"><p className="eyebrow">PERSONAS QUE ENSEÑAN</p><h2>Profesores reales</h2></div><div className="teaching-table" aria-hidden="true"><div className="seat seat-a" /><div className="worksheet"><span /><span /><span /><span /></div><div className="seat seat-b" /></div><div className="subject-index"><span>Ciencias</span><span>Matemáticas</span><span>Bachillerato</span><span>Universidad</span></div></section>;
+  return <section className="section professors-section banner-bg" id="profesores" data-reveal><div className="section-heading"><p className="eyebrow">PERSONAS QUE ENSEÑAN</p><h2>Profesores reales</h2></div><div className="teaching-table" aria-hidden="true"><div className="seat seat-a" /><div className="worksheet"><span /><span /><span /><span /></div><div className="seat seat-b" /></div><div className="subject-index"><span>Ciencias</span><span>Matemáticas</span><span>Bachillerato</span><span>Universidad</span></div></section>;
 }
 
 export function SocialProof() {
@@ -32,7 +33,7 @@ export function Protection() {
 }
 
 export function Pricing() {
-  return <section className="section pricing-section grid-bg" id="precio" data-reveal><div className="price-display"><p>Desde</p><h2>20 <span>€/h</span></h2></div><div className="price-details"><div><span>Precio</span><span>depende del contexto</span></div><div><span>Antes de empezar</span><span>conoces el importe exacto</span></div><div><span>Pago</span><span>clase a clase</span></div><Link className="button" href="/precios/">Ver precio y condiciones</Link></div></section>;
+  return <section className="section pricing-section" id="precio" data-reveal><div className="price-display"><p>Desde</p><h2>20 <span>€/h</span></h2></div><div className="price-details"><div><span>Precio</span><span>depende del contexto</span></div><div><span>Antes de empezar</span><span>conoces el importe exacto</span></div><div><span>Pago</span><span>clase a clase</span></div><Link className="button" href="/precios/">Ver precio y condiciones</Link></div></section>;
 }
 
 export function FinalCta() {
