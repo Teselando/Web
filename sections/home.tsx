@@ -4,7 +4,7 @@ import { LeadCapture } from "@/components/lead-capture";
 const steps = ["Nos dejas tu teléfono", "Entendemos lo que necesitas", "Seleccionamos al profesor", "Empiezan las clases"];
 
 export function Hero() {
-  return <section className="hero" data-hero id="inicio"><div className="hero-water" aria-hidden="true" /><div className="hero-content"><p className="eyebrow">ACADEMIA ONLINE · CIENCIAS Y MATEMÁTICAS</p><h1>Creemos en ti</h1><p className="hero-lead">No necesitas cien profesores. Necesitas uno que encaje.</p><LeadCapture /><Link className="text-link" href="#proceso">Ver cómo funciona</Link></div><a href="#prueba" className="scroll-cue" aria-label="Seguir explorando"><span /></a></section>;
+  return <section className="hero" data-hero id="inicio"><div className="hero-water" aria-hidden="true"><video autoPlay loop muted playsInline preload="auto" poster="/images/hero-underwater.webp"><source src="/video/water-reflection-loop.mp4" type="video/mp4" /></video></div><div className="hero-content"><p className="eyebrow">ACADEMIA ONLINE · CIENCIAS Y MATEMÁTICAS</p><h1>Creemos en ti</h1><p className="hero-lead">No necesitas cien profesores. Necesitas uno que encaje.</p><LeadCapture /></div><a href="#prueba" className="scroll-cue" aria-label="Seguir explorando"><span /></a></section>;
 }
 
 export function ImmediateProof() {
