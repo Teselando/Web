@@ -1,41 +1,78 @@
+import Image from "next/image";
 import Link from "next/link";
 import { LeadCapture } from "@/components/lead-capture";
-import { WaterHeroCanvas } from "@/components/water-hero-canvas";
+import { SelectionShowcase } from "@/components/selection-showcase";
+import { TeselandoInside } from "@/components/teselando-inside";
+import { TrustpilotProof } from "@/components/trustpilot-proof";
+import { WhatWeDo } from "@/components/what-we-do";
+import { sitePath } from "@/lib/site-path";
+import type { CSSProperties } from "react";
 
-const steps = ["Nos dejas tu teléfono", "Entendemos lo que necesitas", "Seleccionamos al profesor", "Empiezan las clases"];
+const steps = [
+  { title: "Déjanos tu número", description: "Empieza solo con tu teléfono. Nosotros te contactamos para continuar." },
+  { title: "Cuéntanos qué necesitas", description: "Nos dices qué estudias, la asignatura y tu situación. Si hace falta, puedes enviarnos apuntes, ejercicios o exámenes para entender mejor tu caso." },
+  { title: "Te presentamos hasta 3 profesores", description: "Buscamos los que mejor encajen y te mostramos un máximo de tres perfiles con la información necesaria y el motivo de cada recomendación. Tú eliges." },
+  { title: "Empieza las clases", description: "Coordinamos contigo la primera clase. Después, puedes organizar directamente con tu profesor cuándo dar las siguientes." },
+] as const;
 
 export function Hero() {
-  return <section className="hero" data-hero id="inicio"><div className="hero-water" aria-hidden="true"><WaterHeroCanvas /></div><div className="hero-content"><p className="eyebrow">ACADEMIA ONLINE · CIENCIAS Y MATEMÁTICAS</p><h1 className="hero-title"><span className="sr-only">Creemos en ti</span><span className="hero-title-layer hero-title-a" aria-hidden="true">Creemos en ti</span><span className="hero-title-layer hero-title-b" aria-hidden="true">Creemos en ti</span><span className="hero-title-layer hero-title-c" aria-hidden="true">Creemos en ti</span><span className="hero-title-layer hero-title-d" aria-hidden="true">Creemos en ti</span></h1><p className="hero-lead">No necesitas cien profesores. Necesitas uno que encaje.</p><LeadCapture /></div><a href="#prueba" className="scroll-cue" aria-label="Seguir explorando"><span /></a></section>;
+  return <section className="hero editorial-hero" data-hero id="inicio">
+    <p className="hero-descriptor">Academia online · Ciencias, tecnología y áreas cuantitativas</p>
+    <div className="hero-planes" aria-hidden="true"><i /><i /><i /><i /><i /></div>
+    <div className="hero-content">
+      <div className="hero-copy">
+        <h1 className="hero-title"><span>Creemos</span>{" "}<span>en ti</span></h1>
+        <span className="hero-underline" aria-hidden="true" />
+        <p className="hero-lead">No necesitas cien profesores. Necesitas uno que encaje.</p>
+        <LeadCapture countrySelector />
+      </div>
+      <figure className="hero-photo">
+        <Image src={sitePath("/images/teselando/hero-student-v2.webp")} alt="Estudiante trabajando junto a su portátil y sus libros." fill preload sizes="(max-width: 760px) 100vw, (max-width: 1200px) 58vw, 54vw" />
+      </figure>
+    </div>
+  </section>;
 }
 
-export function ImmediateProof() {
-  return <section className="section proof-section grid-bg" id="prueba" data-reveal><div className="section-index">02</div><div className="section-heading"><p className="eyebrow">UNA ACADEMIA, NO UN CATÁLOGO</p><h2>Profesores seleccionados para lo que necesitas.</h2></div><div className="proof-path" aria-label="Entendemos, seleccionamos y acompañamos"><span>Entendemos</span><span>Seleccionamos</span><span>Acompañamos</span></div></section>;
-}
+export function ImmediateProof() { return <WhatWeDo />; }
 
 export function HowItWorks() {
-  return <section className="section process-section" id="proceso" data-reveal><div className="section-heading"><p className="eyebrow">PASO A PASO</p><h2>Así funciona</h2></div><ol className="process-list">{steps.map((step, index) => <li key={step}><span className="step-number">0{index + 1}</span><span className="angle-tile" aria-hidden="true" /><strong>{step}</strong></li>)}</ol><Link className="button" href="#contacto">Buscar profesor</Link></section>;
+  return <section className="section process-section" id="proceso" data-reveal>
+    <header className="process-heading"><h2>Así funciona</h2></header>
+    <ol className="process-list">{steps.map((step, index) => <li key={step.title}><span className="step-number" aria-hidden="true"><i>0{index + 1}</i></span><div className="process-step-copy"><h3>{step.title}</h3><p>{step.description}</p></div></li>)}</ol>
+    <div className="process-close"><p>Si surge cualquier duda o incidencia, puedes acudir a Teselando.</p><Link className="text-link" href="#contacto">Buscar profesor <span aria-hidden="true">↗</span></Link></div>
+  </section>;
 }
 
-export function Fit() {
-  return <section className="section fit-section" id="encaje" data-reveal><div className="fit-copy"><p className="eyebrow">SELECCIÓN Y ENCAJE</p><h2>No buscamos cualquier profe. Buscamos el que encaje con tu caso.</h2><div className="fit-criteria"><span>Nivel</span><span>Objetivo</span><span>Ritmo</span><span>Disponibilidad</span></div><Link className="text-link light-link" href="/como-funciona/">Ver cómo funciona</Link></div><div className="fit-visual" aria-hidden="true"><i /><i /><i /><i /><div className="fit-core" /></div></section>;
-}
-
-export function Professors() {
-  return <section className="section professors-section banner-bg" id="profesores" data-reveal><div className="section-heading"><p className="eyebrow">PERSONAS QUE ENSEÑAN</p><h2>Profesores reales</h2></div><div className="teaching-table" aria-hidden="true"><div className="seat seat-a" /><div className="worksheet"><span /><span /><span /><span /></div><div className="seat seat-b" /></div><div className="subject-index"><span>Ciencias</span><span>Matemáticas</span><span>Bachillerato</span><span>Universidad</span></div></section>;
-}
+export function Selection() { return <SelectionShowcase />; }
+export function Inside() { return <TeselandoInside />; }
 
 export function SocialProof() {
-  return <section className="section evidence-section grid-bg" id="evidencia" data-reveal><div className="section-heading"><p className="eyebrow">PRUEBA ANTES QUE PROMESA</p><h2>Razones para creer</h2></div><div className="evidence-line"><span>Selección</span><span>Experiencia relevante</span><span>Especialización</span><span>Presentación cuidada</span></div></section>;
+  return <section className="section evidence-section" id="evidencia" data-reveal><header className="evidence-heading"><h2>Razones para creer</h2></header><TrustpilotProof /><p className="evidence-line">Selección <span /> Experiencia relevante <span /> Especialización <span /> Presentación cuidada</p></section>;
 }
 
 export function Protection() {
-  return <section className="section protection-section" id="proteccion" data-reveal><div className="protection-copy"><p className="eyebrow">LA ACADEMIA SIGUE PRESENTE</p><h2>Si algo no encaja, seguimos contigo</h2></div><div className="continuity-line" aria-hidden="true"><span /><span className="swap" /><span /></div><div className="mechanism-index"><span>Cambio de profesor</span><span>Traslado de contexto</span><span>Soporte</span><span>Continuidad</span></div></section>;
+  return <section className="section protection-section" id="proteccion" data-reveal>
+    <div className="protection-landscape" aria-hidden="true">
+      <i className="protection-sun" />
+      <i className="protection-mountain" />
+      <i className="protection-sea" />
+      <i className="protection-shore" />
+      <i className="protection-foreground" />
+    </div>
+    <div className="protection-copy">
+      <p className="eyebrow">Protección</p>
+      <h2>Teselando siempre estará para ti.</h2>
+      <p>Tu profesor lleva las clases. Teselando sigue detrás para ayudarte cuando lo necesites.</p>
+      <Link className="text-link" href="/garantia/">Conoce nuestra garantía <span aria-hidden="true">→</span></Link>
+    </div>
+  </section>;
 }
 
 export function Pricing() {
-  return <section className="section pricing-section" id="precio" data-reveal><div className="price-display"><p>Desde</p><h2>20 <span>€/h</span></h2></div><div className="price-details"><div><span>Precio</span><span>depende del contexto</span></div><div><span>Antes de empezar</span><span>conoces el importe exacto</span></div><div><span>Pago</span><span>clase a clase</span></div><Link className="button" href="/precios/">Ver precio y condiciones</Link></div></section>;
+  const pricingStyle = { "--pricing-bg": `url("${sitePath("/images/teselando/band-study.webp")}")` } as CSSProperties;
+  return <section className="section pricing-section" id="precio" data-reveal style={pricingStyle}><div className="price-heading"><p className="eyebrow">Precios</p><h2>Clases desde</h2></div><div className="price-construction"><p className="price-display"><strong>20</strong><span>€/h.</span></p></div><div className="price-body"><p>El precio puede variar según tu nivel, asignatura y la especialización que necesites. Antes de decidir, sabrás cuánto cuesta tu clase.</p><ul><li>Pago clase a clase</li><li>Precio claro antes de empezar</li></ul><Link className="text-link" href="/precios/">Conoce nuestros precios <span aria-hidden="true">→</span></Link></div></section>;
 }
 
 export function FinalCta() {
-  return <section className="section final-cta" id="contacto" data-reveal><div className="final-shape" aria-hidden="true" /><div><p className="eyebrow">EMPECEMOS POR TU CASO</p><h2>Creemos en ti</h2><LeadCapture tone="blue" /></div></section>;
+  return <section className="section final-cta" id="contacto" data-reveal><div className="final-planes" aria-hidden="true"><i /><i /><i /><i /></div><div className="final-content"><p className="eyebrow">Empecemos por tu caso</p><h2>Creemos en ti</h2><LeadCapture tone="blue" /></div></section>;
 }

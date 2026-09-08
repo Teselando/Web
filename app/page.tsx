@@ -1,7 +1,7 @@
 import { Footer } from "@/components/footer";
 import { ScrollExperience } from "@/components/scroll-experience";
-import { FinalCta, Fit, Hero, HowItWorks, ImmediateProof, Pricing, Professors, Protection, SocialProof } from "@/sections/home";
+import { FinalCta, Hero, HowItWorks, ImmediateProof, Inside, Pricing, Protection, Selection, SocialProof } from "@/sections/home";
 
 export default function HomePage() {
-  return <><main id="contenido"><Hero /><ImmediateProof /><HowItWorks /><Fit /><Professors /><SocialProof /><Protection /><Pricing /><FinalCta /></main><Footer /><ScrollExperience /></>;
+  return <><main id="contenido" className="home-page"><Hero /><ImmediateProof /><HowItWorks /><Selection /><Inside /><SocialProof /><Protection /><Pricing /><FinalCta /></main><Footer /><ScrollExperience /></>;
 }

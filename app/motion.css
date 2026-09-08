@@ -1,0 +1,15 @@
+/* Shared motion primitives. Section-specific choreography lives beside its composition. */
+.question{animation:question-in .48s var(--ease) both}
+@keyframes question-in{from{opacity:0;transform:translateY(14px)}}
+
+@media (prefers-reduced-motion:no-preference){
+  .motion-ready .detail-section>*{opacity:0;transform:translateY(20px);transition:opacity .3s ease,transform .42s var(--ease)}
+  .motion-ready .detail-section.is-revealed>*{opacity:1;transform:none}
+  .motion-ready .detail-section.is-revealed>:nth-child(2){transition-delay:.08s}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .motion-ready [data-reveal]{opacity:1!important;transform:none!important}
+}

@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
-import { Figtree, Gabarito } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
+import "./motion.css";
+import "./homepage.css";
+import "./art-direction.css";
 import { BrandLoader } from "@/components/brand-loader";
 import { SiteChrome } from "@/components/site-chrome";
 import { ConsentBanner } from "@/components/consent-banner";
 
-const figtree = Figtree({ subsets: ["latin"], variable: "--font-body", display: "swap" });
-const gabarito = Gabarito({ subsets: ["latin"], variable: "--font-display", display: "swap" });
+const figtree = localFont({ src: "../public/fonts/figtree-latin.woff2", weight: "300 900", variable: "--font-body", display: "swap" });
+const gabarito = localFont({ src: "../public/fonts/gabarito-latin.woff2", weight: "400 900", variable: "--font-display", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://teselando.es"),

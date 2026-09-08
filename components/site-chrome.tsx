@@ -32,7 +32,7 @@ export function SiteChrome() {
       const frame = requestAnimationFrame(() => setVisible(true));
       return () => cancelAnimationFrame(frame);
     }
-    const observer = new IntersectionObserver(([entry]) => setVisible(!entry.isIntersecting), {
+    const observer = new IntersectionObserver(([entry]) => setVisible(entry.boundingClientRect.bottom <= 1), {
       threshold: 0,
     });
     observer.observe(hero);
