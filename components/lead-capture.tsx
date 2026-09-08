@@ -20,7 +20,7 @@ export function LeadCapture({ tone = "light", countrySelector = false, helperTex
     if (number.replace(/\D/g, "").length < 7) {
       setStatus("error"); setMessage("Introduce un número válido."); return;
     }
-    setStatus("submitting"); setMessage("");
+    setStatus("submitting"); setMessage("Guardando tu contacto de forma segura. Puede tardar unos segundos.");
     try {
       const result = await sendLeadAction({
         action: "createLead",

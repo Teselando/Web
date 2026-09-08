@@ -22,7 +22,10 @@ export async function sendLeadAction(payload: Record<string, unknown>): Promise<
   }
 
   const controller = new AbortController();
-  const timeout = window.setTimeout(() => controller.abort(), 12_000);
+  // Apps Script web apps can take noticeably longer on the first request after
+  // being idle. Keep a finite timeout, but leave enough room for that cold start
+  // so the browser does not cancel a valid Sheet write halfway through.
+  const timeout = window.setTimeout(() => controller.abort(), 45_000);
 
   try {
     // text/plain keeps this a CORS-simple request. Apps Script then performs all
