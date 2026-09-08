@@ -20,21 +20,26 @@ export function LeadCapture({ tone = "light", countrySelector = false, helperTex
     if (number.replace(/\D/g, "").length < 7) {
       setStatus("error"); setMessage("Introduce un número válido."); return;
     }
-    setStatus("submitting"); setMessage("Guardando tu contacto de forma segura. Puede tardar unos segundos.");
-    try {
-      const result = await sendLeadAction({
-        action: "createLead",
-        phone,
-        website: data.get("website"),
-        sourcePage: location.pathname,
-        idempotencyKey: crypto.randomUUID(),
-      });
-      if (!result.leadId) throw new Error("save_failed");
-      sessionStorage.setItem("teselando:lead", result.leadId);
-      setStatus("success");
-    } catch {
-      setStatus("error"); setMessage("No hemos podido guardar tu teléfono. Inténtalo de nuevo.");
-    }
+    const leadId = crypto.randomUUID();
+    const payload = {
+      action: "createLead",
+      leadId,
+      phone,
+      website: data.get("website"),
+      sourcePage: location.pathname,
+      idempotencyKey: crypto.randomUUID(),
+    };
+
+    sessionStorage.setItem("teselando:lead", leadId);
+    sessionStorage.setItem("teselando:pending-lead", JSON.stringify(payload));
+    setStatus("success");
+
+    void sendLeadAction(payload).then((result) => {
+      if (result.leadId === leadId) sessionStorage.removeItem("teselando:pending-lead");
+    }).catch(() => {
+      // Keep the payload in session storage. The diagnostic retries it before
+      // saving the answers, using the same idempotency key and lead ID.
+    });
   }
 
   if (status === "success") {

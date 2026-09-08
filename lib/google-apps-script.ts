@@ -35,6 +35,7 @@ export async function sendLeadAction(payload: Record<string, unknown>): Promise<
       headers: { "content-type": "text/plain;charset=UTF-8" },
       body: JSON.stringify(payload),
       redirect: "follow",
+      keepalive: true,
       signal: controller.signal,
     });
     if (!response.ok) throw new LeadServiceError();

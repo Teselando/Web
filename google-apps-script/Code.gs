@@ -83,7 +83,10 @@ function createLead_(payload) {
     }
 
     var now = new Date().toISOString();
-    var leadId = Utilities.getUuid();
+    var leadId = clean_(payload.leadId, 80) || Utilities.getUuid();
+    if (!/^[A-Za-z0-9-]{16,80}$/.test(leadId)) {
+      return json_({ ok: false, error: "invalid_lead" });
+    }
     sheet.appendRow([
       leadId, now, now, idempotencyKey, phone, sourcePage,
       "", "", "", "", "", "", "", "", "", "", false, false

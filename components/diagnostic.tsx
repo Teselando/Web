@@ -22,7 +22,16 @@ export function Diagnostic() {
   async function finish() {
     const leadId = sessionStorage.getItem("teselando:lead"); if (!leadId) { setError("Primero necesitamos guardar tu teléfono."); return; }
     setSaving(true); setError("");
-    try { await sendLeadAction({ action: "updateDiagnostic", leadId, ...answers }); sessionStorage.setItem("teselando:summary", summary); router.push("/solicitud/completada/"); } catch { setError("No hemos podido guardar tus respuestas. Inténtalo de nuevo."); setSaving(false); }
+    try {
+      const pendingLead = sessionStorage.getItem("teselando:pending-lead");
+      if (pendingLead) {
+        await sendLeadAction(JSON.parse(pendingLead));
+        sessionStorage.removeItem("teselando:pending-lead");
+      }
+      await sendLeadAction({ action: "updateDiagnostic", leadId, ...answers });
+      sessionStorage.setItem("teselando:summary", summary);
+      router.push("/solicitud/completada/");
+    } catch { setError("No hemos podido guardar tus respuestas. Inténtalo de nuevo."); setSaving(false); }
   }
   function chooseStudy(value: Answers["studyType"]) { setAnswers({ ...initial, studyType: value }); move(1); }
   return <div className="diagnostic"><div className="diagnostic-progress" aria-label="Progreso"><span className="done">Contacto ✓</span><span className={step <= 1 ? "active" : "done"}>Estudios</span><span className={step >= 2 && step < 4 ? "active" : step >= 4 ? "done" : ""}>Necesidad</span><span className={step === 4 ? "active" : ""}>Listo</span></div><p className="diagnostic-privacy">Teselando utiliza estas respuestas para comprender tu situación y buscar un profesor, como medida previa a la contratación. No se usan como consentimiento para publicidad. <Link href="/legal/privacidad/">Consulta la Política de privacidad.</Link></p>
