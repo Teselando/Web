@@ -2,17 +2,16 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
-import { sendLeadAction } from "@/lib/google-apps-script";
+import { flushPendingLeadData } from "@/lib/google-apps-script";
 
 const callingCodes = ["+34", "+33", "+351", "+39", "+44", "+49", "+1", "+52", "+54", "+56", "+57", "+58"];
 
 export function LeadCapture({ tone = "light", countrySelector = false, helperText = "Te escribiremos por WhatsApp para continuar." }: { tone?: "light" | "blue"; countrySelector?: boolean; helperText?: string }) {
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
 
-  async function submit(event: FormEvent<HTMLFormElement>) {
+  function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (status === "submitting") return;
     const data = new FormData(event.currentTarget);
     const number = String(data.get("phone") ?? "").trim();
     const callingCode = String(data.get("callingCode") ?? "+34");
@@ -33,13 +32,7 @@ export function LeadCapture({ tone = "light", countrySelector = false, helperTex
     sessionStorage.setItem("teselando:lead", leadId);
     sessionStorage.setItem("teselando:pending-lead", JSON.stringify(payload));
     setStatus("success");
-
-    void sendLeadAction(payload).then((result) => {
-      if (result.leadId === leadId) sessionStorage.removeItem("teselando:pending-lead");
-    }).catch(() => {
-      // Keep the payload in session storage. The diagnostic retries it before
-      // saving the answers, using the same idempotency key and lead ID.
-    });
+    void flushPendingLeadData();
   }
 
   if (status === "success") {
@@ -51,7 +44,7 @@ export function LeadCapture({ tone = "light", countrySelector = false, helperTex
       <label className={countrySelector ? "sr-only" : undefined} htmlFor={`phone-${tone}`}>Tu teléfono</label>
       <div className="lead-row">
         {countrySelector ? <div className="phone-field"><select name="callingCode" defaultValue="+34" aria-label="Código de país">{callingCodes.map((code) => <option key={code} value={code}>{code}</option>)}</select><input id={`phone-${tone}`} name="phone" type="tel" autoComplete="tel-national" inputMode="tel" maxLength={24} placeholder="Tu número de teléfono" required aria-describedby={`phone-help-${tone}`} /></div> : <input id={`phone-${tone}`} name="phone" type="tel" autoComplete="tel" inputMode="tel" maxLength={32} required aria-describedby={`phone-help-${tone}`} />}
-        <button className="button" type="submit" disabled={status === "submitting"}>{status === "submitting" ? "Guardando…" : "Buscar profesor"}</button>
+        <button className="button" type="submit">Buscar profesor</button>
       </div>
       <input className="honeypot" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
       <p id={`phone-help-${tone}`} className={`form-note ${status === "error" ? "form-error" : ""}`} aria-live="polite">{message || helperText}</p>

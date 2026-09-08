@@ -10,6 +10,10 @@ type ScriptFailure = {
   error?: string;
 };
 
+const pendingLeadKey = "teselando:pending-lead";
+const pendingDiagnosticKey = "teselando:pending-diagnostic";
+let pendingFlush: Promise<void> | undefined;
+
 export class LeadServiceError extends Error {
   constructor(message = "lead_service_unavailable") {
     super(message);
@@ -49,4 +53,32 @@ export async function sendLeadAction(payload: Record<string, unknown>): Promise<
   } finally {
     window.clearTimeout(timeout);
   }
+}
+
+export function flushPendingLeadData(): Promise<void> {
+  if (pendingFlush) return pendingFlush;
+
+  pendingFlush = (async () => {
+    const pendingLead = sessionStorage.getItem(pendingLeadKey);
+    if (pendingLead) {
+      await sendLeadAction(JSON.parse(pendingLead));
+      if (sessionStorage.getItem(pendingLeadKey) === pendingLead) {
+        sessionStorage.removeItem(pendingLeadKey);
+      }
+    }
+
+    const pendingDiagnostic = sessionStorage.getItem(pendingDiagnosticKey);
+    if (pendingDiagnostic) {
+      await sendLeadAction(JSON.parse(pendingDiagnostic));
+      if (sessionStorage.getItem(pendingDiagnosticKey) === pendingDiagnostic) {
+        sessionStorage.removeItem(pendingDiagnosticKey);
+      }
+    }
+  })().catch(() => {
+    // The payloads remain in session storage and are retried on the next page.
+  }).finally(() => {
+    pendingFlush = undefined;
+  });
+
+  return pendingFlush;
 }
