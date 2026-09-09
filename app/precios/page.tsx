@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { DetailPage } from "@/components/page-shell";
 
 export const metadata: Metadata = { title: "Precios", alternates: { canonical: "/precios/" } };
-export default function Page() { return <DetailPage eyebrow="PRECIO Y CONDICIONES" title="Desde 20 €/h" intro="El precio depende del contexto. Conoces el importe exacto antes de empezar." sections={[
+export default function Page() { return <DetailPage eyebrow="PRECIO Y CONDICIONES" title="Desde 20 €/h" intro="El precio depende del contexto. Conoces el importe exacto antes de empezar." heroImage="/images/teselando/band-study.webp" heroImageAlt="Estudiante trabajando con sus apuntes" sections={[
   { eyebrow: "CÓMO FUNCIONA", title: "El precio varía según el caso", items: ["Asignatura", "Nivel", "Objetivo", "Disponibilidad"] },
   { eyebrow: "ANTES DE EMPEZAR", title: "Conoces el importe exacto" },
   { eyebrow: "PAGO", title: "Clase a clase" },
