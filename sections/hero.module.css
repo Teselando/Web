@@ -4,6 +4,7 @@
   --hero-shape-x: 0px;
   --hero-shape-y: 0px;
   position: relative;
+  z-index: 1;
   min-height: 100svh;
   overflow: hidden;
   color: var(--ink);
@@ -148,22 +149,9 @@
   transition: transform .25s ease-out;
 }
 .stripedSun { position: absolute; z-index: 7; top: 11.5%; right: 10.5%; width: clamp(78px, 8.4vw, 138px); aspect-ratio: 1; border-radius: 50%; background: repeating-linear-gradient(135deg, #ffd166 0 7px, transparent 7px 14px); }
-.notePlane {
-  position: absolute;
-  z-index: 6;
-  top: 25%;
-  right: -2%;
-  width: 20vw;
-  height: 27vw;
-  max-height: 430px;
-  border: 1px solid rgba(12, 45, 69, .12);
-  background: rgba(250, 248, 243, .96);
-  clip-path: polygon(24% 0, 100% 17%, 100% 100%, 0 85%, 0 20%);
-  transform: rotate(5deg);
-}
 .noteOverlay { position: absolute; z-index: 7; top: 25%; right: -2%; width: 20vw; height: 27vw; max-height: 430px; transform: rotate(5deg); }
-.noteOverlay p { position: absolute; top: 22%; left: 31%; width: 57%; margin: 0; color: #0b2940; font-family: "Segoe Print", "Bradley Hand", cursive; font-size: clamp(.82rem, 1.2vw, 1.2rem); font-weight: 700; line-height: 1.35; transform: rotate(-8deg); }
-.noteOverlay i { position: absolute; top: 54%; left: 20%; width: 53%; aspect-ratio: 3.8 / 1; background: url("/images/teselando/hero-note-arrow-trimmed.png") center / contain no-repeat; transform: scaleX(-1) rotate(-8deg); transform-origin: center; }
+.noteOverlay p { position: absolute; top: 22%; left: 31%; width: 57%; margin: 0; color: #fff; font-family: "Segoe Print", "Bradley Hand", cursive; font-size: clamp(.82rem, 1.2vw, 1.2rem); font-weight: 700; line-height: 1.35; text-shadow: 0 2px 14px rgba(5, 29, 43, .82), 0 1px 2px rgba(5, 29, 43, .9); transform: rotate(-8deg); }
+.noteOverlay i { position: absolute; top: 54%; left: 20%; width: 53%; aspect-ratio: 3.8 / 1; background: url("/images/teselando/hero-note-arrow-trimmed.png") center / contain no-repeat; filter: brightness(0) invert(1) drop-shadow(0 2px 7px rgba(5, 29, 43, .72)); transform: scaleX(-1) rotate(-8deg); transform-origin: center; }
 
 .foreground { position: absolute; z-index: 6; inset: 0; overflow: hidden; pointer-events: none; }
 .foreground > i { position: absolute; display: block; }
@@ -207,7 +195,7 @@
   .title { font-size: clamp(5rem, 9vw, 6.5rem); }
   .photoFrame { left: 44%; }
   .hero :global(.lead-row) { grid-template-columns: minmax(250px, 1fr) minmax(170px, 210px); }
-  .notePlane, .noteOverlay { right: -2%; }
+  .noteOverlay { right: -2%; }
 }
 
 @media (max-width: 760px) {
@@ -229,7 +217,7 @@
   .skyFold { top: 27%; left: -5%; width: 34vw; height: 31vw; }
   .topBlock { top: -9%; right: -13%; width: 39vw; }
   .stripedSun { top: 2%; right: 7%; width: 68px; }
-  .notePlane, .noteOverlay { display: none; }
+  .noteOverlay { display: none; }
   .scrollCue { bottom: 14px; width: 40px; }
   .foreground { z-index: 6; top: auto; height: 225px; }
   .leftPlane { bottom: -21vw; left: -23vw; width: 58vw; height: 52vw; }
@@ -252,7 +240,7 @@
   .lead { animation-delay: .25s; }
   .hero :global(.lead-form) { animation-delay: .32s; }
   .photoFrame { animation: photoIn .9s .12s both cubic-bezier(.2,.7,.2,1); }
-  .skyFold, .topBlock, .notePlane, .noteOverlay { animation: shapeIn .8s .22s both cubic-bezier(.2,.7,.2,1); }
+  .skyFold, .topBlock, .noteOverlay { animation: shapeIn .8s .22s both cubic-bezier(.2,.7,.2,1); }
   .stripedSun { animation: sunIn .7s .3s both cubic-bezier(.2,.7,.2,1), stripeDrift 14s 1s linear infinite; }
   .foreground { animation: foregroundIn .9s .22s both cubic-bezier(.2,.7,.2,1); }
   .scrollCue span { animation: cueDown 1.55s .8s ease-in-out infinite; }

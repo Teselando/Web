@@ -108,7 +108,6 @@ export function WhatWeDo() {
   return <section className={styles.section} id="prueba" data-reveal>
     <div className={styles.paperTop} aria-hidden="true" />
     <div className={styles.paperBottom} aria-hidden="true" />
-    <div className={styles.books} aria-hidden="true"><i /><i /><i /></div>
     <div className={styles.inner}>
       <div className={styles.copy}>
         <header className={styles.heading}>

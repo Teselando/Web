@@ -38,7 +38,6 @@ export function Hero() {
       <i className={heroStyles.skyFold} />
       <i className={heroStyles.topBlock} />
       <i className={heroStyles.stripedSun} />
-      <div className={heroStyles.notePlane} />
       <div className={heroStyles.noteOverlay}><p>Mismas metas.<br />Mejor acompañamiento.</p><i /></div>
     </div>
 
