@@ -1,0 +1,271 @@
+.hero {
+  --hero-photo-x: 0px;
+  --hero-photo-y: 0px;
+  --hero-shape-x: 0px;
+  --hero-shape-y: 0px;
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  color: var(--ink);
+  background: radial-gradient(circle at 22% 29%, #faf8f3 0%, #faf8f3 24%, #f4fbfc 61%, #ddf6ff 100%);
+  isolation: isolate;
+}
+
+.texture {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  opacity: .5;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(250, 248, 243, .9), rgba(250, 248, 243, .9)),
+    url("/images/teselando/hero-higgsfield-art-v2.png"),
+    repeating-linear-gradient(0deg, rgba(9, 44, 66, .025) 0, rgba(9, 44, 66, .025) 1px, transparent 1px, transparent 4px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .08) 0, rgba(255, 255, 255, .08) 1px, transparent 1px, transparent 5px);
+  background-position: center, left bottom, center, center;
+  background-size: cover, 210% auto, auto, auto;
+  background-blend-mode: normal, soft-light, normal, normal;
+}
+
+.copy {
+  position: relative;
+  z-index: 8;
+  width: min(49vw, 735px);
+  padding-top: clamp(125px, 17.5vh, 176px);
+  margin-left: clamp(38px, 6.1vw, 98px);
+}
+
+.eyebrow {
+  margin: 0 0 clamp(8px, 1.2vh, 14px);
+  color: #0c2d45;
+  font-size: clamp(.7rem, .98vw, .92rem);
+  font-weight: 570;
+  letter-spacing: .31em;
+  line-height: 1.2;
+}
+
+.title {
+  display: grid;
+  width: max-content;
+  margin: 0;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(5.4rem, 8.9vw, 9.05rem);
+  font-weight: 880;
+  letter-spacing: -.085em;
+  line-height: .75;
+}
+
+.title span { display: block; }
+.title span:last-child { color: #0baef1; }
+.titleSecond { width: max-content; }
+
+.underline {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 20px;
+  margin: clamp(4px, .8vh, 10px) 0 clamp(18px, 2.7vh, 30px);
+  transform: rotate(-5deg);
+}
+
+.underline, .underline i { border-top: clamp(4px, .42vw, 7px) solid #ffd166; border-radius: 50%; }
+.underline i { position: absolute; top: 3px; height: 11px; }
+.underline i:first-child { left: 8%; width: 90%; transform: rotate(4deg); }
+.underline i:last-child { top: 10px; left: 22%; width: 63%; transform: rotate(-2deg); }
+
+.lead {
+  max-width: 490px;
+  margin: 0 0 clamp(20px, 2.6vh, 28px);
+  color: #0b2940;
+  font-size: clamp(1.15rem, 1.6vw, 1.48rem);
+  font-weight: 690;
+  letter-spacing: -.035em;
+  line-height: 1.18;
+}
+
+.hero :global(.lead-form) { width: min(665px, 100%); }
+.hero :global(.lead-form label) { margin-bottom: 8px; font-size: .78rem; font-weight: 650; letter-spacing: 0; text-transform: none; }
+.hero :global(.lead-row) { grid-template-columns: minmax(285px, 1fr) minmax(190px, 238px); gap: 10px; }
+.hero :global(.phone-field) { grid-template-columns: 100px minmax(0, 1fr); }
+.hero :global(.lead-row input), .hero :global(.phone-field select) { min-height: 58px; border-color: rgba(12, 45, 69, .42); background-color: rgba(255, 255, 255, .66); box-shadow: none; }
+.hero :global(.phone-field select) {
+  appearance: none;
+  border-radius: 999px 0 0 999px;
+  padding: 0 34px 0 22px;
+  color: var(--ink);
+  background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%);
+  background-position: calc(100% - 19px) 50%, calc(100% - 14px) 50%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+.hero :global(.phone-field input) { border-radius: 0 999px 999px 0; }
+.hero :global(.lead-row .button) { min-height: 58px; white-space: nowrap; }
+.hero :global(.form-privacy) { margin-top: 10px; font-size: .71rem; }
+.hero :global(.form-privacy a) { color: #006dac; text-underline-offset: 3px; }
+.hero :global(.lead-success) { background: rgba(250, 248, 243, .94); }
+
+.collage { position: absolute; z-index: 3; inset: 0; pointer-events: none; }
+.photoFrame {
+  position: absolute;
+  z-index: 3;
+  top: 10.5%;
+  right: -2.5%;
+  bottom: -2%;
+  left: 41.5%;
+  padding: 8px 0 0 8px;
+  background: linear-gradient(145deg, #d7f5ff 0 28%, #2bcaff 28% 54%, #008de9 54% 100%);
+  clip-path: polygon(54% 0, 100% 15%, 100% 100%, 4% 100%, 0 50%);
+  transform: translate3d(var(--hero-photo-x), var(--hero-photo-y), 0);
+  transition: transform .2s ease-out;
+}
+.photo { position: relative; width: 100%; height: 100%; margin: 0; overflow: hidden; clip-path: polygon(54% 0, 100% 15%, 100% 100%, 4% 100%, 0 50%); }
+.photo img { object-fit: cover; object-position: 61% 50%; filter: saturate(.89) contrast(1.025); transform: scale(1.025); }
+.photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(128deg, rgba(182, 238, 255, .16), transparent 39%, rgba(12, 45, 69, .06)); }
+
+.skyFold {
+  position: absolute;
+  z-index: 4;
+  top: 41%;
+  left: 42%;
+  width: 18vw;
+  height: 16vw;
+  background: linear-gradient(145deg, rgba(182, 238, 255, .93), rgba(43, 202, 255, .96) 72%);
+  clip-path: polygon(0 16%, 100% 0, 72% 100%, 9% 78%);
+  transform: translate3d(var(--hero-shape-x), var(--hero-shape-y), 0);
+  transition: transform .25s ease-out;
+}
+.topBlock {
+  position: absolute;
+  z-index: 5;
+  top: -9vw;
+  right: -4vw;
+  width: 25vw;
+  aspect-ratio: 1.12;
+  border: 1px solid rgba(12, 45, 69, .24);
+  background: linear-gradient(145deg, #2bcaff 0 64%, #008de9 64%);
+  clip-path: polygon(22% 0, 100% 16%, 82% 100%, 0 76%);
+  transform: translate3d(var(--hero-shape-x), var(--hero-shape-y), 0);
+  transition: transform .25s ease-out;
+}
+.stripedSun { position: absolute; z-index: 7; top: 11.5%; right: 10.5%; width: clamp(78px, 8.4vw, 138px); aspect-ratio: 1; border-radius: 50%; background: repeating-linear-gradient(135deg, #ffd166 0 7px, transparent 7px 14px); }
+.notePlane {
+  position: absolute;
+  z-index: 6;
+  top: 25%;
+  right: -2%;
+  width: 20vw;
+  height: 27vw;
+  max-height: 430px;
+  border: 1px solid rgba(12, 45, 69, .12);
+  background: rgba(250, 248, 243, .96);
+  clip-path: polygon(24% 0, 100% 17%, 100% 100%, 0 85%, 0 20%);
+  transform: rotate(5deg);
+}
+.noteOverlay { position: absolute; z-index: 7; top: 25%; right: -2%; width: 20vw; height: 27vw; max-height: 430px; transform: rotate(5deg); }
+.noteOverlay p { position: absolute; top: 22%; left: 31%; width: 57%; margin: 0; color: #0b2940; font-family: "Segoe Print", "Bradley Hand", cursive; font-size: clamp(.82rem, 1.2vw, 1.2rem); font-weight: 700; line-height: 1.35; transform: rotate(-8deg); }
+.noteOverlay i { position: absolute; top: 54%; left: 20%; width: 53%; aspect-ratio: 3.8 / 1; background: url("/images/teselando/hero-note-arrow-trimmed.png") center / contain no-repeat; transform: scaleX(-1) rotate(-8deg); transform-origin: center; }
+
+.foreground { position: absolute; z-index: 6; inset: 0; overflow: hidden; pointer-events: none; }
+.foreground > i { position: absolute; display: block; }
+.leftPlane { bottom: -12vw; left: -9vw; width: 31vw; height: 28vw; background: linear-gradient(145deg, #2bcaff 0 58%, #008de9 58%); clip-path: polygon(0 0, 100% 38%, 78% 100%, 0 84%); }
+.centerPlane { z-index: 2; right: 31%; bottom: -19vw; width: 43vw; aspect-ratio: 1; border: 1px solid rgba(12, 45, 69, .08); background: rgba(182, 238, 255, .92); transform: rotate(45deg); }
+.paperPlane { z-index: 3; right: -10%; bottom: -19vw; width: 54vw; height: 32vw; border: 1px solid rgba(12, 45, 69, .1); background: rgba(250, 248, 243, .97); clip-path: polygon(23% 0, 100% 34%, 100% 100%, 0 100%, 0 24%); }
+
+.scrollCue {
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  bottom: 22px;
+  display: grid;
+  width: 44px;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgba(12, 45, 69, .48);
+  border-radius: 50%;
+  background: rgba(250, 248, 243, .86);
+  color: #0c2d45;
+  box-shadow: 0 8px 24px rgba(37, 107, 134, .12);
+  transform: translateX(-50%);
+  transition: background-color .2s ease, border-color .2s ease, transform .2s ease;
+}
+.scrollCue span { display: block; width: 10px; height: 10px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translate(-2px, -2px); }
+.scrollCue:hover { border-color: #008de9; background: #fff; transform: translateX(-50%) translateY(-2px); }
+.scrollCue:focus-visible { outline: 3px solid rgba(0, 141, 233, .32); outline-offset: 4px; }
+
+@media (min-width: 761px) and (max-height: 760px) {
+  .copy { padding-top: 102px; }
+  .eyebrow { margin-bottom: 7px; }
+  .title { font-size: clamp(4.8rem, 8.25vw, 6.6rem); }
+  .underline { height: 15px; margin-top: 2px; margin-bottom: 14px; }
+  .lead { margin-bottom: 17px; font-size: 1.08rem; }
+  .hero :global(.lead-row input), .hero :global(.phone-field select), .hero :global(.lead-row .button) { min-height: 52px; }
+  .photoFrame { top: 9%; }
+}
+
+@media (max-width: 1120px) {
+  .copy { width: 53vw; margin-left: 42px; }
+  .title { font-size: clamp(5rem, 9vw, 6.5rem); }
+  .photoFrame { left: 44%; }
+  .hero :global(.lead-row) { grid-template-columns: minmax(250px, 1fr) minmax(170px, 210px); }
+  .notePlane, .noteOverlay { right: -2%; }
+}
+
+@media (max-width: 760px) {
+  .hero { min-height: 100svh; background: radial-gradient(circle at 35% 15%, #faf8f3 0%, #faf8f3 27%, #f3fbfc 64%, #ddf6ff 100%); }
+  .copy { width: auto; padding: 64px 20px 0; margin: 0; }
+  .eyebrow { margin-bottom: 10px; font-size: .62rem; letter-spacing: .25em; }
+  .title { font-size: clamp(4.1rem, 21.5vw, 5.45rem); line-height: .76; }
+  .underline { width: 100%; height: 15px; margin: 6px 0 19px; }
+  .lead { margin-bottom: 20px; font-size: 1.05rem; }
+  .hero :global(.lead-form) { width: 100%; }
+  .hero :global(.lead-form label) { font-size: .72rem; }
+  .hero :global(.lead-row) { grid-template-columns: 1fr; gap: 9px; }
+  .hero :global(.lead-row .button) { width: 100%; }
+  .hero :global(.form-privacy) { margin-top: 8px; }
+  .collage { position: relative; height: clamp(300px, 80vw, 390px); margin-top: 30px; }
+  .photoFrame { top: 0; right: -9%; bottom: -4%; left: 7%; clip-path: polygon(33% 0, 100% 10%, 100% 100%, 0 100%, 0 36%); }
+  .photo { clip-path: polygon(33% 0, 100% 10%, 100% 100%, 0 100%, 0 36%); }
+  .photo img { object-position: 58% 49%; }
+  .skyFold { top: 27%; left: -5%; width: 34vw; height: 31vw; }
+  .topBlock { top: -9%; right: -13%; width: 39vw; }
+  .stripedSun { top: 2%; right: 7%; width: 68px; }
+  .notePlane, .noteOverlay { display: none; }
+  .scrollCue { bottom: 14px; width: 40px; }
+  .foreground { z-index: 6; top: auto; height: 225px; }
+  .leftPlane { bottom: -21vw; left: -23vw; width: 58vw; height: 52vw; }
+  .centerPlane { right: 19%; bottom: -43vw; width: 75vw; }
+  .paperPlane { right: -31%; bottom: -30vw; width: 92vw; height: 54vw; }
+}
+
+@media (max-width: 390px) {
+  .copy { padding-inline: 16px; }
+  .title { font-size: 4.15rem; }
+  .lead { font-size: 1rem; }
+  .hero :global(.phone-field) { grid-template-columns: 94px minmax(0, 1fr); }
+  .hero :global(.phone-field select) { padding-left: 18px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .eyebrow, .title, .lead, .hero :global(.lead-form) { animation: riseIn .72s both cubic-bezier(.2,.7,.2,1); }
+  .eyebrow { animation-delay: .08s; }
+  .title { animation-delay: .15s; }
+  .lead { animation-delay: .25s; }
+  .hero :global(.lead-form) { animation-delay: .32s; }
+  .photoFrame { animation: photoIn .9s .12s both cubic-bezier(.2,.7,.2,1); }
+  .skyFold, .topBlock, .notePlane, .noteOverlay { animation: shapeIn .8s .22s both cubic-bezier(.2,.7,.2,1); }
+  .stripedSun { animation: sunIn .7s .3s both cubic-bezier(.2,.7,.2,1), stripeDrift 14s 1s linear infinite; }
+  .foreground { animation: foregroundIn .9s .22s both cubic-bezier(.2,.7,.2,1); }
+  .scrollCue span { animation: cueDown 1.55s .8s ease-in-out infinite; }
+}
+
+@keyframes riseIn { from { opacity: 0; transform: translateY(18px); } }
+@keyframes photoIn { from { opacity: 0; translate: 0 24px; } to { opacity: 1; translate: 0 0; } }
+@keyframes shapeIn { from { opacity: 0; translate: 20px -16px; } }
+@keyframes sunIn { from { opacity: 0; scale: .72; } }
+@keyframes stripeDrift { to { background-position: 98px 0; } }
+@keyframes foregroundIn { from { opacity: 0; transform: translateY(12%); } }
+@keyframes cueDown { 0%, 100% { translate: 0 -2px; } 50% { translate: 0 3px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .photoFrame, .skyFold, .topBlock { transform: none; transition: none; }
+}

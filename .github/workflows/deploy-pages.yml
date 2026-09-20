@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAGES: "true"
-      NEXT_PUBLIC_BASE_PATH: "/Web"
+      NEXT_PUBLIC_BASE_PATH: ""
       NEXT_PUBLIC_GOOGLE_APPS_SCRIPT_URL: ${{ vars.GOOGLE_APPS_SCRIPT_URL }}
     steps:
       - name: Checkout

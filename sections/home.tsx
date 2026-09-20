@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { HeroMotion } from "@/components/hero-motion";
 import { LeadCapture } from "@/components/lead-capture";
 import { SelectionShowcase } from "@/components/selection-showcase";
 import { TeselandoInside } from "@/components/teselando-inside";
@@ -7,6 +8,7 @@ import { TrustpilotProof } from "@/components/trustpilot-proof";
 import { WhatWeDo } from "@/components/what-we-do";
 import { sitePath } from "@/lib/site-path";
 import type { CSSProperties } from "react";
+import heroStyles from "./hero.module.css";
 
 const steps = [
   { title: "Déjanos tu número", description: "Empieza solo con tu teléfono. Nosotros te contactamos para continuar." },
@@ -16,20 +18,36 @@ const steps = [
 ] as const;
 
 export function Hero() {
-  return <section className="hero editorial-hero" data-hero id="inicio">
-    <p className="hero-descriptor">Academia online · Ciencias, tecnología y áreas cuantitativas</p>
-    <div className="hero-planes" aria-hidden="true"><i /><i /><i /><i /><i /></div>
-    <div className="hero-content">
-      <div className="hero-copy">
-        <h1 className="hero-title"><span>Creemos</span>{" "}<span>en ti</span></h1>
-        <span className="hero-underline" aria-hidden="true" />
-        <p className="hero-lead">No necesitas cien profesores. Necesitas uno que encaje.</p>
-        <LeadCapture countrySelector />
-      </div>
-      <figure className="hero-photo">
-        <Image src={sitePath("/images/teselando/hero-student-v2.webp")} alt="Estudiante trabajando junto a su portátil y sus libros." fill preload sizes="(max-width: 760px) 100vw, (max-width: 1200px) 58vw, 54vw" />
-      </figure>
+  return <section className={heroStyles.hero} data-hero id="inicio">
+    <HeroMotion />
+    <div className={heroStyles.texture} aria-hidden="true" />
+
+    <div className={heroStyles.copy}>
+      <p className={heroStyles.eyebrow}>Clases particulares online</p>
+      <h1 className={heroStyles.title}><span>Creemos</span><span className={heroStyles.titleSecond}>en ti<span className={heroStyles.underline} aria-hidden="true"><i /><i /></span></span></h1>
+      <p className={heroStyles.lead}>No necesitas cien profesores.<br />Necesitas uno que encaje.</p>
+      <LeadCapture countrySelector showLabel helperText="" phonePlaceholder="612 345 678" privacyLabel="Política de privacidad" />
     </div>
+
+    <div className={heroStyles.collage} aria-hidden="true">
+      <div className={heroStyles.photoFrame}>
+        <figure className={heroStyles.photo}>
+          <Image src={sitePath("/images/teselando/hero-student-v2.webp")} alt="" fill preload sizes="(max-width: 760px) 100vw, 58vw" />
+        </figure>
+      </div>
+      <i className={heroStyles.skyFold} />
+      <i className={heroStyles.topBlock} />
+      <i className={heroStyles.stripedSun} />
+      <div className={heroStyles.notePlane} />
+      <div className={heroStyles.noteOverlay}><p>Mismas metas.<br />Mejor acompañamiento.</p><i /></div>
+    </div>
+
+    <div className={heroStyles.foreground} aria-hidden="true">
+      <i className={heroStyles.leftPlane} />
+      <i className={heroStyles.centerPlane} />
+      <i className={heroStyles.paperPlane} />
+    </div>
+    <a className={heroStyles.scrollCue} href="#prueba" aria-label="Seguir a la siguiente sección"><span aria-hidden="true" /></a>
   </section>;
 }
 
