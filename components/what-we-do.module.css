@@ -2,7 +2,7 @@
   position: relative;
   z-index: 2;
   min-height: 100svh;
-  overflow: visible;
+  overflow: hidden;
   padding: clamp(118px, 11vh, 150px) clamp(32px, 4.6vw, 88px) clamp(74px, 8vh, 105px);
   color: #092b50;
   background: radial-gradient(circle at 36% 39%, rgba(250,248,243,.98) 0 22%, rgba(250,248,243,.94) 41%, rgba(221,247,255,.82) 72%, rgba(182,238,255,.92) 100%);

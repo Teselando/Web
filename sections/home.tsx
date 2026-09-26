@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HeroMotion } from "@/components/hero-motion";
+import { HowItWorksSection } from "@/components/how-it-works";
 import { LeadCapture } from "@/components/lead-capture";
 import { SelectionShowcase } from "@/components/selection-showcase";
 import { TeselandoInside } from "@/components/teselando-inside";
@@ -9,13 +10,6 @@ import { WhatWeDo } from "@/components/what-we-do";
 import { sitePath } from "@/lib/site-path";
 import type { CSSProperties } from "react";
 import heroStyles from "./hero.module.css";
-
-const steps = [
-  { title: "Déjanos tu número", description: "Empieza solo con tu teléfono. Nosotros te contactamos para continuar." },
-  { title: "Cuéntanos qué necesitas", description: "Nos dices qué estudias, la asignatura y tu situación. Si hace falta, puedes enviarnos apuntes, ejercicios o exámenes para entender mejor tu caso." },
-  { title: "Te presentamos hasta 3 profesores", description: "Buscamos los que mejor encajen y te mostramos un máximo de tres perfiles con la información necesaria y el motivo de cada recomendación. Tú eliges." },
-  { title: "Empieza las clases", description: "Coordinamos contigo la primera clase. Después, puedes organizar directamente con tu profesor cuándo dar las siguientes." },
-] as const;
 
 export function Hero() {
   return <section className={heroStyles.hero} data-hero id="inicio">
@@ -52,13 +46,7 @@ export function Hero() {
 
 export function ImmediateProof() { return <WhatWeDo />; }
 
-export function HowItWorks() {
-  return <section className="section process-section" id="proceso" data-reveal>
-    <header className="process-heading"><h2>Así funciona</h2></header>
-    <ol className="process-list">{steps.map((step, index) => <li key={step.title}><span className="step-number" aria-hidden="true"><i>0{index + 1}</i></span><div className="process-step-copy"><h3>{step.title}</h3><p>{step.description}</p></div></li>)}</ol>
-    <div className="process-close"><p>Si surge cualquier duda o incidencia, puedes acudir a Teselando.</p><Link className="text-link" href="#contacto">Buscar profesor <span aria-hidden="true">↗</span></Link></div>
-  </section>;
-}
+export function HowItWorks() { return <HowItWorksSection />; }
 
 export function Selection() { return <SelectionShowcase />; }
 export function Inside() { return <TeselandoInside />; }
