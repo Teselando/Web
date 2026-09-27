@@ -215,3 +215,6 @@
   .hero-content{grid-template-columns:minmax(0,52%) minmax(0,48%)}
   .hero-photo{width:52%;clip-path:polygon(34% 0,100% 0,100% 100%,14% 100%,0 64%,22% 36%)}
 }
+
+.final-content .phone-field{grid-template-columns:126px minmax(0,1fr)}
+@media(max-width:600px){.final-content .phone-field{grid-template-columns:122px minmax(0,1fr)}}

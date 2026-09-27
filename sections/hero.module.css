@@ -87,18 +87,9 @@
 .hero :global(.lead-form) { width: min(665px, 100%); }
 .hero :global(.lead-form label) { margin-bottom: 8px; font-size: .78rem; font-weight: 650; letter-spacing: 0; text-transform: none; }
 .hero :global(.lead-row) { grid-template-columns: minmax(285px, 1fr) minmax(190px, 238px); gap: 10px; }
-.hero :global(.phone-field) { grid-template-columns: 100px minmax(0, 1fr); }
+.hero :global(.phone-field) { grid-template-columns: 126px minmax(0, 1fr); }
 .hero :global(.lead-row input), .hero :global(.phone-field select) { min-height: 58px; border-color: rgba(12, 45, 69, .42); background-color: rgba(255, 255, 255, .66); box-shadow: none; }
-.hero :global(.phone-field select) {
-  appearance: none;
-  border-radius: 999px 0 0 999px;
-  padding: 0 34px 0 22px;
-  color: var(--ink);
-  background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%);
-  background-position: calc(100% - 19px) 50%, calc(100% - 14px) 50%;
-  background-size: 5px 5px, 5px 5px;
-  background-repeat: no-repeat;
-}
+.hero :global(.country-select-display) { border-color: rgba(12, 45, 69, .42); background-color: rgba(255, 255, 255, .66); box-shadow: none; }
 .hero :global(.phone-field input) { border-radius: 0 999px 999px 0; }
 .hero :global(.lead-row .button) { min-height: 58px; white-space: nowrap; }
 .hero :global(.form-privacy) { margin-top: 10px; font-size: .71rem; }
@@ -229,8 +220,7 @@
   .copy { padding-inline: 16px; }
   .title { font-size: 4.15rem; }
   .lead { font-size: 1rem; }
-  .hero :global(.phone-field) { grid-template-columns: 94px minmax(0, 1fr); }
-  .hero :global(.phone-field select) { padding-left: 18px; }
+  .hero :global(.phone-field) { grid-template-columns: 122px minmax(0, 1fr); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
