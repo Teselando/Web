@@ -52,7 +52,7 @@ export function Selection() { return <SelectionShowcase />; }
 export function Inside() { return <TeselandoInside />; }
 
 export function SocialProof() {
-  return <section className="section evidence-section" id="evidencia" data-reveal><header className="evidence-heading"><h2>Razones para creer</h2></header><TrustpilotProof /><p className="evidence-line">Selección <span /> Experiencia relevante <span /> Especialización <span /> Presentación cuidada</p></section>;
+  return <section className="section evidence-section" id="evidencia" data-reveal><header className="evidence-heading"><h2>Esto opinan nuestros alumnos</h2></header><TrustpilotProof /></section>;
 }
 
 export function Protection() {

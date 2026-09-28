@@ -18,7 +18,7 @@ export async function TrustpilotProof() {
   const proof = await getTrustpilotProof();
   const sourceLabel = proof.source === "live"
     ? "Actualizado mediante la API oficial de Trustpilot"
-    : `Comprobado en el perfil público · ${formatDate(proof.verifiedAt)}`;
+    : `Comprobado en el perfil público, ${formatDate(proof.verifiedAt)}`;
 
   return <div className="trust-proof" data-trust-source={proof.source}>
     <div className="trust-score-panel">

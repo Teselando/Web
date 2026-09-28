@@ -19,7 +19,7 @@ const verifiedSnapshot: TrustpilotProof = {
   trustScore: 4.2,
   reviewCount: 6,
   source: "verified-snapshot",
-  verifiedAt: "2026-09-04",
+  verifiedAt: "2026-09-28",
   reviews: [
     {
       id: "lucia-garcia-jimenez-2026-02-04",
@@ -44,6 +44,30 @@ const verifiedSnapshot: TrustpilotProof = {
       text: "Mi hijo recibe clases de física y química de 4°ESO y no solo ha conseguido remontar el primer trimestre sino q está sacando buenas notas en los exámenes del segundo. Son muy apañados y siempre están dispuestos a ayudarlo con cualquier duda y en cualquier momento q lo necesite. Muy recomendable.",
       reviewer: "Susana",
       createdAt: "2025-11-17",
+    },
+    {
+      id: "macarena-mg-2026-01-31",
+      stars: 5,
+      title: "100% recomendable",
+      text: "Contacté con Teselando para que me ayudara a aprobar asignaturas del Grado en Matemáticas. No solo las aprobé, sino que además obtuve muy buenas notas y comprendí plenamente las competencias requeridas.",
+      reviewer: "Macarena M.G",
+      createdAt: "2026-01-31",
+    },
+    {
+      id: "german-navas-2026-01-31",
+      stars: 5,
+      title: "Teseleando",
+      text: "Recibo clases de parte de Alejandro Martínez para matemáticas de 2 de Bachillerato y estoy encantado. Gracias a él he podido pasar 1 de bachillerato con mates aprobadas y me está ayudando mucho este segundo curso. Además es puntual y funcionan genial para aprovechar cada minuto de cada clase. Todo un acierto!",
+      reviewer: "German Navas",
+      createdAt: "2026-01-31",
+    },
+    {
+      id: "maria-gil-2026-01-31",
+      stars: 5,
+      title: "Muy recomendado",
+      text: "Las clases son buenísimas, mucha adaptación al nivel y la forma de aprender.",
+      reviewer: "Maria Gil",
+      createdAt: "2026-01-31",
     },
   ],
 };
@@ -102,7 +126,7 @@ export async function getTrustpilotProof(): Promise<TrustpilotProof> {
     const encodedId = encodeURIComponent(businessUnitId);
     const [business, reviewData] = await Promise.all([
       trustpilotFetch<BusinessUnitResponse>(`https://api.trustpilot.com/v1/business-units/${encodedId}`, apiKey),
-      trustpilotFetch<ReviewsResponse>(`https://api.trustpilot.com/v1/business-units/${encodedId}/reviews?page=1&perPage=3`, apiKey),
+      trustpilotFetch<ReviewsResponse>(`https://api.trustpilot.com/v1/business-units/${encodedId}/reviews?page=1&perPage=20`, apiKey),
     ]);
     const total = typeof business.numberOfReviews === "object" && business.numberOfReviews
       ? numberValue((business.numberOfReviews as { total?: unknown }).total)
