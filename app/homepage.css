@@ -39,15 +39,24 @@
 .evidence-line span{display:block!important;width:1px!important;height:14px!important;aspect-ratio:auto!important;padding:0!important;border-radius:0!important;background:rgba(37,107,134,.45)!important}
 
 /* Protection: a serene, layered horizon that expresses continuity and support. */
-.protection-section{position:relative;display:grid!important;width:100%!important;min-height:720px;align-items:center;overflow:hidden;padding:clamp(120px,10vw,160px) max(32px,calc((100vw - 1400px)/2))!important;background:linear-gradient(180deg,var(--paper) 0 28%,var(--ice) 100%);isolation:isolate}
-.protection-copy{position:relative;z-index:4;display:block!important;width:min(560px,46vw);max-width:560px;padding:42px 44px 44px;border-left:4px solid var(--blue);background:rgba(250,248,243,.9);box-shadow:12px 14px 0 rgba(37,107,134,.18);backdrop-filter:blur(8px)}
-.protection-copy h2{margin:0 0 24px}.protection-copy>p:not(.eyebrow){max-width:46ch;margin:0 0 30px}.protection-copy .text-link{color:var(--ink)}
-.protection-landscape{position:absolute;z-index:-1;inset:0;overflow:hidden}.protection-landscape i{position:absolute;display:block}
-.protection-sun{top:15%;right:13%;width:74px;aspect-ratio:1;border:1px solid rgba(24,33,38,.42);border-radius:50%;background:var(--yellow)}
-.protection-mountain{right:-4%;bottom:32%;width:64%;height:48%;background:var(--deep);clip-path:polygon(22% 100%,49% 30%,61% 55%,74% 14%,100% 64%,100% 100%);opacity:.72}
-.protection-sea{right:0;bottom:0;left:0;height:42%;background:linear-gradient(180deg,rgba(43,202,255,.5),rgba(0,141,233,.76));clip-path:polygon(0 16%,27% 8%,54% 17%,78% 5%,100% 12%,100% 100%,0 100%)}
-.protection-shore{right:-6%;bottom:0;width:76%;height:26%;background:var(--paper);clip-path:polygon(14% 38%,37% 8%,64% 18%,100% 0,100% 100%,0 100%)}
-.protection-foreground{right:-8%;bottom:-18%;width:42%;height:46%;background:var(--ink);clip-path:polygon(34% 0,100% 22%,100% 100%,0 100%,10% 47%)}
+.protection-section{position:relative;display:grid!important;width:100%!important;min-height:clamp(680px,55vw,880px);align-items:center;overflow:hidden;padding:clamp(118px,9vw,156px) max(32px,calc((100vw - 1400px)/2))!important;background:#003d62;isolation:isolate}
+.protection-copy{position:relative;z-index:3;display:block!important;width:min(720px,55vw);max-width:720px;padding:0;color:#fff}
+.protection-copy .eyebrow{margin:0 0 24px;color:rgba(255,255,255,.82);font-size:.76rem;font-weight:760;letter-spacing:.28em}
+.protection-copy h2{margin:0 0 28px;color:#fff;font-family:var(--font-display),sans-serif;font-size:clamp(4.1rem,5.7vw,6.75rem);font-weight:760;line-height:.9;letter-spacing:-.055em;text-wrap:balance}
+.protection-copy>p:not(.eyebrow){max-width:38ch;margin:0 0 38px;color:rgba(255,255,255,.94);font-size:clamp(1.08rem,1.45vw,1.4rem);line-height:1.42}
+.protection-cta{position:relative;display:inline-flex;width:fit-content;min-width:320px;min-height:64px;align-items:center;justify-content:center;gap:20px;overflow:hidden;isolation:isolate;border:0;border-radius:9999px;padding:18px 32px;background:linear-gradient(112deg,#23cff1 0%,#0b90ea 47%,#185cff 100%);box-shadow:0 15px 34px rgba(0,34,72,.3),inset 0 1px 0 rgba(255,255,255,.42),inset 0 -1px 0 rgba(0,43,113,.18);color:#fff;font-size:1rem;font-weight:780;line-height:1.15;text-decoration:none;transform:translateZ(0);transition:transform .3s var(--ease),box-shadow .3s var(--ease),filter .3s ease}
+.protection-cta::before{position:absolute;z-index:-1;inset:1px;border:1px solid rgba(255,255,255,.18);border-radius:inherit;content:"";pointer-events:none}
+.protection-cta::after{position:absolute;top:-45%;bottom:-45%;left:-42%;width:24%;content:"";background:linear-gradient(90deg,transparent,rgba(255,255,255,.52),transparent);filter:blur(2px);opacity:0;pointer-events:none;transform:skewX(-18deg)}
+.protection-cta span{display:inline-block;font-size:1.32rem;line-height:1;transition:transform .3s var(--ease)}
+.protection-cta:hover{transform:translateY(-4px) scale(1.015);box-shadow:0 21px 44px rgba(0,34,72,.4),inset 0 1px 0 rgba(255,255,255,.48),inset 0 -1px 0 rgba(0,43,113,.15);filter:saturate(1.08)}
+.protection-cta:hover::after{opacity:1;animation:protection-cta-sheen .72s var(--ease) both}.protection-cta:hover span{transform:translateX(6px)}
+.protection-cta:active{transform:translateY(-1px) scale(.985);box-shadow:0 10px 24px rgba(0,34,72,.34),inset 0 2px 5px rgba(0,35,94,.24)}
+.protection-cta:focus-visible{outline:3px solid #fff;outline-offset:5px}
+@keyframes protection-cta-sheen{0%{left:-42%;opacity:0}18%{opacity:1}100%{left:118%;opacity:0}}
+.protection-photo{position:absolute;z-index:1;inset:0;overflow:hidden}
+.protection-photo::before{position:absolute;z-index:2;inset:0;content:"";background:linear-gradient(90deg,rgba(0,34,68,.92) 0%,rgba(0,45,78,.78) 35%,rgba(0,55,85,.34) 64%,rgba(0,46,75,.08) 100%),linear-gradient(180deg,rgba(0,29,52,.2),transparent 38%,rgba(0,28,52,.28));pointer-events:none}
+.protection-photo img{object-fit:cover;object-position:48% 43%;filter:saturate(.9) contrast(1.04) hue-rotate(-3deg)}
+.protection-photo-grade{position:absolute;z-index:1;inset:0;background:rgba(0,94,146,.08);mix-blend-mode:color;pointer-events:none}
 
 
 /* Price: a quiet number built from aligning Teselando planes. */
@@ -97,7 +106,7 @@
   @keyframes hero-copy-in{from{opacity:0;transform:translateY(18px)}}@keyframes hero-photo-in{from{opacity:0;clip-path:polygon(26% 100%,100% 100%,100% 100%,18% 100%,0 100%,17% 100%)}}@keyframes hero-plane-in{from{opacity:0;transform:translate(24px,-20px)}}
 }
 
-@media(prefers-reduced-motion:reduce){.hero-copy,.hero-photo,.hero-planes i,.home-page [data-reveal],.fit-piece{animation:none!important;opacity:1!important;transition:none!important}}
+@media(prefers-reduced-motion:reduce){.hero-copy,.hero-photo,.hero-planes i,.home-page [data-reveal],.fit-piece,.protection-cta,.protection-cta span{animation:none!important;opacity:1!important;transition:none!important}.protection-cta:hover,.protection-cta:active{transform:none}.protection-cta::after{display:none}}
 
 /* Focused image-crop and selection-label refinements. */
 .hero-content{width:100%;max-width:none}
@@ -152,12 +161,12 @@
   .hero-planes i:nth-child(3){right:-18%;bottom:-8%;width:76vw;height:36vw}
   .hero-planes i:nth-child(4){bottom:-9%;left:-26%;width:72vw;height:40vw}
   .hero-planes i:nth-child(5){display:none}
-  .protection-section{min-height:680px;padding:72px 20px 210px!important;align-items:start}
-  .protection-copy{width:100%;max-width:430px;padding:30px 26px 32px;box-shadow:8px 9px 0 rgba(37,107,134,.18)}
-  .protection-mountain{bottom:22%;width:100%;height:38%}
-  .protection-sea{height:29%}
-  .protection-shore{width:92%;height:19%}
-  .protection-foreground{width:52%;height:24%}
+  .protection-section{min-height:720px;padding:92px 20px!important;align-items:center;background:#003d62}
+  .protection-copy{width:100%;max-width:560px}
+  .protection-copy .eyebrow{margin-bottom:19px}.protection-copy h2{font-size:clamp(3.4rem,14.5vw,5rem);line-height:.92}.protection-copy>p:not(.eyebrow){max-width:31ch;font-size:1.04rem;line-height:1.5}
+  .protection-cta{width:100%;min-width:0;max-width:350px;min-height:60px;padding:16px 24px}
+  .protection-photo::before{background:linear-gradient(90deg,rgba(0,31,61,.92),rgba(0,42,73,.7)),linear-gradient(180deg,rgba(0,25,49,.28),rgba(0,28,52,.4))}
+  .protection-photo img{object-position:43% 43%}
 }
 
 /* Laptop and split-window fit: keep the desktop art direction, but give it

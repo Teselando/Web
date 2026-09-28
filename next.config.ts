@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
   assetPrefix: basePath || undefined,
   images: {
     unoptimized: isStaticExport,
+    qualities: [75, 90],
   },
 };
 

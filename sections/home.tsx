@@ -57,18 +57,15 @@ export function SocialProof() {
 
 export function Protection() {
   return <section className="section protection-section" id="proteccion" data-reveal>
-    <div className="protection-landscape" aria-hidden="true">
-      <i className="protection-sun" />
-      <i className="protection-mountain" />
-      <i className="protection-sea" />
-      <i className="protection-shore" />
-      <i className="protection-foreground" />
+    <div className="protection-photo" aria-hidden="true">
+      <Image src={sitePath("/images/teselando/protection-beach-hq.png")} alt="" fill sizes="100vw" quality={90} />
+      <i className="protection-photo-grade" />
     </div>
     <div className="protection-copy">
       <p className="eyebrow">Protección</p>
-      <h2>Teselando siempre estará para ti.</h2>
+      <h2>Teselando siempre<br />estará para ti.</h2>
       <p>Tu profesor lleva las clases. Teselando sigue detrás para ayudarte cuando lo necesites.</p>
-      <Link className="text-link" href="/garantia/">Conoce nuestra garantía <span aria-hidden="true">→</span></Link>
+      <Link className="protection-cta" href="/garantia/">Conoce nuestra garantía <span aria-hidden="true">→</span></Link>
     </div>
   </section>;
 }
