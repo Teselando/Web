@@ -19,7 +19,11 @@ export function SiteChrome() {
     if (!target) return;
     event.preventDefault();
     if (window.location.hash !== "#contacto") window.history.pushState(null, "", "#contacto");
-    target.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    const targetTop = target.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({
+      top: targetTop,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+    });
   };
 
   useEffect(() => {
@@ -44,9 +48,9 @@ export function SiteChrome() {
       <Link href="/" className="brand-link" tabIndex={shouldShow ? 0 : -1} aria-label="Teselando, inicio">
         <BrandLockup />
       </Link>
-      <Link className="button button-small" href="/#contacto" tabIndex={shouldShow ? 0 : -1} onClick={goToContact}>
+      <a className="button button-small" href={pathname === "/" ? "#contacto" : "/#contacto"} tabIndex={shouldShow ? 0 : -1} onClick={goToContact}>
         {site.primaryCta}
-      </Link>
+      </a>
     </header>
   );
 }

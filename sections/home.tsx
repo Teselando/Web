@@ -8,7 +8,6 @@ import { TeselandoInside } from "@/components/teselando-inside";
 import { TrustpilotProof } from "@/components/trustpilot-proof";
 import { WhatWeDo } from "@/components/what-we-do";
 import { sitePath } from "@/lib/site-path";
-import type { CSSProperties } from "react";
 import heroStyles from "./hero.module.css";
 
 export function Hero() {
@@ -71,10 +70,47 @@ export function Protection() {
 }
 
 export function Pricing() {
-  const pricingStyle = { "--pricing-bg": `url("${sitePath("/images/teselando/band-study.webp")}")` } as CSSProperties;
-  return <section className="section pricing-section" id="precio" data-reveal style={pricingStyle}><div className="price-heading"><p className="eyebrow">Precios</p><h2>Clases desde</h2></div><div className="price-construction"><p className="price-display"><strong>20</strong><span>€/h.</span></p></div><div className="price-body"><p>El precio puede variar según tu nivel, asignatura y la especialización que necesites. Antes de decidir, sabrás cuánto cuesta tu clase.</p><ul><li>Pago clase a clase</li><li>Precio claro antes de empezar</li></ul><Link className="text-link" href="/precios/">Conoce nuestros precios <span aria-hidden="true">→</span></Link></div></section>;
+  return <section className="section pricing-section" id="precio" data-reveal>
+    <div className="pricing-world" aria-hidden="true">
+      <div className="pricing-window" />
+      <i className="pricing-light pricing-light-a" />
+      <i className="pricing-light pricing-light-b" />
+      <i className="pricing-platform pricing-platform-back" />
+      <i className="pricing-platform pricing-platform-front" />
+      <div className="pricing-number">
+        <span className="pricing-digit pricing-digit-two" data-digit="2">2</span>
+        <span className="pricing-digit pricing-digit-zero" data-digit="0">0</span>
+      </div>
+      <div className="pricing-rate">€/h.</div>
+      <div className="pricing-books">
+        <i /><i /><i />
+      </div>
+      <div className="pricing-plant">
+        <i /><i /><i /><i />
+      </div>
+    </div>
+    <div className="pricing-copy">
+      <p className="eyebrow">Precios</p>
+      <h2><span>Clases desde</span><span><strong>20 €/h.</strong></span></h2>
+      <p className="pricing-description">Un precio claro y sin sorpresas, para que puedas concentrarte en lo importante.</p>
+      <ul className="pricing-benefits">
+        <li>
+          <span className="pricing-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><ellipse cx="16" cy="9" rx="8" ry="3.5" /><path d="M8 9v5c0 1.9 3.6 3.5 8 3.5s8-1.6 8-3.5V9M8 14v5c0 1.9 3.6 3.5 8 3.5s8-1.6 8-3.5v-5M8 19v4c0 1.9 3.6 3.5 8 3.5s8-1.6 8-3.5v-4" /></svg></span>
+          <span><strong>Pago clase a clase.</strong><small>Sin permanencias ni compromisos a largo plazo.</small></span>
+        </li>
+        <li>
+          <span className="pricing-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M8 4.5h11l5 5V27H8z" /><path d="M19 4.5V10h5M12 15h8M12 19h8M12 23h6" /></svg></span>
+          <span><strong>Precio claro antes de empezar.</strong><small>Sabes cuánto cuesta desde la propuesta, sin sorpresas.</small></span>
+        </li>
+        <li>
+          <span className="pricing-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="10" r="5" /><path d="M6.5 27v-3.5c0-4.5 4.2-7.5 9.5-7.5s9.5 3 9.5 7.5V27" /></svg></span>
+          <span><strong>El profesor adecuado, para tu caso concreto.</strong><small>El precio se ajusta al nivel, la asignatura y tus necesidades.</small></span>
+        </li>
+      </ul>
+    </div>
+  </section>;
 }
 
 export function FinalCta() {
-  return <section className="section final-cta" id="contacto" data-reveal><div className="final-planes" aria-hidden="true"><i /><i /><i /><i /></div><div className="final-content"><p className="eyebrow">Empecemos por tu caso</p><h2>Creemos en ti</h2><LeadCapture tone="blue" countrySelector /></div></section>;
+  return <section className="section final-cta" id="contacto" data-reveal><div className="final-planes" aria-hidden="true"><i /><i /><i /><i /><i /><i /></div><div className="final-content"><p className="eyebrow">Empecemos por tu caso</p><h2>Creemos en ti</h2><LeadCapture tone="blue" countrySelector /></div></section>;
 }
