@@ -10,13 +10,12 @@ export function HeroMotion() {
     let frame = 0;
     let pointerX = 0;
     let pointerY = 0;
-    let scrollY = 0;
 
     const paint = () => {
       hero.style.setProperty("--hero-photo-x", `${pointerX * -7}px`);
-      hero.style.setProperty("--hero-photo-y", `${pointerY * -5 + scrollY * 0.02}px`);
+      hero.style.setProperty("--hero-photo-y", `${pointerY * -5}px`);
       hero.style.setProperty("--hero-shape-x", `${pointerX * 12}px`);
-      hero.style.setProperty("--hero-shape-y", `${pointerY * 9 + scrollY * 0.04}px`);
+      hero.style.setProperty("--hero-shape-y", `${pointerY * 9}px`);
       frame = 0;
     };
 
@@ -36,19 +35,12 @@ export function HeroMotion() {
       queuePaint();
     };
 
-    const onScroll = () => {
-      scrollY = Math.min(window.scrollY, hero.offsetHeight);
-      queuePaint();
-    };
-
     hero.addEventListener("pointermove", onPointerMove, { passive: true });
     hero.addEventListener("pointerleave", onPointerLeave);
-    window.addEventListener("scroll", onScroll, { passive: true });
 
     return () => {
       hero.removeEventListener("pointermove", onPointerMove);
       hero.removeEventListener("pointerleave", onPointerLeave);
-      window.removeEventListener("scroll", onScroll);
       if (frame) cancelAnimationFrame(frame);
     };
   }, []);

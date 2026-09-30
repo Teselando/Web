@@ -13,6 +13,15 @@ import heroStyles from "./hero.module.css";
 export function Hero() {
   return <section className={heroStyles.hero} data-hero id="inicio">
     <HeroMotion />
+    <div className={heroStyles.atmosphere} aria-hidden="true">
+      <i className={heroStyles.mosaicPattern} />
+      <i className={heroStyles.mosaicEcho} />
+      <i className={heroStyles.aurora} />
+      <i className={heroStyles.perspectiveGrid} />
+      <i className={heroStyles.lightSweep} />
+      <i className={heroStyles.waterSurface} />
+      <i className={heroStyles.waterCaustics} />
+    </div>
     <div className={heroStyles.texture} aria-hidden="true" />
 
     <div className={heroStyles.copy}>
@@ -31,6 +40,9 @@ export function Hero() {
       <i className={heroStyles.skyFold} />
       <i className={heroStyles.topBlock} />
       <i className={heroStyles.stripedSun} />
+      <div className={heroStyles.orbit}>
+        <i /><i /><i />
+      </div>
       <div className={heroStyles.noteOverlay}><p>Mismas metas.<br />Mejor acompañamiento.</p><i /></div>
     </div>
 

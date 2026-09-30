@@ -487,6 +487,8 @@
   text-shadow:0 16px 40px rgba(0,39,86,.25);
 }
 .final-content .lead-form{width:min(790px,100%);text-align:left}
+.final-content .lead-success{color:var(--ink);text-align:left}
+.final-content .lead-success .button{color:var(--ink)}
 .final-content .lead-row{grid-template-columns:minmax(0,1fr) auto;gap:14px}
 .final-content .button{min-width:205px;background:var(--yellow-vivid)}
 .final-content .form-note,.final-content .form-privacy{color:rgba(245,252,255,.82)}
