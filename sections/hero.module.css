@@ -17,32 +17,26 @@
 
 .atmosphere { position: absolute; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; }
 .mosaicPattern, .mosaicEcho {
+  --gradient-opacity-low: .26;
+  --gradient-opacity-high: .46;
   position: absolute;
-  inset: -18%;
-  background-image:
-    linear-gradient(30deg, rgba(12, 45, 69, .085) 12%, transparent 12.5%, transparent 87%, rgba(12, 45, 69, .085) 87.5%, rgba(12, 45, 69, .085)),
-    linear-gradient(150deg, rgba(12, 45, 69, .085) 12%, transparent 12.5%, transparent 87%, rgba(12, 45, 69, .085) 87.5%, rgba(12, 45, 69, .085)),
-    linear-gradient(30deg, rgba(12, 45, 69, .085) 12%, transparent 12.5%, transparent 87%, rgba(12, 45, 69, .085) 87.5%, rgba(12, 45, 69, .085)),
-    linear-gradient(150deg, rgba(12, 45, 69, .085) 12%, transparent 12.5%, transparent 87%, rgba(12, 45, 69, .085) 87.5%, rgba(12, 45, 69, .085)),
-    linear-gradient(60deg, rgba(43, 202, 255, .055) 25%, transparent 25.5%, transparent 75%, rgba(43, 202, 255, .055) 75%),
-    linear-gradient(60deg, rgba(43, 202, 255, .055) 25%, transparent 25.5%, transparent 75%, rgba(43, 202, 255, .055) 75%);
-  background-position: 0 0, 0 0, 44px 77px, 44px 77px, 0 0, 44px 77px;
-  background-size: 88px 154px;
-  mask-image: radial-gradient(ellipse at 34% 46%, #000 0 20%, rgba(0, 0, 0, .86) 43%, transparent 76%);
-  transform: translate3d(-22px, -34px, 0);
+  inset: -24%;
+  opacity: var(--gradient-opacity-low);
+  background:
+    radial-gradient(ellipse at 70% 38%, rgba(43, 202, 255, .64) 0 8%, rgba(0, 141, 233, .3) 27%, rgba(182, 238, 255, .2) 46%, transparent 69%),
+    radial-gradient(ellipse at 38% 76%, rgba(43, 202, 255, .26) 0 7%, rgba(182, 238, 255, .2) 31%, transparent 58%);
+  filter: blur(28px);
+  transform: translate3d(-1.5%, -.5%, 0) scale(1.035);
   will-change: transform, opacity;
 }
 .mosaicEcho {
-  opacity: .34;
-  background-image:
-    linear-gradient(30deg, rgba(0, 141, 233, .12) 12%, transparent 12.5%, transparent 87%, rgba(0, 141, 233, .12) 87.5%, rgba(0, 141, 233, .12)),
-    linear-gradient(150deg, rgba(0, 141, 233, .12) 12%, transparent 12.5%, transparent 87%, rgba(0, 141, 233, .12) 87.5%, rgba(0, 141, 233, .12)),
-    linear-gradient(30deg, rgba(0, 141, 233, .12) 12%, transparent 12.5%, transparent 87%, rgba(0, 141, 233, .12) 87.5%, rgba(0, 141, 233, .12)),
-    linear-gradient(150deg, rgba(0, 141, 233, .12) 12%, transparent 12.5%, transparent 87%, rgba(0, 141, 233, .12) 87.5%, rgba(0, 141, 233, .12)),
-    linear-gradient(60deg, rgba(255, 255, 255, .14) 25%, transparent 25.5%, transparent 75%, rgba(255, 255, 255, .14) 75%),
-    linear-gradient(60deg, rgba(255, 255, 255, .14) 25%, transparent 25.5%, transparent 75%, rgba(255, 255, 255, .14) 75%);
-  mask-image: radial-gradient(ellipse at 72% 42%, #000 0 7%, rgba(0, 0, 0, .46) 28%, transparent 62%);
-  transform: translate3d(18px, 24px, 0) scale(1.045);
+  --gradient-opacity-low: .14;
+  --gradient-opacity-high: .29;
+  background:
+    radial-gradient(ellipse at 22% 30%, rgba(0, 141, 233, .36) 0 7%, rgba(43, 202, 255, .2) 29%, transparent 61%),
+    radial-gradient(ellipse at 78% 74%, rgba(182, 238, 255, .34) 0 9%, rgba(43, 202, 255, .14) 34%, transparent 60%);
+  filter: blur(42px);
+  transform: translate3d(1.2%, .8%, 0) scale(1.07);
 }
 .aurora {
   position: absolute;
@@ -353,8 +347,9 @@
   .lightSweep { left: 57%; width: 28%; }
   .waterSurface { top: 36%; right: -67%; width: 180%; height: 58%; opacity: .2; background-size: 220px 104px; }
   .waterCaustics { top: 44%; right: -24%; width: 120%; height: 42%; opacity: .24; }
-  .mosaicPattern, .mosaicEcho { inset: -12% -66%; background-size: 70px 122px; background-position: 0 0, 0 0, 35px 61px, 35px 61px, 0 0, 35px 61px; mask-image: radial-gradient(ellipse at 50% 31%, #000 0 14%, rgba(0, 0, 0, .72) 39%, transparent 72%); }
-  .mosaicEcho { opacity: .24; mask-image: radial-gradient(ellipse at 57% 72%, #000 0 5%, rgba(0, 0, 0, .42) 26%, transparent 58%); }
+  .mosaicPattern, .mosaicEcho { inset: -18% -68%; filter: blur(24px); }
+  .mosaicPattern { --gradient-opacity-low: .2; --gradient-opacity-high: .34; background-position: 12% center, 50% 84%; }
+  .mosaicEcho { --gradient-opacity-low: .1; --gradient-opacity-high: .2; filter: blur(34px); background-position: 30% 18%, 64% 76%; }
   .scrollCue { bottom: 14px; width: 40px; }
   .foreground { z-index: 6; top: auto; height: 225px; }
   .leftPlane { bottom: -21vw; left: -23vw; width: 58vw; height: 52vw; }
@@ -379,8 +374,8 @@
   .skyFold, .topBlock, .noteOverlay { animation: shapeIn .8s .22s both cubic-bezier(.2,.7,.2,1); }
   .stripedSun { animation: sunIn .7s .3s both cubic-bezier(.2,.7,.2,1), stripeDrift 14s 1s linear infinite; }
   .aurora { animation: auroraBreathe 18s ease-in-out infinite alternate; }
-  .mosaicPattern { animation: mosaicDrift 34s ease-in-out infinite alternate; }
-  .mosaicEcho { animation: mosaicEchoDrift 43s ease-in-out infinite alternate; }
+  .mosaicPattern { animation: gradientBreathe 14s ease-in-out infinite alternate; }
+  .mosaicEcho { animation: gradientEchoBreathe 19s ease-in-out infinite alternate; }
   .perspectiveGrid { animation: gridTravel 32s linear infinite; }
   .lightSweep { animation: sweepAcross 18s 1s ease-in-out infinite; }
   .waterSurface { animation: waterFlow 26s ease-in-out infinite alternate; }
@@ -406,8 +401,16 @@
 @keyframes foregroundIn { from { opacity: 0; transform: translateY(12%); } }
 @keyframes cueDown { 0%, 100% { translate: 0 -2px; } 50% { translate: 0 3px; } }
 @keyframes auroraBreathe { to { opacity: .72; transform: translate3d(calc(var(--hero-shape-x) * -.35), calc(var(--hero-shape-y) * -.35), 0) scale(1.055); } }
-@keyframes mosaicDrift { 0% { opacity: .72; transform: translate3d(-22px, -34px, 0); } 50% { opacity: .92; } 100% { opacity: .68; transform: translate3d(34px, 44px, 0); } }
-@keyframes mosaicEchoDrift { 0% { transform: translate3d(18px, 24px, 0) scale(1.045); } 48% { opacity: .46; } 100% { transform: translate3d(-30px, -38px, 0) scale(1.075); } }
+@keyframes gradientBreathe {
+  0% { opacity: var(--gradient-opacity-low); transform: translate3d(-1.5%, -.5%, 0) scale(1.035); }
+  52% { opacity: var(--gradient-opacity-high); }
+  100% { opacity: calc(var(--gradient-opacity-low) + .05); transform: translate3d(1.4%, -1.1%, 0) scale(1.085); }
+}
+@keyframes gradientEchoBreathe {
+  0% { opacity: var(--gradient-opacity-low); transform: translate3d(1.2%, .8%, 0) scale(1.07); }
+  46% { opacity: var(--gradient-opacity-high); }
+  100% { opacity: calc(var(--gradient-opacity-low) + .035); transform: translate3d(-1.2%, -.9%, 0) scale(1.11); }
+}
 @keyframes gridTravel { to { background-position: 124px 124px; } }
 @keyframes sweepAcross { 0%, 18% { translate: -45vw 0; opacity: 0; } 38%, 54% { opacity: .62; } 76%, 100% { translate: 75vw 0; opacity: 0; } }
 @keyframes waterFlow { 0% { background-position: 0 0; translate: -1.5% 0; } 50% { opacity: .3; } 100% { background-position: 270px 44px; translate: 1.5% -1%; } }
