@@ -55,6 +55,7 @@ export function ScrollExperience() {
 
   useEffect(() => {
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reduced) document.documentElement.classList.add("motion-ready");
     const revealNodes = [...document.querySelectorAll<HTMLElement>("[data-reveal]")];
     const sections = homeRail
       .map((item) => document.getElementById(item.id))
@@ -65,6 +66,9 @@ export function ScrollExperience() {
     let anchors: number[] = [];
     let heroBottom = 0;
     let finalTop = Number.POSITIVE_INFINITY;
+    let lastRailActive = -1;
+    let lastRailProgress = "";
+    let measureFrame = 0;
     directionOriginRef.current = window.scrollY;
 
     const revealObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
@@ -111,8 +115,15 @@ export function ScrollExperience() {
         activeRef.current = nextActive;
         setActive(nextActive);
       }
-      railRef.current?.style.setProperty("--rail-active", String(nextActive));
-      railRef.current?.style.setProperty("--rail-progress", String(Number((directionRef.current === "up" && nextActive === 0 ? 0 : directionalProgress).toFixed(4))));
+      if (nextActive !== lastRailActive) {
+        lastRailActive = nextActive;
+        railRef.current?.style.setProperty("--rail-active", String(nextActive));
+      }
+      const nextProgress = String(Number((directionRef.current === "up" && nextActive === 0 ? 0 : directionalProgress).toFixed(4)));
+      if (nextProgress !== lastRailProgress) {
+        lastRailProgress = nextProgress;
+        railRef.current?.style.setProperty("--rail-progress", nextProgress);
+      }
 
       const nextShown = readingY >= heroBottom && readingY < finalTop;
       if (nextShown !== shownRef.current) {
@@ -127,8 +138,12 @@ export function ScrollExperience() {
     };
 
     const refreshMeasurements = () => {
-      measure();
-      scheduleRailUpdate();
+      if (measureFrame) return;
+      measureFrame = requestAnimationFrame(() => {
+        measureFrame = 0;
+        measure();
+        scheduleRailUpdate();
+      });
     };
     const resizeObserver = new ResizeObserver(refreshMeasurements);
     sections.forEach((section) => resizeObserver.observe(section));
@@ -142,12 +157,14 @@ export function ScrollExperience() {
     window.addEventListener("load", refreshMeasurements, { once: true });
 
     return () => {
+      document.documentElement.classList.remove("motion-ready");
       revealObserver.disconnect();
       resizeObserver.disconnect();
       window.removeEventListener("scroll", scheduleRailUpdate);
       window.removeEventListener("resize", refreshMeasurements);
       window.removeEventListener("load", refreshMeasurements);
       if (frame) cancelAnimationFrame(frame);
+      if (measureFrame) cancelAnimationFrame(measureFrame);
       if (collapseTimerRef.current) clearTimeout(collapseTimerRef.current);
     };
   }, []);

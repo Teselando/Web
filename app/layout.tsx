@@ -4,6 +4,7 @@ import "./globals.css";
 import "./motion.css";
 import "./homepage.css";
 import "./art-direction.css";
+import "./premium-polish.css";
 import { BrandLoader } from "@/components/brand-loader";
 import { SiteChrome } from "@/components/site-chrome";
 import { ConsentBanner } from "@/components/consent-banner";

@@ -17,6 +17,16 @@ export function BrandLoader() {
     const removeTimer = window.setTimeout(() => {
       document.body.classList.remove("is-loading");
       setVisible(false);
+      const targetId = decodeURIComponent(window.location.hash.slice(1));
+      const target = targetId ? document.getElementById(targetId) : null;
+      if (target) {
+        const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+        document.documentElement.style.scrollBehavior = "auto";
+        requestAnimationFrame(() => {
+          target.scrollIntoView({ block: "start" });
+          document.documentElement.style.scrollBehavior = previousScrollBehavior;
+        });
+      }
     }, reduced ? 480 : 2000);
 
     return () => {

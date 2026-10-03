@@ -1,0 +1,169 @@
+/*
+ * Teselando premium coherence layer.
+ * This file intentionally changes presentation only: content, semantics and flows stay untouched.
+ */
+:root{
+  --paper:#f8f4eb;
+  --paper-strong:#fffefa;
+  --ink:#06285b;
+  --muted:#587089;
+  --blue:#079ee8;
+  --deep:#075f98;
+  --cyan:#27bde9;
+  --ice:#c8f1ff;
+  --yellow:#ffd05a;
+  --line:rgba(6,40,91,.16);
+  --shadow-blue:0 24px 70px rgba(5,71,119,.13);
+  --shadow-float:0 18px 45px rgba(5,71,119,.12),0 2px 8px rgba(5,71,119,.06);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+::selection{color:#fff;background:#087fc5}
+body{background:radial-gradient(circle at 78% 8%,rgba(182,238,255,.34),transparent 24%),var(--paper)}
+h1,h2,h3{font-feature-settings:"kern" 1,"ss01" 1;text-wrap:balance}
+.home-page>section:not([data-hero]){scroll-margin-top:86px;border-top:1px solid rgba(6,40,91,.08)}
+
+/* Floating chrome: one glass-and-aluminium language throughout the site. */
+.site-header{
+  border-color:rgba(255,255,255,.72);
+  background:color-mix(in srgb,var(--paper-strong) 91%,transparent);
+  box-shadow:inset 0 1px 0 #fff,0 1px 0 rgba(6,40,91,.08),0 18px 52px rgba(5,71,119,.15);
+}
+.site-header::before{position:absolute;inset:4px;border:1px solid rgba(6,40,91,.08);border-radius:inherit;content:"";pointer-events:none}
+.brand-rest{color:var(--ink);letter-spacing:.045em}
+.brand-sublabel{color:color-mix(in srgb,var(--ink) 72%,transparent)}
+
+/* Physical CTA architecture: soft outer mass and a nested kinetic arrow. */
+.button{
+  min-height:58px;
+  gap:0;
+  border:1px solid rgba(6,40,91,.46);
+  padding:8px 9px 8px 24px;
+  background:linear-gradient(145deg,#ffdf79 0%,var(--yellow) 58%,#ffc347 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.84),0 6px 0 #0a376c,0 15px 30px rgba(6,40,91,.16);
+  transition:transform .55s var(--ease),box-shadow .55s var(--ease),filter .55s var(--ease);
+}
+.button::after{
+  display:grid;
+  width:36px;
+  height:36px;
+  flex:0 0 36px;
+  place-items:center;
+  margin-left:15px;
+  border:1px solid rgba(6,40,91,.12);
+  border-radius:50%;
+  background:rgba(255,255,255,.38);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.72);
+  transition:transform .55s var(--ease),background-color .4s var(--ease);
+}
+.button-small{min-height:50px;padding:7px 8px 7px 18px}
+.button-small::after{width:30px;height:30px;flex-basis:30px;margin-left:11px}
+.button:active{transform:translateY(4px) scale(.985);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 2px 0 #0a376c,0 8px 18px rgba(6,40,91,.13)}
+.text-link::after{height:2px;border-radius:99px;background:linear-gradient(90deg,var(--blue),var(--cyan));transform:scaleX(.18)}
+
+@media(hover:hover) and (pointer:fine){
+  .button:hover{background:linear-gradient(145deg,#dff7ff,#6ed9f7);filter:saturate(1.03);transform:translateY(-3px);box-shadow:inset 0 1px 0 #fff,0 8px 0 #0a376c,0 22px 42px rgba(6,40,91,.2)}
+  .button:hover::after{background:rgba(255,255,255,.64);transform:translate(3px,-2px) rotate(4deg) scale(1.04)}
+  .text-link:hover::after{transform:scaleX(1)}
+}
+
+/* Hero: retain its geometry, add optical depth and a cleaner editorial hierarchy. */
+[data-hero]{box-shadow:inset 0 -1px 0 rgba(6,40,91,.1)}
+[data-hero] h1{text-shadow:0 1px 0 rgba(255,255,255,.55);filter:drop-shadow(0 18px 26px rgba(4,64,103,.08))}
+[data-hero] :is(input,button){transform:translateZ(0)}
+[data-hero] input,.final-content input{border-color:rgba(6,40,91,.34);background:rgba(255,254,250,.94);box-shadow:inset 0 1px 0 #fff,0 12px 30px rgba(5,71,119,.1)}
+[data-hero] .country-select-display,.final-content .country-select-display{border-color:rgba(6,40,91,.34);background:rgba(255,254,250,.94);box-shadow:inset 0 1px 0 #fff}
+
+/* “Qué es Teselando”: refine the editorial tabs and photographic stack. */
+#prueba{background-color:#f9f6ef}
+#prueba [role="tab"]{border-radius:18px;padding-right:16px;transition:color .42s var(--ease),background-color .42s var(--ease),transform .42s var(--ease)}
+#prueba [role="tab"][aria-selected="true"]{background:linear-gradient(90deg,rgba(200,241,255,.72),rgba(255,255,255,.08));transform:translateX(4px)}
+#prueba figure{box-shadow:0 26px 64px rgba(5,71,119,.17),0 3px 12px rgba(5,71,119,.08)}
+#prueba [class*="note"]{box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 16px 32px rgba(5,71,119,.14)}
+
+/* Journey: a softer route, jewel-like numbers and elevated miniatures. */
+#proceso{background:radial-gradient(circle at 18% 13%,#fff 0 18%,transparent 45%),linear-gradient(145deg,#fffefa 0%,#f2fbff 62%,#dff7ff 100%)}
+#proceso [class*="number"]{border:1px solid rgba(255,255,255,.65);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 0 0 7px rgba(182,238,255,.34),0 20px 42px rgba(0,110,181,.16)}
+#proceso [class*="Preview"]{box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 18px 42px rgba(5,71,119,.11)}
+#proceso [class*="support"]{border-color:rgba(7,158,232,.32);box-shadow:inset 0 1px 0 #fff,0 18px 46px rgba(5,71,119,.13)}
+
+/* Puzzle: keep the exact join geometry while giving every piece the same light source. */
+#encaje{background-color:#fffefa}
+#encaje [class*="puzzle"]{filter:drop-shadow(0 30px 34px rgba(4,54,94,.18))}
+#encaje [class*="surface"]{transition:filter .65s var(--ease)}
+#encaje [class*="surface"]::before{box-shadow:inset 0 2px 0 rgba(255,255,255,.78),inset -3px -4px 0 rgba(0,77,140,.09)}
+@media(hover:hover) and (pointer:fine){#encaje [class*="card"]:hover [class*="surface"]{filter:brightness(1.035) saturate(1.025)}}
+
+/* Community gallery: a machined outer bezel and calm controls. */
+#profesores [class*="mainFrame"]{outline:7px solid rgba(255,255,255,.68);outline-offset:5px;box-shadow:0 30px 72px rgba(5,71,119,.17),0 5px 15px rgba(5,71,119,.08)}
+#profesores [class*="sideFrame"]{box-shadow:0 22px 52px rgba(5,71,119,.15)}
+#profesores [class*="stageArrow"],#profesores [class*="footerArrows"] button{border:1px solid rgba(6,40,91,.09);box-shadow:inset 0 1px 0 #fff,0 14px 34px rgba(5,71,119,.14)}
+#profesores [role="tab"]{box-shadow:0 8px 20px rgba(5,71,119,.08);transition:opacity .4s var(--ease),border-color .4s var(--ease),transform .5s var(--ease),box-shadow .5s var(--ease)}
+#profesores [role="tab"][aria-selected="true"]{box-shadow:0 14px 30px rgba(5,71,119,.16)}
+
+/* Social proof: less “card grid”, more editorial review wall. */
+.evidence-section{background-color:#fbf9f3!important;background-image:linear-gradient(rgba(6,40,91,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(6,40,91,.07) 1px,transparent 1px)!important}
+.evidence-heading h2{color:var(--ink);letter-spacing:-.065em}
+.trust-score-panel,.trust-review{
+  border-color:rgba(6,40,91,.1)!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(244,251,253,.88))!important;
+  box-shadow:inset 0 1px 0 #fff,var(--shadow-float)!important;
+}
+.trust-score-panel{border-radius:34px 18px 34px 18px!important}
+.trust-review{border-radius:18px 34px 18px 34px!important;transition:transform .6s var(--ease),box-shadow .6s var(--ease)!important}
+.trust-review:nth-child(even){border-radius:34px 18px 34px 18px!important}
+.trust-review h3{color:var(--ink)}
+@media(hover:hover) and (pointer:fine){.trust-review:hover{transform:translateY(-7px);box-shadow:inset 0 1px 0 #fff,0 30px 70px rgba(5,71,119,.16)!important}}
+
+/* Image-led protection and architectural pricing share a cinematic edge treatment. */
+.protection-section{box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(6,40,91,.22)}
+.protection-section::after{background:linear-gradient(90deg,rgba(2,25,56,.84) 0%,rgba(2,45,77,.52) 42%,rgba(2,45,77,.05) 73%)!important}
+.protection-copy h2{text-shadow:0 18px 42px rgba(0,25,57,.32)}
+.protection-cta{border-color:rgba(255,255,255,.72);box-shadow:inset 0 1px 0 rgba(255,255,255,.52),0 18px 45px rgba(0,34,72,.3)}
+.pricing-section{box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -1px 0 rgba(6,40,91,.11)}
+.pricing-benefits li{border-radius:18px;padding:9px 12px 9px 0;transition:background-color .45s var(--ease),transform .45s var(--ease)}
+.pricing-icon{border:1px solid rgba(7,158,232,.12);box-shadow:inset 0 1px 0 #fff,0 12px 28px rgba(5,71,119,.11)}
+@media(hover:hover) and (pointer:fine){.pricing-benefits li:hover{background:rgba(255,255,255,.42);transform:translateX(6px)}}
+
+/* Closing scene: solid translucent enamel instead of a costly scrolling blur. */
+.final-content{
+  border-color:rgba(255,255,255,.5);
+  background:linear-gradient(145deg,rgba(3,44,89,.88),rgba(0,120,193,.68));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 0 0 7px rgba(255,255,255,.035),0 42px 110px rgba(0,29,72,.3);
+  backdrop-filter:none;
+}
+.final-content h2{text-shadow:0 22px 52px rgba(0,29,72,.28)}
+
+/* Footer: finish as an editorial colophon instead of a flat link farm. */
+.footer{position:relative;overflow:hidden;border-top:1px solid rgba(255,255,255,.14);background:radial-gradient(circle at 8% 20%,rgba(39,189,233,.2),transparent 27%),linear-gradient(135deg,#031b40,#06285b 58%,#064f80)}
+.footer::before{position:absolute;right:-8vw;bottom:-18vw;width:42vw;aspect-ratio:1;border:1px solid rgba(255,255,255,.08);border-radius:50%;content:"";box-shadow:0 0 0 6vw rgba(255,255,255,.018),0 0 0 13vw rgba(255,255,255,.012);pointer-events:none}
+.footer>div{position:relative;z-index:1}
+.footer h2{color:#9fe6fb;letter-spacing:.18em}
+.footer a,.footer-cookie-button{color:rgba(255,255,255,.78);transition:color .4s var(--ease),transform .4s var(--ease)}
+@media(hover:hover) and (pointer:fine){.footer a:hover,.footer-cookie-button:hover{color:#fff;transform:translateX(4px)}}
+
+/* Shared entrance choreography for sections that did not have a bespoke reveal. */
+@media(prefers-reduced-motion:no-preference){
+  .motion-ready .evidence-section:not(.is-revealed) :is(.evidence-heading,.trust-score-panel,.trust-review),
+  .motion-ready .protection-section:not(.is-revealed) :is(.protection-copy,.protection-cta),
+  .motion-ready .pricing-section:not(.is-revealed) :is(.pricing-copy,.pricing-world),
+  .motion-ready .final-cta:not(.is-revealed) .final-content{opacity:0;transform:translateY(42px) scale(.985)}
+  .motion-ready :is(.evidence-section,.protection-section,.pricing-section,.final-cta).is-revealed :is(.evidence-heading,.trust-score-panel,.trust-review,.protection-copy,.protection-cta,.pricing-copy,.pricing-world,.final-content){opacity:1;transform:none;transition:opacity .72s var(--ease),transform .9s var(--ease)}
+  .motion-ready .evidence-section.is-revealed .trust-review:nth-child(2){transition-delay:.08s}
+  .motion-ready .evidence-section.is-revealed .trust-review:nth-child(3){transition-delay:.14s}
+  .motion-ready .evidence-section.is-revealed .trust-review:nth-child(4){transition-delay:.2s}
+}
+
+@media(max-width:760px){
+  .button{min-height:54px;padding:7px 8px 7px 18px}
+  .button::after{width:32px;height:32px;flex-basis:32px;margin-left:10px}
+  .site-header .button{padding:6px 7px 6px 11px}
+  .site-header .button::after{width:26px;height:26px;flex-basis:26px;margin-left:6px}
+  .home-page>section:not([data-hero]){scroll-margin-top:72px}
+  #prueba [role="tab"][aria-selected="true"]{transform:none}
+  #profesores [class*="mainFrame"]{outline-width:4px;outline-offset:3px}
+  .trust-score-panel,.trust-review,.trust-review:nth-child(even){border-radius:24px 14px 24px 14px!important}
+  .protection-section::after{background:linear-gradient(180deg,rgba(2,25,56,.82),rgba(2,45,77,.36) 68%,rgba(2,45,77,.08))!important}
+}
+
+@media(prefers-reduced-motion:reduce){.trust-review,.pricing-benefits li,.footer a,.footer-cookie-button{transition:none!important}}
