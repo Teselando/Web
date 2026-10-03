@@ -205,8 +205,8 @@ export function WhatWeDo() {
           className={[styles.panel, active === index ? styles.panelActive : ""].join(" ")}
         >
           <div className={styles.photos}>
-            {item.photos.map((photo, photoIndex) => <figure key={photo.src} className={[styles.photo, styles[photo.className]].join(" ")}>
-              <Image src={sitePath(photo.src)} alt={active === index ? photo.alt : ""} fill sizes="(max-width: 760px) 82vw, 47vw" priority={index === 0 && photoIndex === 0} />
+            {item.photos.map((photo) => <figure key={photo.src} className={[styles.photo, styles[photo.className]].join(" ")}>
+              <Image src={sitePath(photo.src)} alt={active === index ? photo.alt : ""} fill sizes="(max-width: 760px) 82vw, 47vw" />
             </figure>)}
           </div>
           {item.aside ? <p className={styles.aside}>{item.aside}</p> : null}

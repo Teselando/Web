@@ -10,6 +10,8 @@ export function HeroMotion() {
     let frame = 0;
     let pointerX = 0;
     let pointerY = 0;
+    let inView = false;
+    let listening = false;
 
     const paint = () => {
       hero.style.setProperty("--hero-photo-x", `${pointerX * -7}px`);
@@ -35,12 +37,41 @@ export function HeroMotion() {
       queuePaint();
     };
 
-    hero.addEventListener("pointermove", onPointerMove, { passive: true });
-    hero.addEventListener("pointerleave", onPointerLeave);
+    const startListening = () => {
+      if (listening || document.hidden || !inView) return;
+      listening = true;
+      hero.addEventListener("pointermove", onPointerMove, { passive: true });
+      hero.addEventListener("pointerleave", onPointerLeave);
+    };
 
-    return () => {
+    const stopListening = () => {
+      if (!listening) return;
+      listening = false;
       hero.removeEventListener("pointermove", onPointerMove);
       hero.removeEventListener("pointerleave", onPointerLeave);
+      if (frame) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+      }
+    };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      if (inView) startListening();
+      else stopListening();
+    });
+    observer.observe(hero);
+
+    const onVisibilityChange = () => {
+      if (document.hidden) stopListening();
+      else startListening();
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      stopListening();
       if (frame) cancelAnimationFrame(frame);
     };
   }, []);

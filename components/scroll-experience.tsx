@@ -1,16 +1,11 @@
 "use client";
 
-import type { CSSProperties, MouseEvent } from "react";
+import type { MouseEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 import { homeRail } from "@/lib/content";
 import styles from "./scroll-experience.module.css";
 
 type Direction = "up" | "down";
-
-type RailStyle = CSSProperties & {
-  "--rail-active": number;
-  "--rail-progress": number;
-};
 
 const READING_LINE = 0.36;
 const DIRECTION_THRESHOLD = 12;
@@ -48,11 +43,13 @@ function RailIcon({ id }: { id: string }) {
 
 export function ScrollExperience() {
   const [active, setActive] = useState(0);
-  const [progress, setProgress] = useState(0);
   const [shown, setShown] = useState(false);
   const [direction, setDirection] = useState<Direction>("down");
   const [mobileExpanded, setMobileExpanded] = useState(false);
   const directionRef = useRef<Direction>("down");
+  const activeRef = useRef(0);
+  const shownRef = useRef(false);
+  const railRef = useRef<HTMLElement>(null);
   const directionOriginRef = useRef(0);
   const collapseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -65,12 +62,22 @@ export function ScrollExperience() {
     const hero = document.querySelector<HTMLElement>("[data-hero]");
     const finalCta = document.getElementById("contacto");
     let frame = 0;
+    let anchors: number[] = [];
+    let heroBottom = 0;
+    let finalTop = Number.POSITIVE_INFINITY;
     directionOriginRef.current = window.scrollY;
 
     const revealObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
       if (entry.isIntersecting) entry.target.classList.add("is-revealed");
     }), { rootMargin: "0px 0px -12%", threshold: .08 });
     revealNodes.forEach((node) => reduced ? node.classList.add("is-revealed") : revealObserver.observe(node));
+
+    const measure = () => {
+      const scrollY = window.scrollY;
+      anchors = sections.map((section) => section.getBoundingClientRect().top + scrollY);
+      heroBottom = hero ? hero.getBoundingClientRect().bottom + scrollY : anchors[0] ?? 0;
+      finalTop = finalCta ? finalCta.getBoundingClientRect().top + scrollY : Number.POSITIVE_INFINITY;
+    };
 
     const updateRail = () => {
       frame = 0;
@@ -89,7 +96,6 @@ export function ScrollExperience() {
       if (!sections.length) return;
 
       const readingY = scrollY + window.innerHeight * READING_LINE;
-      const anchors = sections.map((section) => section.getBoundingClientRect().top + scrollY);
       let nextActive = 0;
       for (let index = 0; index < anchors.length; index += 1) {
         if (readingY >= anchors[index]) nextActive = index;
@@ -101,12 +107,18 @@ export function ScrollExperience() {
       const position = nextAnchor ? Math.min(1, Math.max(0, (readingY - currentAnchor) / span)) : 0;
       const directionalProgress = directionRef.current === "down" ? position : 1 - position;
 
-      setActive(nextActive);
-      setProgress(directionRef.current === "up" && nextActive === 0 ? 0 : directionalProgress);
+      if (nextActive !== activeRef.current) {
+        activeRef.current = nextActive;
+        setActive(nextActive);
+      }
+      railRef.current?.style.setProperty("--rail-active", String(nextActive));
+      railRef.current?.style.setProperty("--rail-progress", String(Number((directionRef.current === "up" && nextActive === 0 ? 0 : directionalProgress).toFixed(4))));
 
-      const heroBottom = hero ? hero.getBoundingClientRect().bottom + scrollY : anchors[0];
-      const finalTop = finalCta ? finalCta.getBoundingClientRect().top + scrollY : Number.POSITIVE_INFINITY;
-      setShown(readingY >= heroBottom && readingY < finalTop);
+      const nextShown = readingY >= heroBottom && readingY < finalTop;
+      if (nextShown !== shownRef.current) {
+        shownRef.current = nextShown;
+        setShown(nextShown);
+      }
     };
 
     const scheduleRailUpdate = () => {
@@ -114,14 +126,27 @@ export function ScrollExperience() {
       frame = requestAnimationFrame(updateRail);
     };
 
+    const refreshMeasurements = () => {
+      measure();
+      scheduleRailUpdate();
+    };
+    const resizeObserver = new ResizeObserver(refreshMeasurements);
+    sections.forEach((section) => resizeObserver.observe(section));
+    if (hero) resizeObserver.observe(hero);
+    if (finalCta) resizeObserver.observe(finalCta);
+
+    measure();
     updateRail();
     window.addEventListener("scroll", scheduleRailUpdate, { passive: true });
-    window.addEventListener("resize", scheduleRailUpdate);
+    window.addEventListener("resize", refreshMeasurements);
+    window.addEventListener("load", refreshMeasurements, { once: true });
 
     return () => {
       revealObserver.disconnect();
+      resizeObserver.disconnect();
       window.removeEventListener("scroll", scheduleRailUpdate);
-      window.removeEventListener("resize", scheduleRailUpdate);
+      window.removeEventListener("resize", refreshMeasurements);
+      window.removeEventListener("load", refreshMeasurements);
       if (frame) cancelAnimationFrame(frame);
       if (collapseTimerRef.current) clearTimeout(collapseTimerRef.current);
     };
@@ -146,13 +171,9 @@ export function ScrollExperience() {
     if (collapseTimerRef.current) clearTimeout(collapseTimerRef.current);
   };
 
-  const railStyle: RailStyle = {
-    "--rail-active": active,
-    "--rail-progress": Number(progress.toFixed(4)),
-  };
-
   return (
     <nav
+      ref={railRef}
       className={styles.rail}
       aria-label="Secciones de la página"
       data-direction={direction}
@@ -161,7 +182,6 @@ export function ScrollExperience() {
       onKeyDown={(event) => {
         if (event.key === "Escape") setMobileExpanded(false);
       }}
-      style={railStyle}
     >
       <div className={styles.mobilePanel} aria-hidden={!mobileExpanded}>
         <p>Ir a una sección</p>

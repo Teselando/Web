@@ -96,7 +96,7 @@ export function TeselandoInside() {
         >
           <figure className={`${styles.sideFrame} ${styles.sideLeft}`} aria-hidden="true"><Image key={moments[previous].src} src={sitePath(moments[previous].src)} alt="" fill sizes="14vw" /></figure>
           <figure className={styles.mainFrame}>
-            <Image key={moments[active].src} src={sitePath(moments[active].src)} alt={moments[active].alt} fill sizes="(max-width: 760px) calc(100vw - 40px), 62vw" priority={active === 0} />
+            <Image key={moments[active].src} src={sitePath(moments[active].src)} alt={moments[active].alt} fill sizes="(max-width: 760px) calc(100vw - 40px), 62vw" />
             <figcaption key={`caption-${moments[active].src}`}><strong>{String(active + 1).padStart(2, "0")}</strong><span>/ {String(moments.length).padStart(2, "0")}</span><em>{moments[active].caption}</em></figcaption>
           </figure>
           <figure className={`${styles.sideFrame} ${styles.sideRight}`} aria-hidden="true"><Image key={moments[next].src} src={sitePath(moments[next].src)} alt="" fill sizes="14vw" /></figure>

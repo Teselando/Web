@@ -69,7 +69,7 @@ export function SocialProof() {
 export function Protection() {
   return <section className="section protection-section" id="proteccion" data-reveal>
     <div className="protection-photo" aria-hidden="true">
-      <Image src={sitePath("/images/teselando/protection-beach-hq.png")} alt="" fill sizes="100vw" quality={90} />
+      <Image src={sitePath("/images/teselando/protection-beach-hq-lossless.webp")} alt="" fill sizes="100vw" quality={90} />
       <i className="protection-photo-grade" />
     </div>
     <div className="protection-copy">
