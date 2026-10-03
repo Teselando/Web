@@ -1,0 +1,173 @@
+.page {
+  min-height: 100svh;
+  padding-top: 82px;
+  background: var(--paper);
+}
+
+.notice {
+  position: relative;
+  display: grid;
+  min-height: calc(100dvh - 82px);
+  align-items: end;
+  overflow: hidden;
+  padding: clamp(120px, 12vw, 190px) max(32px, calc((100vw - min(1320px, calc(100vw - 64px))) / 2)) clamp(76px, 8vw, 112px);
+  background:
+    linear-gradient(rgba(37, 107, 134, .1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 107, 134, .1) 1px, transparent 1px),
+    var(--ice);
+  background-size: 56px 56px;
+}
+
+.notice::after {
+  content: "";
+  position: absolute;
+  right: -12vw;
+  bottom: -22vw;
+  width: min(46vw, 660px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(37, 107, 134, .2);
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.noticeContent {
+  position: relative;
+  z-index: 1;
+  max-width: 1050px;
+}
+
+.notice h1 {
+  max-width: 1000px;
+  margin: 0 0 32px;
+  font-size: clamp(4.6rem, 9.2vw, 9.2rem);
+  line-height: .8;
+  letter-spacing: -.072em;
+}
+
+.intro {
+  max-width: 720px;
+  margin: 0;
+  font-size: clamp(1.08rem, 1.45vw, 1.3rem);
+  line-height: 1.58;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px 24px;
+  margin-top: 38px;
+}
+
+.secondaryAction {
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  border-bottom: 1px solid currentColor;
+  color: var(--ink);
+  font-size: .86rem;
+  font-weight: 780;
+  text-decoration: none;
+}
+
+.contactHero {
+  display: grid;
+  min-height: 54svh;
+  align-content: end;
+  padding: clamp(120px, 12vw, 190px) max(32px, calc((100vw - min(1320px, calc(100vw - 64px))) / 2)) clamp(64px, 7vw, 96px);
+  background:
+    linear-gradient(rgba(37, 107, 134, .1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 107, 134, .1) 1px, transparent 1px),
+    var(--ice);
+  background-size: 56px 56px;
+}
+
+.contactHero h1 {
+  max-width: 1000px;
+  margin: 0 0 28px;
+  font-size: clamp(5rem, 10vw, 10rem);
+}
+
+.contactContent {
+  width: min(920px, calc(100vw - 64px));
+  margin: 0 auto;
+  padding: clamp(78px, 9vw, 130px) 0 clamp(110px, 13vw, 180px);
+}
+
+.contactContent h2 {
+  max-width: 760px;
+  margin: 0 0 24px;
+  font-size: clamp(2.5rem, 5vw, 4.8rem);
+  line-height: .96;
+}
+
+.contactCopy {
+  max-width: 650px;
+  margin: 0 0 48px;
+  font-size: clamp(1.02rem, 1.3vw, 1.18rem);
+  line-height: 1.68;
+}
+
+.contactMethods {
+  display: grid;
+  border-top: 1px solid var(--ink);
+}
+
+.contactMethod {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 24px;
+  align-items: baseline;
+  border-bottom: 1px solid var(--line);
+  padding: 22px 0;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.contactMethod span {
+  color: var(--muted);
+  font-size: .69rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.contactMethod strong {
+  overflow-wrap: anywhere;
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+}
+
+.homeAction {
+  display: inline-flex;
+  min-height: 50px;
+  align-items: center;
+  margin-top: 44px;
+  border-bottom: 1px solid currentColor;
+  color: var(--ink);
+  font-size: .85rem;
+  font-weight: 780;
+  text-decoration: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .secondaryAction:hover,
+  .homeAction:hover,
+  .contactMethod:hover strong {
+    color: var(--deep);
+  }
+}
+
+@media (max-width: 600px) {
+  .page { padding-top: 70px; }
+  .notice { min-height: calc(100dvh - 70px); padding: 104px 20px 68px; background-size: 42px 42px; }
+  .notice::after { right: -38vw; bottom: -28vw; width: 84vw; }
+  .notice h1 { font-size: clamp(4.15rem, 20vw, 6rem); }
+  .intro { font-size: 1.02rem; }
+  .actions { align-items: stretch; flex-direction: column; margin-top: 34px; }
+  .actions :global(.button) { width: 100%; }
+  .secondaryAction { width: fit-content; }
+  .contactHero { min-height: 50svh; padding: 104px 20px 60px; background-size: 42px 42px; }
+  .contactHero h1 { font-size: clamp(3.9rem, 17vw, 4.7rem); letter-spacing: -.065em; }
+  .contactContent { width: calc(100vw - 40px); padding: 72px 0 110px; }
+  .contactMethod { grid-template-columns: 1fr; gap: 6px; padding: 18px 0; }
+}

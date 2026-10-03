@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { DetailPage } from "@/components/page-shell";
+import { SecondaryNotice } from "@/components/secondary-notice";
 
 export const metadata: Metadata = { title: "Recursos", alternates: { canonical: "/recursos/" } };
-export default function Page() { return <DetailPage eyebrow="RECURSOS" title="Materiales para estudiar con más claridad" intro="Una biblioteca académica para Bachillerato, PAU y Universidad." heroImage="/images/teselando/inside-01.webp" heroImageAlt="Material de estudio de Teselando" cta={false} sections={[
-  { eyebrow: "BACHILLERATO", title: "Ciencias y matemáticas" },
-  { eyebrow: "PAU", title: "Preparación por contexto académico" },
-  { eyebrow: "UNIVERSIDAD", title: "Primeros cursos cuantitativos" },
-]} />; }
+export default function Page() {
+  return <SecondaryNotice eyebrow="RECURSOS" topic="nuestros materiales y recursos académicos" />;
+}

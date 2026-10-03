@@ -20,9 +20,9 @@ function Glyph({ name }: { name: GlyphName }) {
 }
 
 function PhonePreview() {
-  return <div className={styles.phonePreview} aria-label="Ejemplo de introducción del teléfono">
+  return <Link className={styles.phonePreview} href="#contacto" aria-label="Ir al formulario para buscar profesor">
     <strong>+34</strong><span aria-hidden="true">⌄</span><p>Tu número de teléfono</p><b aria-hidden="true">✓</b>
-  </div>;
+  </Link>;
 }
 
 function NeedsPreview() {
@@ -77,7 +77,7 @@ export function HowItWorksSection() {
           <div className={styles.copy}><h3>{step.title}</h3><p>{step.description}</p></div>
           {previews[index]}
         </article>)}
-        <Link className={styles.support} href="#contacto"><Glyph name="shield" /><span>Si surge cualquier duda o incidencia, puedes acudir a Teselando.</span></Link>
+        <Link className={styles.support} href="/contacto" aria-label="Contactar con Teselando si surge cualquier duda o incidencia"><Glyph name="shield" /><span>Si surge cualquier duda o incidencia, puedes acudir a Teselando.</span></Link>
       </div>
     </div>
   </section>;

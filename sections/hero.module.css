@@ -130,21 +130,6 @@
   margin-left: clamp(38px, 6.1vw, 98px);
 }
 
-.copy::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  top: -40px;
-  right: -34px;
-  bottom: -34px;
-  left: -42px;
-  border: 1px solid rgba(12, 45, 69, .055);
-  border-right: 0;
-  background: linear-gradient(90deg, rgba(250, 248, 243, .78), rgba(250, 248, 243, .18) 74%, transparent);
-  clip-path: polygon(0 0, 88% 0, 100% 14%, 94% 100%, 0 100%);
-  backdrop-filter: blur(2px);
-}
-
 .eyebrow {
   margin: 0 0 clamp(8px, 1.2vh, 14px);
   color: #0c2d45;

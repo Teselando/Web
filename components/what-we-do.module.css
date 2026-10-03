@@ -79,11 +79,18 @@
   transition: color .28s ease;
 }
 .timeline button + button { margin-top: 8px; }
+.numberWrap {
+  position: relative;
+  display: grid;
+  width: 58px;
+  aspect-ratio: 1;
+  place-items: center;
+}
 .number {
   position: relative;
   z-index: 1;
   display: grid;
-  width: 58px;
+  width: 100%;
   aspect-ratio: 1;
   place-items: center;
   border: 1.5px solid #aabbd3;
@@ -93,6 +100,26 @@
   font-size: 1rem;
   font-weight: 700;
   transition: color .28s ease, background-color .28s ease, border-color .28s ease, transform .28s var(--ease);
+}
+.timeRing {
+  position: absolute;
+  z-index: 2;
+  inset: -5px;
+  width: calc(100% + 10px);
+  height: calc(100% + 10px);
+  overflow: visible;
+  pointer-events: none;
+  transform: rotate(-90deg);
+}
+.timeRing circle {
+  fill: none;
+  stroke: #ffd05d;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  filter: drop-shadow(0 2px 3px rgba(9,43,80,.16));
+  animation: timeRemaining 9s linear forwards;
 }
 .stepCopy { display: grid; min-width: 0; gap: 8px; padding-top: 8px; }
 .stepCopy strong { font-size: clamp(1.02rem, 1.28vw, 1.42rem); font-weight: 570; letter-spacing: -.027em; line-height: 1.15; }
@@ -192,7 +219,7 @@
 .panel[data-panel="3"] .noteC { bottom: 2%; left: 2%; width: clamp(132px, 10.5vw, 184px); transform: rotate(-7deg) translateY(14px); }
 .panel[data-panel="3"] .noteD { right: 0; bottom: 17%; width: clamp(132px, 10.5vw, 184px); transform: rotate(7deg) translateY(14px); }
 .panel[data-panel="4"] .noteA { top: 1%; left: 9%; }
-.panel[data-panel="4"] .noteB { top: 25%; right: 1%; transform: rotate(7deg) translateY(14px); }
+.panel[data-panel="4"] .noteB { top: 2%; right: 1%; transform: rotate(7deg) translateY(14px); }
 .panel[data-panel="4"] .noteC { bottom: 16%; left: 2%; width: clamp(126px, 10vw, 178px); transform: rotate(-7deg) translateY(14px); }
 .panel[data-panel="4"] .noteD { right: 3%; bottom: 3%; transform: rotate(2deg) translateY(14px); }
 .aside {
@@ -246,6 +273,7 @@
 @keyframes copyIn { from { opacity: 0; transform: translateY(-5px); } }
 @keyframes photoIn { from { opacity: 0; translate: 24px 18px; scale: .97; } to { opacity: 1; translate: 0; scale: 1; } }
 @keyframes noteIn { to { opacity: 1; translate: 0 -14px; } }
+@keyframes timeRemaining { to { stroke-dashoffset: 1; } }
 @media (hover: hover) and (pointer: fine) {
   .timeline button:not(.active):hover { color: #315c86; }
   .timeline button:not(.active):hover .number { border-color: #2bcaff; transform: scale(1.04); }
@@ -276,7 +304,8 @@
   .timeline::before { top: 24px; bottom: 24px; left: 24px; }
   .timeline button { min-height: 64px; grid-template-columns: 50px minmax(0,1fr); gap: 18px; padding: 7px 0; }
   .timeline button + button { margin-top: 6px; }
-  .number { width: 50px; font-size: .86rem; }
+  .numberWrap { width: 50px; }
+  .number { font-size: .86rem; }
   .stepCopy { gap: 7px; padding-top: 6px; }
   .stepCopy strong { font-size: 1rem; line-height: 1.16; }
   .stepCopy small { font-size: .9rem; line-height: 1.45; }
@@ -310,7 +339,7 @@
   .panel[data-panel="3"] .noteC { bottom: 1%; left: 0; }
   .panel[data-panel="3"] .noteD { right: 0; bottom: 14%; }
   .panel[data-panel="4"] .noteA { top: 0; left: 0; }
-  .panel[data-panel="4"] .noteB { top: 25%; right: 0; }
+  .panel[data-panel="4"] .noteB { top: 2%; right: 0; }
   .panel[data-panel="4"] .noteC { bottom: 0; left: 0; width: 102px; }
   .panel[data-panel="4"] .noteD { right: 0; bottom: 1%; }
   .paperTop { top: -82px; right: -20%; width: 69vw; opacity: .52; }
@@ -328,6 +357,6 @@
   .panel[data-panel="4"] .noteC { width: 94px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .panel, .photo, .note, .number { animation: none !important; transition: none !important; }
+  .panel, .photo, .note, .number, .timeRing circle { animation: none !important; transition: none !important; }
   .panelActive .note { opacity: 1; translate: 0 -14px; }
 }

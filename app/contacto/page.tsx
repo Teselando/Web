@@ -1,8 +1,38 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Footer } from "@/components/footer";
-import { LeadCapture } from "@/components/lead-capture";
-import { PageReveals } from "@/components/page-reveals";
 import { contactDetails } from "@/lib/content";
+import styles from "@/components/secondary-page.module.css";
 
 export const metadata: Metadata = { title: "Contacto", alternates: { canonical: "/contacto/" } };
-export default function Page() { return <><PageReveals /><main id="contenido" className="detail-page contact-page"><header className="detail-hero grid-bg"><p className="eyebrow">CONTACTO</p><h1>Cuéntanos qué necesitas</h1><p>Déjanos tu teléfono y continuaremos por WhatsApp.</p><div className="contact-lead"><LeadCapture countrySelector /></div></header><div className="detail-sections"><section className="detail-section contact-options" data-reveal><div className="section-index">01</div><div><p className="eyebrow">CONTACTO DIRECTO</p><h2>Hablemos.</h2><div className="contact-direct"><a href={contactDetails.phoneHref}><small>Teléfono</small><strong>{contactDetails.phoneDisplay}</strong><span aria-hidden="true">↗</span></a><a href={contactDetails.emailHref}><small>Email</small><strong>{contactDetails.email}</strong><span aria-hidden="true">↗</span></a></div></div></section><section className="detail-section" data-reveal><div className="section-index">02</div><div><p className="eyebrow">QUÉ OCURRE DESPUÉS</p><h2>Entendemos tu caso antes de recomendar</h2><p>Contacto humano, sin promesas artificiales.</p></div></section></div></main><Footer /></>; }
+export default function Page() {
+  return (
+    <>
+      <main id="contenido" className={styles.page}>
+        <header className={styles.contactHero}>
+          <p className="eyebrow">Contacto</p>
+          <h1>Hablemos.</h1>
+          <p className={styles.intro}>Cuéntanos qué necesitas y te responderemos personalmente.</p>
+        </header>
+        <section className={styles.contactContent} aria-labelledby="contact-title">
+          <h2 id="contact-title">Estamos al otro lado.</h2>
+          <p className={styles.contactCopy}>
+            Puedes escribirnos o llamarnos. Revisaremos tu caso con calma para ayudarte a encontrar el siguiente paso.
+          </p>
+          <div className={styles.contactMethods}>
+            <a className={styles.contactMethod} href={contactDetails.emailHref}>
+              <span>Correo electrónico</span>
+              <strong>{contactDetails.email}</strong>
+            </a>
+            <a className={styles.contactMethod} href={contactDetails.phoneHref}>
+              <span>Teléfono</span>
+              <strong>{contactDetails.phoneDisplay}</strong>
+            </a>
+          </div>
+          <Link className={styles.homeAction} href="/">Volver a la página principal</Link>
+        </section>
+      </main>
+      <Footer />
+    </>
+  );
+}

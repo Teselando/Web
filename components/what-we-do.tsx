@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { KeyboardEvent, useRef, useState } from "react";
+import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import { sitePath } from "@/lib/site-path";
 import styles from "./what-we-do.module.css";
 
@@ -10,11 +10,13 @@ type Photo = { src: string; alt: string; className: string };
 type Note = { label: string; icon: NoteIcon; color: "blue" | "yellow" | "pink" | "mint"; className: string };
 type Item = { title: string; description: string; photos: ReadonlyArray<Photo>; notes: ReadonlyArray<Note>; aside?: string };
 
+const AUTOPLAY_DELAY = 9000;
+
 const items: ReadonlyArray<Item> = [
   {
     title: "El profesor adecuado, para tu caso concreto.",
     description: "Buscamos según tu asignatura, nivel, universidad o comunidad autónoma, examen y situación. No te dejamos eligiendo entre cien perfiles.",
-    photos: [{ src: "/images/teselando/what-section/fit-tv.webp", alt: "Profesor de ciencias explicando su trabajo en una entrevista.", className: "fitMain" }],
+    photos: [{ src: "/images/teselando/what-section/fit-tv-enhanced.webp", alt: "Profesor de Teselando durante una entrevista en televisión.", className: "fitMain" }],
     notes: [
       { label: "Asignatura", icon: "book", color: "blue", className: "noteA" },
       { label: "Nivel", icon: "bars", color: "yellow", className: "noteB" },
@@ -94,18 +96,67 @@ function StickyNote({ note }: { note: Note }) {
 
 export function WhatWeDo() {
   const [active, setActive] = useState(0);
+  const [cycle, setCycle] = useState(0);
+  const [isInView, setIsInView] = useState(false);
+  const [isPageVisible, setIsPageVisible] = useState(true);
+  const [reduceMotion, setReduceMotion] = useState(false);
+  const section = useRef<HTMLElement>(null);
   const buttons = useRef<Array<HTMLButtonElement | null>>([]);
+
+  useEffect(() => {
+    const node = section.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting && entry.intersectionRatio >= 0.32),
+      { threshold: [0, 0.32, 0.6] },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const onVisibilityChange = () => setIsPageVisible(!document.hidden);
+    onVisibilityChange();
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", onVisibilityChange);
+  }, []);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const onMotionPreferenceChange = () => setReduceMotion(media.matches);
+    onMotionPreferenceChange();
+    media.addEventListener("change", onMotionPreferenceChange);
+    return () => media.removeEventListener("change", onMotionPreferenceChange);
+  }, []);
+
+  useEffect(() => {
+    if (!isInView || !isPageVisible || reduceMotion) return;
+
+    const timer = window.setTimeout(() => {
+      setActive((current) => (current + 1) % items.length);
+      setCycle((current) => current + 1);
+    }, AUTOPLAY_DELAY);
+
+    return () => window.clearTimeout(timer);
+  }, [active, cycle, isInView, isPageVisible, reduceMotion]);
+
+  const selectItem = (index: number) => {
+    setActive(index);
+    setCycle((current) => current + 1);
+  };
 
   const move = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
     const delta = event.key === "ArrowDown" || event.key === "ArrowRight" ? 1 : event.key === "ArrowUp" || event.key === "ArrowLeft" ? -1 : 0;
     if (!delta) return;
     event.preventDefault();
     const next = (index + delta + items.length) % items.length;
-    setActive(next);
+    selectItem(next);
     buttons.current[next]?.focus();
   };
 
-  return <section className={styles.section} id="prueba" data-reveal>
+  return <section ref={section} className={styles.section} id="prueba" data-reveal>
     <div className={styles.paperTop} aria-hidden="true" />
     <div className={styles.paperBottom} aria-hidden="true" />
     <div className={styles.inner}>
@@ -125,10 +176,20 @@ export function WhatWeDo() {
             aria-selected={active === index}
             tabIndex={active === index ? 0 : -1}
             className={active === index ? styles.active : undefined}
-            onClick={() => setActive(index)}
+            onClick={() => selectItem(index)}
             onKeyDown={(event) => move(event, index)}
           >
-            <span className={styles.number}>0{index + 1}</span>
+            <span className={styles.numberWrap}>
+              <span className={styles.number}>0{index + 1}</span>
+              {active === index && isInView && isPageVisible && !reduceMotion ? <svg
+                key={`${index}-${cycle}`}
+                className={styles.timeRing}
+                viewBox="0 0 68 68"
+                aria-hidden="true"
+              >
+                <circle cx="34" cy="34" r="31" pathLength="1" />
+              </svg> : null}
+            </span>
             <span className={styles.stepCopy}><strong>{item.title}</strong><small>{item.description}</small></span>
           </button>)}
         </div>
