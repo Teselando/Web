@@ -1,24 +1,10 @@
 "use client";
 
-import { FormEvent, useId, useState } from "react";
+import { FormEvent, useId, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { flushPendingLeadData } from "@/lib/google-apps-script";
-
-const callingCodes = [
-  { code: "+1", country: "Estados Unidos", flag: "/flags/us.svg" },
-  { code: "+33", country: "Francia", flag: "/flags/fr.svg" },
-  { code: "+34", country: "España", flag: "/flags/es.svg" },
-  { code: "+39", country: "Italia", flag: "/flags/it.svg" },
-  { code: "+44", country: "Reino Unido", flag: "/flags/gb.svg" },
-  { code: "+49", country: "Alemania", flag: "/flags/de.svg" },
-  { code: "+52", country: "México", flag: "/flags/mx.svg" },
-  { code: "+54", country: "Argentina", flag: "/flags/ar.svg" },
-  { code: "+56", country: "Chile", flag: "/flags/cl.svg" },
-  { code: "+57", country: "Colombia", flag: "/flags/co.svg" },
-  { code: "+58", country: "Venezuela", flag: "/flags/ve.svg" },
-  { code: "+351", country: "Portugal", flag: "/flags/pt.svg" },
-] as const;
+import { phoneCountries, validatePhoneNumber } from "@/lib/phone-validation";
 
 type LeadCaptureProps = {
   tone?: "light" | "blue";
@@ -43,26 +29,40 @@ export function LeadCapture({
   const phoneId = `phone-${instanceId}`;
   const helpId = `phone-help-${instanceId}`;
   const countryListId = `country-list-${instanceId}`;
+  const phoneInput = useRef<HTMLInputElement>(null);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const [callingCode, setCallingCode] = useState("+34");
   const [countryListOpen, setCountryListOpen] = useState(false);
-  const selectedCountry = callingCodes.find(({ code }) => code === callingCode) ?? callingCodes[2];
+  const selectedCountry = phoneCountries.find(({ code }) => code === callingCode) ?? phoneCountries[2];
+
+  function showError(errorMessage: string) {
+    setStatus("error");
+    setMessage(errorMessage);
+    requestAnimationFrame(() => phoneInput.current?.focus());
+  }
+
+  function clearError() {
+    if (status !== "error") return;
+    setStatus("idle");
+    setMessage("");
+  }
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const number = String(data.get("phone") ?? "").trim();
-    const callingCode = String(data.get("callingCode") ?? "+34");
-    const phone = number.startsWith("+") ? number : `${callingCode}${number}`;
-    if (number.replace(/\D/g, "").length < 7) {
-      setStatus("error"); setMessage("Introduce un número válido."); return;
+    const submittedCallingCode = String(data.get("callingCode") ?? "+34");
+    const validation = validatePhoneNumber(number, submittedCallingCode, countrySelector);
+    if (!validation.ok) {
+      showError(validation.message);
+      return;
     }
     const leadId = crypto.randomUUID();
     const payload = {
       action: "createLead",
       leadId,
-      phone,
+      phone: validation.phone,
       website: data.get("website"),
       sourcePage: location.pathname,
       idempotencyKey: crypto.randomUUID(),
@@ -113,7 +113,7 @@ export function LeadCapture({
               <input type="hidden" name="callingCode" value={callingCode} />
               {countryListOpen ? (
                 <div id={countryListId} className="country-select-list" role="listbox" aria-label="Selecciona el prefijo telefónico">
-                  {callingCodes.map(({ code, country, flag }) => (
+                  {phoneCountries.map(({ code, country, flag }) => (
                     <button
                       key={code}
                       className="country-select-option"
@@ -123,6 +123,7 @@ export function LeadCapture({
                       onClick={() => {
                         setCallingCode(code);
                         setCountryListOpen(false);
+                        clearError();
                       }}
                     >
                       <Image src={flag} alt="" width={24} height={16} />
@@ -133,13 +134,13 @@ export function LeadCapture({
                 </div>
               ) : null}
             </div>
-            <input id={phoneId} name="phone" type="tel" autoComplete="tel-national" inputMode="tel" maxLength={24} placeholder={phonePlaceholder} required aria-describedby={message || helperText ? helpId : undefined} />
+            <input ref={phoneInput} id={phoneId} name="phone" type="tel" autoComplete="tel-national" inputMode="tel" maxLength={24} placeholder={phonePlaceholder} required aria-invalid={status === "error"} aria-describedby={message || helperText ? helpId : undefined} onChange={clearError} />
           </div>
-        ) : <input id={phoneId} name="phone" type="tel" autoComplete="tel" inputMode="tel" maxLength={32} placeholder={phonePlaceholder} required aria-describedby={message || helperText ? helpId : undefined} />}
+        ) : <input ref={phoneInput} id={phoneId} name="phone" type="tel" autoComplete="tel" inputMode="tel" maxLength={32} placeholder={phonePlaceholder} required aria-invalid={status === "error"} aria-describedby={message || helperText ? helpId : undefined} onChange={clearError} />}
         <button className="button" type="submit">Buscar profesor</button>
       </div>
       <input className="honeypot" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
-      {message || helperText ? <p id={helpId} className={`form-note ${status === "error" ? "form-error" : ""}`} aria-live="polite">{message || helperText}</p> : null}
+      {message || helperText ? <p id={helpId} className={`form-note ${status === "error" ? "form-error" : ""}`} role={status === "error" ? "alert" : undefined} aria-live="polite">{message || helperText}</p> : null}
       <p className="form-privacy"><Link href="/legal/privacidad/">{privacyLabel}</Link></p>
     </form>
   );
