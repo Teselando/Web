@@ -140,11 +140,12 @@
   position: absolute;
   inset: -15px -4vw -30px -18px;
   opacity: 0;
+  visibility: hidden;
   transform: translate3d(28px, 0, 0) scale(.985);
-  transition: opacity .38s ease, transform .58s var(--ease);
+  transition: opacity .38s ease, transform .58s var(--ease), visibility 0s .58s;
   pointer-events: none;
 }
-.panelActive { z-index: 2; opacity: 1; transform: none; pointer-events: auto; }
+.panelActive { z-index: 2; opacity: 1; visibility: visible; transform: none; pointer-events: auto; transition-delay: 0s; }
 .photos { position: absolute; inset: 0; }
 .photo {
   position: absolute;

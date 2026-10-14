@@ -55,7 +55,8 @@ export function ScrollExperience() {
 
   useEffect(() => {
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!reduced) document.documentElement.classList.add("motion-ready");
+    const canObserve = "IntersectionObserver" in window;
+    if (!reduced && canObserve) document.documentElement.classList.add("motion-ready");
     const revealNodes = [...document.querySelectorAll<HTMLElement>("[data-reveal]")];
     const sections = homeRail
       .map((item) => document.getElementById(item.id))
@@ -71,10 +72,13 @@ export function ScrollExperience() {
     let measureFrame = 0;
     directionOriginRef.current = window.scrollY;
 
-    const revealObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
-      if (entry.isIntersecting) entry.target.classList.add("is-revealed");
-    }), { rootMargin: "0px 0px -12%", threshold: .08 });
-    revealNodes.forEach((node) => reduced ? node.classList.add("is-revealed") : revealObserver.observe(node));
+    const revealObserver = canObserve ? new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-revealed");
+        revealObserver?.unobserve(entry.target);
+      }
+    }), { rootMargin: "0px 0px -12%", threshold: .08 }) : null;
+    revealNodes.forEach((node) => reduced || !revealObserver ? node.classList.add("is-revealed") : revealObserver.observe(node));
 
     const measure = () => {
       const scrollY = window.scrollY;
@@ -145,10 +149,10 @@ export function ScrollExperience() {
         scheduleRailUpdate();
       });
     };
-    const resizeObserver = new ResizeObserver(refreshMeasurements);
-    sections.forEach((section) => resizeObserver.observe(section));
-    if (hero) resizeObserver.observe(hero);
-    if (finalCta) resizeObserver.observe(finalCta);
+    const resizeObserver = "ResizeObserver" in window ? new ResizeObserver(refreshMeasurements) : null;
+    sections.forEach((section) => resizeObserver?.observe(section));
+    if (hero) resizeObserver?.observe(hero);
+    if (finalCta) resizeObserver?.observe(finalCta);
 
     measure();
     updateRail();
@@ -158,8 +162,8 @@ export function ScrollExperience() {
 
     return () => {
       document.documentElement.classList.remove("motion-ready");
-      revealObserver.disconnect();
-      resizeObserver.disconnect();
+      revealObserver?.disconnect();
+      resizeObserver?.disconnect();
       window.removeEventListener("scroll", scheduleRailUpdate);
       window.removeEventListener("resize", refreshMeasurements);
       window.removeEventListener("load", refreshMeasurements);

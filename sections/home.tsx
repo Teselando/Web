@@ -13,7 +13,7 @@ import heroStyles from "./hero.module.css";
 export function Hero() {
   return <section className={heroStyles.hero} data-hero id="inicio">
     <HeroMotion />
-    <div className={heroStyles.atmosphere} aria-hidden="true">
+    <div className={heroStyles.atmosphere} data-hero-motion aria-hidden="true">
       <i className={heroStyles.mosaicPattern} />
       <i className={heroStyles.mosaicEcho} />
       <i className={heroStyles.aurora} />
@@ -31,7 +31,7 @@ export function Hero() {
       <LeadCapture countrySelector showLabel helperText="" phonePlaceholder="612 345 678" privacyLabel="Política de privacidad" />
     </div>
 
-    <div className={heroStyles.collage} aria-hidden="true">
+    <div className={heroStyles.collage} data-hero-motion data-hero-photo aria-hidden="true">
       <div className={heroStyles.photoFrame}>
         <figure className={heroStyles.photo}>
           <Image src={sitePath("/images/teselando/hero-student-v2.webp")} alt="" fill preload sizes="(max-width: 760px) 100vw, 58vw" />
@@ -46,7 +46,7 @@ export function Hero() {
       <div className={heroStyles.noteOverlay}><p>Mismas metas.<br />Mejor acompañamiento.</p><i /></div>
     </div>
 
-    <div className={heroStyles.foreground} aria-hidden="true">
+    <div className={heroStyles.foreground} data-hero-motion aria-hidden="true">
       <i className={heroStyles.leftPlane} />
       <i className={heroStyles.centerPlane} />
       <i className={heroStyles.paperPlane} />

@@ -104,8 +104,15 @@ export function WhatWeDo() {
   const buttons = useRef<Array<HTMLButtonElement | null>>([]);
 
   useEffect(() => {
-    const node = section.current;
+    // A tall mobile section may never reach a 32% intersection ratio. Observe
+    // the reading controls instead, so autoplay and its ring start reliably.
+    const node = buttons.current[0]?.closest('[role="tablist"]') ?? section.current;
     if (!node) return;
+
+    if (!("IntersectionObserver" in window)) {
+      const frame = requestAnimationFrame(() => setIsInView(true));
+      return () => cancelAnimationFrame(frame);
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => setIsInView(entry.isIntersecting && entry.intersectionRatio >= 0.32),

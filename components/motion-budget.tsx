@@ -8,12 +8,21 @@ const PAUSED = "paused";
 export function MotionBudget() {
   useEffect(() => {
     const regions = [...document.querySelectorAll<HTMLElement>(".home-page > section")];
-    if (!regions.length) return;
+    if (!regions.length || !("IntersectionObserver" in window)) return;
 
     const visible = new WeakMap<HTMLElement, boolean>();
 
     const applyState = (region: HTMLElement) => {
-      region.dataset.motionState = !document.hidden && visible.get(region) ? RUNNING : PAUSED;
+      const nextState = !document.hidden && visible.get(region) ? RUNNING : PAUSED;
+      if (region.dataset.motionState !== nextState) region.dataset.motionState = nextState;
+    };
+
+    const refreshVisibility = () => {
+      regions.forEach((region) => {
+        const bounds = region.getBoundingClientRect();
+        visible.set(region, bounds.bottom >= -150 && bounds.top <= window.innerHeight + 150);
+        applyState(region);
+      });
     };
 
     const observer = new IntersectionObserver(
@@ -24,21 +33,26 @@ export function MotionBudget() {
           applyState(region);
         });
       },
-      { rootMargin: "35% 0px 35%", threshold: 0 },
+      { rootMargin: "150px 0px", threshold: 0 },
     );
 
     regions.forEach((region) => {
-      visible.set(region, false);
-      region.dataset.motionState = PAUSED;
       observer.observe(region);
     });
+    // Start visible entrances immediately, including restored/back-forward pages.
+    refreshVisibility();
 
-    const onVisibilityChange = () => regions.forEach(applyState);
+    const onVisibilityChange = () => {
+      if (document.hidden) regions.forEach(applyState);
+      else refreshVisibility();
+    };
     document.addEventListener("visibilitychange", onVisibilityChange);
+    window.addEventListener("pageshow", refreshVisibility);
 
     return () => {
       observer.disconnect();
       document.removeEventListener("visibilitychange", onVisibilityChange);
+      window.removeEventListener("pageshow", refreshVisibility);
       regions.forEach((region) => delete region.dataset.motionState);
     };
   }, []);
