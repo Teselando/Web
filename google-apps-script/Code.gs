@@ -8,6 +8,10 @@
 
 var SHEET_NAME = "Leads";
 var SPREADSHEET_PROPERTY = "TESELANDO_SPREADSHEET_ID";
+var NOTIFICATION_EMAIL_PROPERTY = "TESELANDO_NOTIFICATION_EMAIL";
+var DEFAULT_NOTIFICATION_EMAIL = "ceo@teselando.es";
+var CONTACT_NOTIFICATION_COLUMN = 19;
+var DIAGNOSTIC_NOTIFICATION_COLUMN = 20;
 var HEADERS = [
   "leadId",
   "createdAt",
@@ -26,23 +30,37 @@ var HEADERS = [
   "pauRegion",
   "otherNeed",
   "callPreference",
-  "diagnosticComplete"
+  "diagnosticComplete",
+  "contactEmailSentAt",
+  "diagnosticEmailSentAt"
 ];
 
-function setupTeselando() {
+function setupTeselando(notificationEmail) {
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   if (!spreadsheet) spreadsheet = SpreadsheetApp.create("Teselando — Leads");
 
-  PropertiesService.getScriptProperties().setProperty(
+  var properties = PropertiesService.getScriptProperties();
+  properties.setProperty(
     SPREADSHEET_PROPERTY,
     spreadsheet.getId()
+  );
+  properties.setProperty(
+    NOTIFICATION_EMAIL_PROPERTY,
+    validateEmail_(notificationEmail || properties.getProperty(NOTIFICATION_EMAIL_PROPERTY) || DEFAULT_NOTIFICATION_EMAIL)
   );
   ensureSheet_(spreadsheet);
 
   return {
     spreadsheetId: spreadsheet.getId(),
-    spreadsheetUrl: spreadsheet.getUrl()
+    spreadsheetUrl: spreadsheet.getUrl(),
+    notificationEmail: properties.getProperty(NOTIFICATION_EMAIL_PROPERTY)
   };
+}
+
+function setNotificationEmail(email) {
+  var validatedEmail = validateEmail_(email);
+  PropertiesService.getScriptProperties().setProperty(NOTIFICATION_EMAIL_PROPERTY, validatedEmail);
+  return { notificationEmail: validatedEmail };
 }
 
 function doGet() {
@@ -79,6 +97,7 @@ function createLead_(payload) {
     var sheet = getSheet_();
     var existing = findExact_(sheet, 4, idempotencyKey);
     if (existing) {
+      sendLeadNotification_(sheet, existing.getRow(), "contact");
       return json_({ ok: true, leadId: String(existing.getCell(1, 1).getValue()) });
     }
 
@@ -89,8 +108,9 @@ function createLead_(payload) {
     }
     sheet.appendRow([
       leadId, now, now, idempotencyKey, phone, sourcePage,
-      "", "", "", "", "", "", "", "", "", "", false, false
+      "", "", "", "", "", "", "", "", "", "", false, false, "", ""
     ]);
+    sendLeadNotification_(sheet, sheet.getLastRow(), "contact");
     return json_({ ok: true, leadId: leadId });
   } finally {
     lock.releaseLock();
@@ -142,6 +162,7 @@ function updateDiagnostic_(payload) {
     ];
     sheet.getRange(rowNumber, 3).setValue(new Date().toISOString());
     sheet.getRange(rowNumber, 7, 1, values.length).setValues([values]);
+    sendLeadNotification_(sheet, rowNumber, "diagnostic");
     return json_({ ok: true, leadId: leadId });
   } finally {
     lock.releaseLock();
@@ -184,6 +205,90 @@ function normalizePhone_(value) {
   var phone = String(value || "").replace(/[^\d+() .-]/g, "").trim();
   var digits = phone.replace(/\D/g, "");
   return digits.length >= 7 && digits.length <= 18 ? phone.slice(0, 32) : "";
+}
+
+function sendLeadNotification_(sheet, rowNumber, notificationType) {
+  var sentColumn = notificationType === "contact"
+    ? CONTACT_NOTIFICATION_COLUMN
+    : DIAGNOSTIC_NOTIFICATION_COLUMN;
+  var sentCell = sheet.getRange(rowNumber, sentColumn);
+  if (sentCell.getValue()) return;
+
+  var row = sheet.getRange(rowNumber, 1, 1, HEADERS.length).getValues()[0];
+  var isContact = notificationType === "contact";
+  var subject = isContact
+    ? "Nuevo teléfono recibido en Teselando"
+    : "Nuevos datos de solicitud en Teselando";
+  var fields = isContact
+    ? [
+        ["Teléfono", row[4]],
+        ["Página de origen", row[5]],
+        ["Fecha", row[1]],
+        ["Identificador", row[0]]
+      ]
+    : [
+        ["Teléfono", row[4]],
+        ["Tipo de estudios", row[6]],
+        ["Curso", row[7]],
+        ["Universidad", row[8]],
+        ["Carrera", row[9]],
+        ["Otros estudios", row[10]],
+        ["Asignaturas", row[11]],
+        ["Necesidad", row[12]],
+        ["Fecha del examen", row[13]],
+        ["Comunidad PAU", row[14]],
+        ["Otra situación", row[15]],
+        ["Prefiere llamada", row[16] === true ? "Sí" : "No"],
+        ["Página de origen", row[5]],
+        ["Actualizado", row[2]],
+        ["Identificador", row[0]]
+      ];
+  var visibleFields = fields.filter(function (field) {
+    return String(field[1] || "").trim();
+  });
+  var plainBody = visibleFields.map(function (field) {
+    return field[0] + ": " + field[1];
+  }).join("\n");
+  var htmlBody = "<h2>" + escapeHtml_(subject) + "</h2><table style=\"border-collapse:collapse\">" +
+    visibleFields.map(function (field) {
+      return "<tr><th style=\"padding:8px 18px 8px 0;text-align:left;vertical-align:top\">" +
+        escapeHtml_(field[0]) +
+        "</th><td style=\"padding:8px 0;white-space:pre-wrap\">" +
+        escapeHtml_(field[1]) +
+        "</td></tr>";
+    }).join("") +
+    "</table>";
+
+  MailApp.sendEmail({
+    to: getNotificationEmail_(),
+    subject: subject,
+    body: plainBody,
+    htmlBody: htmlBody,
+    name: "Teselando"
+  });
+  sentCell.setValue(new Date().toISOString());
+}
+
+function getNotificationEmail_() {
+  var configuredEmail = PropertiesService.getScriptProperties().getProperty(NOTIFICATION_EMAIL_PROPERTY);
+  return validateEmail_(configuredEmail || DEFAULT_NOTIFICATION_EMAIL);
+}
+
+function validateEmail_(value) {
+  var email = clean_(value, 254).toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    throw new Error("invalid_notification_email");
+  }
+  return email;
+}
+
+function escapeHtml_(value) {
+  return String(value == null ? "" : value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 function clean_(value, maximumLength) {
